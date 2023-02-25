@@ -1,0 +1,19 @@
+{
+  "name": "kafkametrics",
+  "version": "1.0.0",
+  "description": "Metrics package for KafkaJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/kafkaMetrics.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oslabs-beta/kafkaMetrics/issues"
+  },
+  "homepage": "https://github.com/oslabs-beta/kafkaMetrics#readme"
+}
