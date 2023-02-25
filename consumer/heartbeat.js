@@ -4,15 +4,19 @@
 // should we turn this off is the consumer disconnects? Or this alert should just be in addition to consumer disconnecting?
 
 const heartbeatMetrics = {
-  lastHeartbeat: null,
-  lastHeartbeatInterval: null,
+  lastHeartbeat: 0,
+  lastHeartbeatInterval: 0,
 };
 
 // this function console logs every heartbeat with an optional parameter of a consumer identifying name, otherwise memberId is used
 function heartbeatOn(consumerIdentifyingName) {
   // does this need to be consumer.events.heartbeat? Different in endBatchProcess (no events)
+
   consumer.on("consumer.events.heartbeat", (e) => {
-    lastHeartbeatInterval = e.timestamp - lastHeartbeat;
+    if (heartbeatMetrics.lastHeartbeat) {
+      heartbeatMetrics.lastHeartbeatInterval =
+        e.timestamp - heartbeatMetrics.lastHeartbeat;
+    }
     heartbeatMetrics.lastHeartbeat = e.timestamp;
     const consumerId = consumerIdentifyingName || e.memberId;
     console.log(`${consumerId} emits heartbeat at ${e.timestamp}`);
