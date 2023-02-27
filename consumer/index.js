@@ -1,11 +1,15 @@
-const  endBatchProcess  = require('./endBatchProcess.js');
-const  trackTotalConsumers  = require('./trackTotalConsumers.js');
+const endBatchProcess = require('./endBatchProcess');
+const trackConsumer = require('./trackConsumer');
 
-function metricize(consumer) {
+function metricize(consumer, client) {
   // create empty metrics property on consumer
-  consumer.metrics = {};
+  consumer.metrics = {
+    isConnected: false
+  };
+  // run functions to create metrics for consumer instrumentation events
   endBatchProcess(consumer);
-  trackTotalConsumers(consumer)
+  trackConsumer(consumer, client)
+  return consumer;
 }
 
 module.exports = metricize;
