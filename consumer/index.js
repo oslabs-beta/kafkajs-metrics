@@ -1,4 +1,4 @@
-const endBatchProcess = require('./endBatchProcess.js');
+const endBatchProcess = require('./endBatchProcess');
 
 function metricize(consumer) {
   // create empty metrics property on consumer
