@@ -1,8 +1,10 @@
 //require in producer/consumer/admin folders
-const consumerMetricize = require('./consumer');
+const consumerMetricize = require('./consumer');``
 
 // global metrics object here? TBD
-const metrics = {};
+const metrics = {
+  totalConsumers: 0
+};
 
 // need to create switch case function to call correct metricize function for consumer/producer/admin – for now, just consumer will work
 function metricize(consumer) {
