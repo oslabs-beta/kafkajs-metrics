@@ -1,41 +1,76 @@
-// method: heartbeatOn - console logs each heartbeat with the consumer name
-// method: heartbeatAlert(millisseconds) - console.logs an ALERT (eventually set this to LOG?) if the heartbeat extends inputted num of milliseconds (should be longer than heartbeat, less than setInterval)
-//Questions: this alert would be in addition to a disconnect alert, if one is fired. Should disconnect event override/cancel the heartbeat event?
-// if disconnect or stop or crash event is emitted, should heartbeatMetrics be reset to 0? Should heartbeatAlert be cancelled?
+const heartbeat = {};
 
-const heartbeatMetrics = {
+// This contains the data that we want the developer to access
+heartbeat.heartbeatMetrics = {
   lastHeartbeat: 0,
-  lastHeartbeatInterval: 0,
+  lastHeartbeatDuration: 0,
+  longestHeartbeatDuration: 0,
 };
 
-// this function console logs every heartbeat with an optional parameter of a consumer identifying name, otherwise payload memberId is used
-function heartbeatOn(consumerIdentifyingName) {
-  // does this need to be consumer.events.heartbeat? Different in endBatchProcess (no events)
+//
+heartbeat.heartbeatMetricsOptions = {
+  logOn: false,
+  breakpoint: null,
+};
 
+// this is the event emitter that is running constantly
+heartbeat.heartbeatMetrics = function () {
   consumer.on("consumer.heartbeat", (e) => {
-    if (heartbeatMetrics.lastHeartbeat) {
-      heartbeatMetrics.lastHeartbeatInterval =
-        e.timestamp - heartbeatMetrics.lastHeartbeat;
+    // this console logs the heartbeat timestamp if logOn is turned on
+    if (heartbeat.heartbeatMetricsOptions.logOn) {
+      // consider accessing saved consumer name
+      console.log(`${e.payload.memberId} emits heartbeat at ${e.timestamp}`);
     }
-    heartbeatMetrics.lastHeartbeat = e.timestamp;
-    // console.log(e.payload.memberId)
-    const consumerId = consumerIdentifyingName || e.payload.memberId;
-    console.log(`${consumerId} emits heartbeat at ${e.timestamp}`);
-    console.log("heartbeatMetrics", heartbeatMetrics);
+    // this console logs the breakpoint alert if breakpoint alert has been turned on AND has been exceeded
+
+    const lastDuration = e.timestamp - heartbeat.heartbeatMetrics.lastHeartbeat;
+    if (
+      heartbeat.heartbeatMetricsOptions.breakpoint &&
+      heartbeat.heartbeatMetricsOptions.lastHeartbeatDuration
+    ) {
+      if (
+        lastDuration >
+        this.heartbeatBreakpoint.heartbeatMetricsOptions.breakpoint
+      ) {
+        const msExceeded =
+          lastDuration - heartbeat.heartbeatMetricsOptions.breakpoint;
+        console.log(
+          `Heartbeat Breakpoint Alert: Breakpoint exceeded by ${msExceeded} ms`
+        );
+      }
+    }
+    // this updates heartbeatMetrics
+    heartbeat.heartbeatMetrics.lastHearbeat = e.timestamp;
+    heartbeat.lastHeartbeatDuration = lastDuration;
+    if (lastDuration > heartbeat.heartbeatMetrics.longestHeartbeatDuration) {
+      heartbeat.heartbeatMetrics.longestHeartbeatDuration = lastDuration;
+    }
+
+    // ADD FUNCTIONALITY TO DISCONNECT EVENT EMITTER IF A DISCONNECT EVENT OCCURS
+    // RESET LAST HEARTBEAT, LASTHEARTBEAT DURATION, LONGEST HEARTBEAT DURATION
   });
-}
+};
 
-consumer.heartbeatTurnOn = heartbeatOn;
-consumer.heartbeatTurnOn();
+// this method turns on logging every heartbeat
+heartbeat.heartbeatLogOn = function () {
+  heartbeat.heartbeatMetricsOptions.logOn = true;
+  return;
+};
 
-// this function allows a dev to input max milliseconds limit for heartbeatInterval at which a breakpoin alert will be console logged
+// this method turns off logging every heartbeat
+heartbeat.heartbeatLogOff = function () {
+  heartbeat.heartbeatMetricsOptions.logOn = false;
+  return;
+};
 
-function heartbeatAlert(
-  maxMilliseconds,
-  howFrequentlyToCheck,
-  consumerIdentifyingName
-) {
-  // how to piggy back this on the previous function? use a setInterval timer
-  // is setInterval timer similar to heartbeatOn in that once it is set, it just keeps going?
-  // how to easily turn off? save variable in heartbeat Metrics?
-}
+// this method creates a breakpoint at the inputted interval
+heartbeat.heartbeatBreakpoint = function (interval) {
+  heartbeat.heartbeatMetricsOptions.breakpoint = interval;
+  return;
+};
+
+// this method ends a previously-inputted breakpoint at the inputted interval
+heartbeat.heartbeatBreakpoint = function (interval) {
+  heartbeat.heartbeatMetricsOptions.breakpoint = null;
+  return;
+};
