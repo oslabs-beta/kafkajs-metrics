@@ -1,12 +1,30 @@
-//require in producer/consumer/admin folders
+// require in producer/consumer/admin folders
 const consumerMetricize = require('./consumer');
+const producerMetricize = require('./producer');
+const adminMetricize = require('./admin');
 
-// global metrics object here? TBD
-const metrics = {};
+// metricize kafka client
+function metricize(client) {
+  // create client.metrics property for global metrics
+  client.metrics = {};
 
-// need to create switch case function to call correct metricize function for consumer/producer/admin – for now, just consumer will work
-function metricize(consumer) {
-  consumerMetricize(consumer);
+  // metricize consumer constructor
+  const vanillaConsumer = client.consumer;
+  client.consumer = function wrapConsumer() {
+    return consumerMetricize(vanillaConsumer.apply(this, arguments));
+  };
+
+  // metricize producer constructor
+  const vanillaProducer = client.producer;
+  client.producer = function wrapProducer() {
+    return producerMetricize(vanillaProducer.apply(this, arguments));
+  };
+
+  // metricize admin constructor
+  const vanillaAdmin = client.admin;
+  client.admin = function wrapAdmin() {
+    return adminMetricize(vanillaAdmin.apply(this, arguments));
+  };
 }
 
-module.exports = { metrics, metricize };
+module.exports = { metricize };

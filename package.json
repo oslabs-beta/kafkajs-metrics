@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/oslabs-beta/kafkaMetrics/issues"
   },
-  "homepage": "https://github.com/oslabs-beta/kafkaMetrics#readme"
+  "homepage": "https://github.com/oslabs-beta/kafkaMetrics#readme",
+  "devDependencies": {
+    "eslint": "^8.35.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "prettier": "^2.8.4"
+  }
 }
