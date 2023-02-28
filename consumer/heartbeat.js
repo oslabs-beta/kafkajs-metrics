@@ -12,36 +12,36 @@
     consumer.metrics.longestHeartbeatDuration = 0;
 
    // creates logOn and breakpoint properties on consumer.metrics.options
-    consumer.metrics.options.logOn = false;
-    consumer.metrics.options.breakpoint = null;
+    consumer.metrics.options.heartbeat.logOn = false;
+    consumer.metrics.options.heartbeat.breakpoint = null;
   
     // Methods (manipulate flag properties on consumer.metrics.options for conditional statements in heartbeatOn)
   
     // turns on logging every heartbeat
     consumer.metrics.heartbeatLogOn = function () {
-      consumer.metrics.options.logOn = true;
+      consumer.metrics.options.heartbeat.logOn = true;
       return;
     };
     // turns off logging every heartbeat
     consumer.metrics.heartbeatLogOff = function () {
-      consumer.metrics.options.logOn = false;
+      consumer.metrics.options.heartbeat.logOn = false;
       return;
     };
     // creates a breakpoint at the input interval
     consumer.metrics.heartbeatBreakpoint = function (interval) {
-      consumer.metrics.options.breakpoint = interval;
+      consumer.metrics.options.heartbeat.breakpoint = interval;
       return;
     };
     // ends a previously-input breakpoint at the inputted interval
     consumer.metrics.heartbeatBreakpointOff = function () {
-      consumer.metrics.options.breakpoint = null;
+      consumer.metrics.options.heartbeat.breakpoint = null;
       return;
     };
 
     // initializes event emitter for HEARTBEAT
     consumer.on("consumer.heartbeat", (e) => {
       // console logs the heartbeat timestamp if logOn is turned on thru logOn method
-      if (consumer.metrics.options.logOn) {
+      if (consumer.metrics.options.heartbeat.logOn) {
         // TODO: consider accessing saved consumer name
         console.log(`${e.payload.memberId} emits heartbeat at ${e.timestamp}`);
       }
@@ -63,12 +63,12 @@
         // conditional for sending breakpoint alert (if turned on thru breakpointOn method)
   
         if (
-          consumer.metrics.options.breakpoint &&
+          consumer.metrics.options.heartbeat.breakpoint &&
           consumer.metrics.lastHeartbeatDuration &&
           consumer.metrics.lastHeartbeatDuration >
-            consumer.metrics.options.breakpoint
+            consumer.metrics.options.heartbeat.breakpoint
         ) {
-          const msExceeded = lastDuration - consumer.metrics.options.breakpoint;
+          const msExceeded = lastDuration - consumer.metrics.options.heartbeat.breakpoint;
           // TODO: Consider accessing saved consumer name 
           console.log(`ALERT: HEARTBEAT BREAKPOINT EXCEEDED BY ${msExceeded} MS for ${e.payload.memberId}`);
         }
