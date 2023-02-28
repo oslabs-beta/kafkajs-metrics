@@ -1,3 +1,5 @@
+// this function assigns value to the consumer.metrics.memberId property
+
 function totalPartitions(consumer) {
   consumer.metrics.totalPartitions = 0;
   consumer.on('consumer.group_join', (e) => {
@@ -7,6 +9,10 @@ function totalPartitions(consumer) {
         sum += e.payload.memberAssignment[topic].length;
     }
     consumer.metrics.totalPartitions = sum;
+    // setting consumer memberId on consumer.metrics
+    if (consumer.metrics.memberId === null){
+      consumer.metrics.memberId = e.payload.memberId;
+    }
   });
 }
 
