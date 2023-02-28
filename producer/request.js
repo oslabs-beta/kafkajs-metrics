@@ -10,7 +10,7 @@ function totalRequests(producer) {
   producer.metrics.totalRequests = 0;
   producer.metrics.requestRate = 0;
 
-  producer.on('producer.request', () => {
+  producer.on('producer.network.request', () => {
     producer.metrics.totalRequests += 1;
   });
 

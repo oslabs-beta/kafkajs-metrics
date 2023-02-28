@@ -1,4 +1,4 @@
-const totalRequests = require('./request');
+const { totalRequests } = require('./request');
 const { initialConnectionAge, successfulConnectionAge } = require('./connect');
 const requestTimeoutRate = require('./request_timeout');
 const producerDisconnect = require('./disconnect');
