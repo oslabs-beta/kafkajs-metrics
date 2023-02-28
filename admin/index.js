@@ -1,8 +1,14 @@
-function metricize(admin) {
-  // create empty metrics property on admin
-  admin.metrics = {};
-  // run functions to create metrics for admin instrumentation events
+const connect = require('./connect');
+const disconnect = require('./disconnect');
 
+function metricize(admin, client) {
+  // create empty metrics property on admin
+  admin.metrics = {
+    isConnected: false, // modified in connect.js and disconnect.js
+  };
+  // run functions to create metrics for admin instrumentation events
+  connect(admin, client);
+  disconnect(admin, client);
   return admin;
 }
 
