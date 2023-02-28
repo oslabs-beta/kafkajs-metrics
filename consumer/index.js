@@ -36,6 +36,20 @@ function metricize(consumer, client) {
       consumer.metrics.options.requestPendingDuration.breakpoint = null;
       return;
     },
+    requestQueueSizelogOn: function () {
+      consumer.metrics.options.requestQueueSize.logOn = true;
+      return;
+    },
+    //creates a breakpoint at the input interval 
+    requestQueueSizeBreakpoint: function (interval) {
+      consumer.metrics.options.requestQueueSize.breakpoint = interval;
+      return;
+    },
+    // ends a previously-input breakpoint at the inputted interval
+    requestQueueSizeBreakpointOff: function () {
+      consumer.metrics.options.requestQueueSize.breakpoint = null;
+      return;
+    },
     latencyOffsetFetch: [],//sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
     currentQueueSizeHistory: [], //sends the developer the current history and pattern of queuesizehistroy in requestQueueSize.js
     options: {

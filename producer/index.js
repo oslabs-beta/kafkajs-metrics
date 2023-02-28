@@ -9,7 +9,8 @@ function metricize(producer, client) {
   producer.metrics = {
     isConnected: false,
     latencyOffsetFetch: [],//sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
-    currentQueueSizeHistory: [],
+    currentQueueSizeHistory: [],//stores the presistant data into an array i want the user to get current history of data
+    currentQueueSizeHistory: [], //stores the presistant data into an array i want the user to get current history of data
     requestPendingDurationlogOn: function () {
       producer.metrics.options.requestPendingDuration.logOn = true;
       return;
@@ -21,7 +22,21 @@ function metricize(producer, client) {
     requestPendingDurationBreakpointOff: function () {
       producer.metrics.options.requestPendingDuration.breakpoint = null;
       return;
-    }, //sends the developer the current history and pattern of queuesizehistroy in requestQueueSize.js
+    }, 
+    requestQueueSizelogOn: function () {
+      producer.metrics.options.requestQueueSize.logOn = true;
+      return;
+    },
+    //creates a breakpoint at the input interval 
+    requestQueueSizeBreakpoint: function (interval) {
+      producer.metrics.options.requestQueueSize.breakpoint = interval;
+      return;
+    },
+    // ends a previously-input breakpoint at the inputted interval
+    requestQueueSizeBreakpointOff: function () {
+      producer.metrics.options.requestQueueSize.breakpoint = null;
+      return;
+    },
     options: {
       requestPendingDuration: {
         logOn: true, //set within requestPendingDuration.js
@@ -39,7 +54,6 @@ function metricize(producer, client) {
   successfulConnectionAge(producer, client);
   producerDisconnect(producer, client);
   requestTimeoutRate(producer);
-  requestPendingDuration(producer);
   requestQueueSize(producer);
   return producer;
 }

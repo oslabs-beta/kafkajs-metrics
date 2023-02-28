@@ -36,6 +36,7 @@ function totalRequests(producer) {
 
   producer.on('producer.request', () => {
     producer.metrics.totalRequests += 1;
+    requestPendingDuration(producer);
   });
 
   calculateRate(producer);
