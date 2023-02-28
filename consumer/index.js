@@ -13,7 +13,7 @@ function metricize(consumer, client) {
     lastHeartbeat: 0,
     lastHeartbeatDuration: 0,
     longestHeartbeatDuration: 0,
-    // the options object inside consumer.metrics contains properties for event emitters that aren't useful for the developer to view
+    // the options object inside consumer.metrics contains properties for event emitters that aren't useful for the developer to view (i.e. flag on-and-off properties for conditionals)
     options: {
       heartbeat: {
         logOn: true,
