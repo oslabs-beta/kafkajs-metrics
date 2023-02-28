@@ -14,24 +14,6 @@
 // consumer.metrics.options.heartbeat.breakpoint = null;
 
 function heartbeatOn(consumer) {
-  // Methods (manipulate flag properties on consumer.metrics.options for conditional statements in heartbeatOn)
-  // turns on logging every heartbeat
-  consumer.metrics.heartbeatLogOn = function () {
-    consumer.metrics.options.heartbeat.logOn = true;
-  };
-  // turns off logging every heartbeat
-  consumer.metrics.heartbeatLogOff = function () {
-    consumer.metrics.options.heartbeat.logOn = false;
-  };
-  // creates a breakpoint at the input interval
-  consumer.metrics.heartbeatBreakpoint = function (interval) {
-    consumer.metrics.options.heartbeat.breakpoint = interval;
-  };
-  // ends a previously-input breakpoint at the inputted interval
-  consumer.metrics.heartbeatBreakpointOff = function () {
-    consumer.metrics.options.heartbeat.breakpoint = null;
-  };
-
   // initializes event emitter for HEARTBEAT
   consumer.on('consumer.heartbeat', (e) => {
     // console logs the heartbeat timestamp if logOn is turned on thru logOn method

@@ -1,7 +1,6 @@
 // this function assigns value to the consumer.metrics.memberId property
 
 function totalPartitions(consumer) {
-  consumer.metrics.totalPartitions = 0;
   consumer.on('consumer.group_join', (e) => {
     const topicArr = Object.keys(e.payload.memberAssignment);
     let sum = 0;

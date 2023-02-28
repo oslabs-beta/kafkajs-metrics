@@ -6,9 +6,7 @@ function calculateRate(producer) {
   }, 30000, startNum);
 }
 
-function totalRequests(producer) {
-  producer.metrics.totalRequests = 0;
-  producer.metrics.requestRate = 0;
+function requestEvents(producer) {
 
   producer.on('producer.network.request', () => {
     producer.metrics.totalRequests += 1;
@@ -19,4 +17,4 @@ function totalRequests(producer) {
   setInterval(calculateRate, 60000, producer);
 }
 
-module.exports = { totalRequests };
+module.exports = { requestEvents };

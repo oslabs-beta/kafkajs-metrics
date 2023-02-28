@@ -10,7 +10,6 @@ function calculateTimeoutRate(consumer) {
 }
 
 function requestTimeoutRate(consumer) {
-  consumer.metrics.timeoutRate = 0;
   setInterval(calculateTimeoutRate, 60000, consumer);
 }
 

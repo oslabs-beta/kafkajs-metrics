@@ -10,7 +10,6 @@ function calculateTimeoutRate(producer) {
 }
 
 function requestTimeoutRate(producer) {
-  producer.metrics.timeoutRate = 0;
   setInterval(calculateTimeoutRate, 60000, producer);
 }
 

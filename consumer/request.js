@@ -6,12 +6,10 @@ function calculateRate(consumer) {
   }, 30000, startNum);
 }
 
-function totalRequests(consumer) {
-  consumer.metrics.totalRequests = 0;
-  consumer.metrics.requestRate = 0;
-
+function requestEvents(consumer) {
   consumer.on('consumer.network.request', () => {
     consumer.metrics.totalRequests += 1;
+
   });
 
   calculateRate(consumer);
@@ -19,4 +17,4 @@ function totalRequests(consumer) {
   setInterval(calculateRate, 60000, consumer);
 }
 
-module.exports = { totalRequests };
+module.exports = { requestEvents };
