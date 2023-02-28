@@ -1,14 +1,23 @@
 const endBatchProcess = require('./endBatchProcess');
-const trackConsumer = require('./trackConsumer');
+const { initialConnectionAge, successfulConnectionAge } = require('./connect');
+const { totalRequests } = require('./request');
+const requestTimeoutRate = require('./request_timeout');
+const totalPartitions = require('./group_join');
+const consumerDisconnect = require('./disconnect');
 
 function metricize(consumer, client) {
   // create empty metrics property on consumer
   consumer.metrics = {
-    isConnected: false
+    isConnected: false,
   };
   // run functions to create metrics for consumer instrumentation events
   endBatchProcess(consumer);
-  trackConsumer(consumer, client)
+  initialConnectionAge(consumer);
+  successfulConnectionAge(consumer, client);
+  consumerDisconnect(consumer, client);
+  totalRequests(consumer);
+  requestTimeoutRate(consumer);
+  totalPartitions(consumer);
   return consumer;
 }
 
