@@ -5,21 +5,17 @@
   // provides methods to set/turn off breakpoint alert message when lastHeartbeatDuration exceeds inputted time interval
   // TODO: Consider accessing saved consumer name for console logs
 
-  // These functions on consumer.metrics are related to heartbeatOn function:
-      // creates lastHeartbeat, lastHeartbeatDuration, longestHeartbeatDuration properties on consumer.metrics
+  // These properties (with default values) on consumer.metrics are related to heartbeatOn function:
       // consumer.metrics.lastHeartbeat = 0;
       // consumer.metrics.lastHeartbeatDuration = 0;
       // consumer.metrics.longestHeartbeatDuration = 0;
   
-     // creates logOn and breakpoint properties on consumer.metrics.options:
       // consumer.metrics.options.heartbeat.logOn = false;
       // consumer.metrics.options.heartbeat.breakpoint = null;
 
   function heartbeatOn(consumer) {
-  
     // Methods (manipulate flag properties on consumer.metrics.options for conditional statements in heartbeatOn)
-  
-    // turns on logging every heartbeat
+        // turns on logging every heartbeat
     consumer.metrics.heartbeatLogOn = function () {
       consumer.metrics.options.heartbeat.logOn = true;
       return;
