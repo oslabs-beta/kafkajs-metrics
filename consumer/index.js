@@ -18,9 +18,9 @@ function metricize(consumer, client) {
     options: {
       heartbeat: {
         logOn: true, // set within heartbeat.js
-        breakpoint: null // set within heartbeat.js
-      }
-    }
+        breakpoint: null, // set within heartbeat.js
+      },
+    },
   };
   
   // run functions to create metrics for consumer instrumentation events
@@ -33,6 +33,6 @@ function metricize(consumer, client) {
   totalPartitions(consumer);
   heartbeat(consumer);
   return consumer;
-};
+}
 
 module.exports = metricize;

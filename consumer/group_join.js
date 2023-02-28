@@ -10,7 +10,7 @@ function totalPartitions(consumer) {
     }
     consumer.metrics.totalPartitions = sum;
     // setting consumer memberId on consumer.metrics
-    if (consumer.metrics.memberId === null){
+    if (consumer.metrics.memberId === null) {
       consumer.metrics.memberId = e.payload.memberId;
     }
   });
