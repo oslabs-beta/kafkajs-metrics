@@ -23,7 +23,6 @@ function metricize(consumer, client) {
     offsetLagBreakpointOff: function () {
       consumer.metrics.options.offsetLagBreakpoint = null;
     },
-
     options: {
       heartbeat: {
         logOn: true, // set within heartbeat.js
