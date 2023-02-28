@@ -11,7 +11,11 @@ function endBatchProcess(consumer) {
       metrics.offsetLag > metrics.options.offsetLagBreakpoint
     ) {
       console.warn(
-        `offsetLag for ${consumer} exceeded ${metrics.options.offsetLagBreakpoint}ms: current offsetLag is ${metrics.offsetLag}`
+        `offsetLag for consumer '${Object.keys({ consumer })[0]}' (member id: ${
+          consumer.metrics.memberId
+        }) exceeded ${
+          metrics.options.offsetLagBreakpoint
+        }ms: current offsetLag is ${metrics.offsetLag}ms`
       );
     }
   });
