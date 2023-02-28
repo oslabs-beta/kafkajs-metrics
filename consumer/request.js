@@ -10,7 +10,7 @@ function totalRequests(consumer) {
   consumer.metrics.totalRequests = 0;
   consumer.metrics.requestRate = 0;
 
-  consumer.on('consumer.request', () => {
+  consumer.on(`${consumer}.request`, () => {
     consumer.metrics.totalRequests += 1;
   });
 
