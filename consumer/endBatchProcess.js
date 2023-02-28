@@ -1,14 +1,23 @@
 function endBatchProcess(consumer) {
-  // create messagesConsumed property
-  consumer.metrics.messagesConsumed = 0;
-  // create offsetLag property
-  consumer.metrics.offsetLag = null;
+  const { metrics } = consumer;
   // each time end_batch_process fires:
   consumer.on('consumer.end_batch_process', (e) => {
     // add payload.batchSize to metrics.messagesConsumed
-    consumer.metrics.messagesConsumed += e.payload.batchSize;
+    metrics.messagesConsumed += e.payload.batchSize;
     // change metrics.offsetLag to payload.offsetLag
-    consumer.metrics.offsetLag = e.payload.offsetLag;
+    metrics.offsetLag = e.payload.offsetLag;
+    if (
+      metrics.options.offsetLagBreakpoint > -1 &&
+      metrics.offsetLag >= metrics.options.offsetLagBreakpoint
+    ) {
+      console.warn(
+        `offsetLag for consumer '${Object.keys({ consumer })[0]}' (member id: ${
+          metrics.memberId
+        }) exceeded ${
+          metrics.options.offsetLagBreakpoint
+        }ms: current offsetLag is ${metrics.offsetLag}ms`
+      );
+    }
   });
 }
 

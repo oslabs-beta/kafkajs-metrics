@@ -9,6 +9,7 @@ function metricize(client) {
   client.metrics = {
     totalConsumers: 0,
     totalProducers: 0,
+    totalAdmins: 0, // modified in admin/connect.js and admin/disconnect.js
   };
 
   // metricize consumer constructor
@@ -26,7 +27,7 @@ function metricize(client) {
   // metricize admin constructor
   const vanillaAdmin = client.admin;
   client.admin = function wrapAdmin() {
-    return adminMetricize(vanillaAdmin.apply(this, arguments));
+    return adminMetricize(vanillaAdmin.apply(this, arguments), client);
   };
 }
 

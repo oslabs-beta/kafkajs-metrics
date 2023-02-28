@@ -15,14 +15,22 @@ function metricize(consumer, client) {
     lastHeartbeatDuration: 0, // updated within heartbeat.js, reset on disconnect in disconnect.js
     longestHeartbeatDuration: 0, // updated within heartbeat.js, reset on disconnect in disconnect.js
     // the options object inside consumer.metrics contains properties for event emitters that aren't useful for the developer to view (i.e. flag on-and-off properties for conditionals)
+    messagesConsumed: 0, // updated within endBatchProcess.js
+    offsetLag: null, // updated within endBatchProcess.js
+    setOffsetLagBreakpoint: function (interval) {
+      consumer.metrics.options.offsetLagBreakpoint = interval;
+    },
+    offsetLagBreakpointOff: function () {
+      consumer.metrics.options.offsetLagBreakpoint = null;
+    },
     options: {
       heartbeat: {
         logOn: true, // set within heartbeat.js
-        breakpoint: null // set within heartbeat.js
-      }
-    }
+        breakpoint: null, // set within heartbeat.js
+        offsetLagBreakpoint: null, // set within endBatchProcess.js
+      },
+    },
   };
-  
   // run functions to create metrics for consumer instrumentation events
   endBatchProcess(consumer);
   initialConnectionAge(consumer);
@@ -33,6 +41,6 @@ function metricize(consumer, client) {
   totalPartitions(consumer);
   heartbeat(consumer);
   return consumer;
-};
+}
 
 module.exports = metricize;
