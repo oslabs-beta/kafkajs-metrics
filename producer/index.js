@@ -1,7 +1,6 @@
 const totalRequests = require('./request');
 const { initialConnectionAge, successfulConnectionAge } = require('./connect');
 const requestTimeoutRate = require('./request_timeout');
-const requestPendingDuration =require('./requestPendingDuration');
 const requestQueueSize = require('./requestQueueSize');
 const producerDisconnect = require('./disconnect');
 
@@ -10,7 +9,19 @@ function metricize(producer, client) {
   producer.metrics = {
     isConnected: false,
     latencyOffsetFetch: [],//sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
-    currentQueueSizeHistory: [], //sends the developer the current history and pattern of queuesizehistroy in requestQueueSize.js
+    currentQueueSizeHistory: [],
+    requestPendingDurationlogOn: function () {
+      producer.metrics.options.requestPendingDuration.logOn = true;
+      return;
+    },
+    requestPendingDurationBreakpoint: function (interval) {
+      producer.metrics.options.requestPendingDuration.breakpoint = interval;
+      return;
+    },
+    requestPendingDurationBreakpointOff: function () {
+      producer.metrics.options.requestPendingDuration.breakpoint = null;
+      return;
+    }, //sends the developer the current history and pattern of queuesizehistroy in requestQueueSize.js
     options: {
       requestPendingDuration: {
         logOn: true, //set within requestPendingDuration.js

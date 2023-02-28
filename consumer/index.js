@@ -3,7 +3,6 @@ const heartbeat = require('./heartbeat');
 const { initialConnectionAge, successfulConnectionAge } = require('./connect');
 const { totalRequests } = require('./request');
 const requestTimeoutRate = require('./request_timeout');
-const requestPendingDuration = require('./requestPendingDuration');
 const requestQueueSize = require('./requestQueueSize')
 const totalPartitions = require('./group_join');
 const consumerDisconnect = require('./disconnect');
@@ -15,7 +14,7 @@ function metricize(consumer, client) {
     isConnected: false,
     lastHeartbeat: 0, // updated within heartbeat.js, reset on disconnect in disconnect.js
     lastHeartbeatDuration: 0, // updated within heartbeat.js, reset on disconnect in disconnect.js
-    longestHeartbeatDuration: 0, // updated within heartbeat.js, reseht on disconnect in disconnect.js
+    longestHeartbeatDuration: 0, // updated within heartbeat.js, reset on disconnect in disconnect.js
     // the options object inside consumer.metrics contains properties for event emitters that aren't useful for the developer to view (i.e. flag on-and-off properties for conditionals)
     messagesConsumed: 0, // updated within endBatchProcess.js
     offsetLag: null, // updated within endBatchProcess.js
@@ -24,6 +23,18 @@ function metricize(consumer, client) {
     },
     offsetLagBreakpointOff: function () {
       consumer.metrics.options.offsetLagBreakpoint = null;
+    },
+    requestPendingDurationlogOn: function () {
+      consumer.metrics.options.requestPendingDuration.logOn = true;
+      return;
+    },
+    requestPendingDurationBreakpoint: function (interval) {
+      consumer.metrics.options.requestPendingDuration.breakpoint = interval;
+      return;
+    },
+    requestPendingDurationBreakpointOff: function () {
+      consumer.metrics.options.requestPendingDuration.breakpoint = null;
+      return;
     },
     latencyOffsetFetch: [],//sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
     currentQueueSizeHistory: [], //sends the developer the current history and pattern of queuesizehistroy in requestQueueSize.js
