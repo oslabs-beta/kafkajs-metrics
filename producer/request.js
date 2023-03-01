@@ -19,13 +19,13 @@ function requestPendingDuration(producer, e){
     //push the object/data to the array this is will store the current history of latency from offsetfetch
     producer.metrics.latencyOffsetFetch.push(offsetFetchData);
     //check to see if latencyOffsetFetch has more than 10 elements - if so, removes the first element (oldest element)
-    if (latencyOffsetFetch.length > 10){
+    if (producer.metrics.latencyOffsetFetch.length > 10){
       //removes the first element because we always want the first 10 most recent data
-      latencyOffsetFetch.shift();
+      producer.metrics.latencyOffsetFetch.shift();
     }
       //the developer can turn on or off the function and decide their intervals. if the interval is above the average pending duration alert the user
     if(producer.metrics.options.requestPendingDuration.logOn && e.payload.pendingDuration > producer.metrics.options.requestPendingDuration.breakpoint){
-      console.log('ALERT: latency warning!', latencyOffsetFetch);
+      console.log('ALERT: latency warning!', producer.metrics.latencyOffsetFetch);
     }
   }
 }
