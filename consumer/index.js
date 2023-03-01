@@ -46,35 +46,29 @@ function metricize(consumer, client) {
     },
     requestPendingDurationlogOn: function () {
       consumer.metrics.options.requestPendingDuration.logOn = true;
-      return;
     },
     requestPendingDurationBreakpoint: function (interval) {
       consumer.metrics.options.requestPendingDuration.breakpoint = interval;
-      return;
     },
     requestPendingDurationBreakpointOff: function () {
       consumer.metrics.options.requestPendingDuration.breakpoint = null;
-      return;
     },
     requestQueueSizelogOn: function () {
       consumer.metrics.options.requestQueueSize.logOn = true;
-      return;
     },
     //creates a breakpoint at the input interval 
     requestQueueSizeBreakpoint: function (interval) {
       consumer.metrics.options.requestQueueSize.breakpoint = interval;
-      return;
     },
     // ends a previously-input breakpoint at the inputted interval
     requestQueueSizeBreakpointOff: function () {
       consumer.metrics.options.requestQueueSize.breakpoint = null;
-      return;
     },
     latencyOffsetFetch: [],//sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
     currentQueueSizeHistory: [], //sends the developer the current history and pattern of queuesizehistroy in requestQueueSize.js
     options: {
       heartbeat: {
-        logOn: null, // set within heartbeat.js
+        logOn: false, // set within heartbeat.js
         breakpoint: null, // set within heartbeat.js
         offsetLagBreakpoint: null, // set within endBatchProcess.js
       },
@@ -97,7 +91,6 @@ function metricize(consumer, client) {
   requestTimeoutRate(consumer);
   totalPartitions(consumer);
   heartbeat(consumer);
-  requestPendingDuration(consumer);
   requestQueueSize(consumer);
   return consumer;
 }

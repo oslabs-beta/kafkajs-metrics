@@ -6,7 +6,7 @@ function calculateRate(producer) {
   }, 30000, startNum);
 }
 
-function requestPendingDuration(producer){
+function requestPendingDuration(producer, e){
   //check to see if the pending duration is above the average latency and only check for the offsetfetch there was only persistant data on offsetfetch maybe include future api names
   //if pending duration should also be 0. which means there is no latency anything above 0 has latency
   if (e.payload.pendingDuration > 1 && e.payload.apiName === 'OffsetFetch') {
@@ -32,9 +32,9 @@ function requestPendingDuration(producer){
 
 function requestEvents(producer) {
 
-  producer.on('producer.network.request', () => {
+  producer.on('producer.network.request', (e) => {
     producer.metrics.totalRequests += 1;
-    requestPendingDuration(producer);
+    requestPendingDuration(producer, e);
   });
 
   calculateRate(producer);
