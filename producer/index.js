@@ -7,6 +7,7 @@ const producerDisconnect = require('./disconnect');
 function metricize(producer, client) {
   // create empty metrics property on producer
   producer.metrics = {
+    name: Object.keys({ producer })[0],
     isConnected: false,
     latencyOffsetFetch: [],//sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
     currentQueueSizeHistory: [],//stores the presistant data into an array i want the user to get current history of data

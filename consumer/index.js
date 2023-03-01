@@ -10,6 +10,7 @@ const consumerDisconnect = require('./disconnect');
 function metricize(consumer, client) {
   // create empty metrics property on consumer
   consumer.metrics = {
+    name: Object.keys({ consumer })[0],
     memberId: null, // set within group_join.js, reset on disconnect in disconnect.js
     isConnected: false,
     lastHeartbeat: 0, // updated within heartbeat.js, reset on disconnect in disconnect.js
