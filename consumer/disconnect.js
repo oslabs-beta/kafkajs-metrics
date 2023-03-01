@@ -6,12 +6,12 @@ function trackConsumerDisconnects(consumer, client) {
 }
 
 // resets consumer memberId to null on disconnect
-function resetConsumerMemberId(consumer){
+function resetConsumerMemberId(consumer) {
   consumer.metrics.memberId = null;
-};
+}
 
 // resets heartbeat-related metrics on disconnect 
-function resetHeartbeatMetrics(consumer){
+function resetHeartbeatMetrics(consumer) {
   consumer.metrics.lastHeartbeat = 0;
   consumer.metrics.lastHeartbeatDuration = 0;
   // by resetting longestHeartbeatDuration, this becomes a metric just for a single connected session - I think this is most useful? 

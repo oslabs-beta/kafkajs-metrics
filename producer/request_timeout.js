@@ -1,6 +1,6 @@
 function calculateTimeoutRate(producer) {
   let count = 0;
-  const removeListener = producer.on('producer.request_timeout', () => {
+  const removeListener = producer.on('producer.network.request_timeout', () => {
     count += 1;
   });
   setTimeout(() => {
@@ -10,7 +10,6 @@ function calculateTimeoutRate(producer) {
 }
 
 function requestTimeoutRate(producer) {
-  producer.metrics.timeoutRate = 0;
   setInterval(calculateTimeoutRate, 60000, producer);
 }
 

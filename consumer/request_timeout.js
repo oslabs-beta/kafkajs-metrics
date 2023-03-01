@@ -1,6 +1,6 @@
 function calculateTimeoutRate(consumer) {
   let count = 0;
-  const removeListener = consumer.on(`${consumer}.request_timeout`, () => {
+  const removeListener = consumer.on('consumer.network.request_timeout', () => {
     count += 1;
   });
   setTimeout(() => {
@@ -10,7 +10,6 @@ function calculateTimeoutRate(consumer) {
 }
 
 function requestTimeoutRate(consumer) {
-  consumer.metrics.timeoutRate = 0;
   setInterval(calculateTimeoutRate, 60000, consumer);
 }
 
