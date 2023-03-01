@@ -7,10 +7,10 @@ const producerDisconnect = require('./disconnect');
 function metricize(producer, client) {
   // create empty metrics property on producer
   producer.metrics = {
-    name: Object.keys({ producer })[0],
+    name: null,
     isConnected: false,
-    latencyOffsetFetch: [],//sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
-    currentQueueSizeHistory: [],//stores the presistant data into an array i want the user to get current history of data
+    latencyOffsetFetch: [], //sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
+    currentQueueSizeHistory: [], //stores the presistant data into an array i want the user to get current history of data
     currentQueueSizeHistory: [], //stores the presistant data into an array i want the user to get current history of data
     requestPendingDurationlogOn: function () {
       producer.metrics.options.requestPendingDuration.logOn = true;
@@ -20,11 +20,11 @@ function metricize(producer, client) {
     },
     requestPendingDurationBreakpointOff: function () {
       producer.metrics.options.requestPendingDuration.breakpoint = null;
-    }, 
+    },
     requestQueueSizelogOn: function () {
       producer.metrics.options.requestQueueSize.logOn = true;
     },
-    //creates a breakpoint at the input interval 
+    //creates a breakpoint at the input interval
     requestQueueSizeBreakpoint: function (interval) {
       producer.metrics.options.requestQueueSize.breakpoint = interval;
     },
@@ -40,7 +40,7 @@ function metricize(producer, client) {
       requestQueueSize: {
         logOn: true, //set within requestQueueSize.js
         breakpoint: null, //set within requestQueueSize.js
-      }
+      },
     },
     totalRequests: 0, // updated within request.js
     requestRate: 0, // updated within request.js

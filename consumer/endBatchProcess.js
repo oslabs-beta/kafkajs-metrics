@@ -10,13 +10,16 @@ function endBatchProcess(consumer) {
       metrics.options.offsetLagBreakpoint > -1 &&
       metrics.offsetLag >= metrics.options.offsetLagBreakpoint
     ) {
-      console.warn(
-        `offsetLag for consumer '${Object.keys({ consumer })[0]}' (member id: ${
-          metrics.memberId
-        }) exceeded ${
-          metrics.options.offsetLagBreakpoint
-        }ms: current offsetLag is ${metrics.offsetLag}ms`
-      );
+      // if consumer name has been assigned, include it in console log
+      if (metrics.name) {
+        console.warn(
+          `BREAKPOINT ALERT: offsetLag breakpoint exceeded ${metrics.options.offsetLagBreakpoint}ms: current offsetLag is ${metrics.offsetLag}ms for consumer ${metrics.name} (member id: ${metrics.memberId})`
+        );
+      } else {
+        console.warn(
+          `BREAKPOINT ALERT: offsetLag breakpoint exceeded ${metrics.options.offsetLagBreakpoint}ms: current offsetLag is ${metrics.offsetLag}ms for consumer (member id: ${metrics.memberId})`
+        );
+      }
     }
   });
 }
