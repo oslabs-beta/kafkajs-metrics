@@ -5,10 +5,10 @@ function endBatchProcess(consumer) {
     // add payload.batchSize to metrics.messagesConsumed
     metrics.messagesConsumed += e.payload.batchSize;
     // change metrics.offsetLag to payload.offsetLag
-    metrics.offsetLag = e.payload.offsetLag;
+    metrics.offsetLag = Number(e.payload.offsetLag);
     if (
       metrics.options.offsetLagBreakpoint > -1 &&
-      metrics.offsetLag >= metrics.options.offsetLagBreakpoint
+      metrics.offsetLag > metrics.options.offsetLagBreakpoint
     ) {
       // if consumer name has been assigned, include it in console log
       if (metrics.name) {

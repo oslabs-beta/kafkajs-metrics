@@ -22,6 +22,7 @@ function metricize(consumer, client) {
     totalRequests: 0, // updated within request.js
     requestRate: 0, // updated within request.js
     timeoutRate: 0, // updated within request_timeout.js
+    totalRequestTimeouts: 0, //updated within request_timeout.js
     totalPartitions: 0, // updated within group_join.js
     // turns on logging every heartbeat
     heartbeatLogOn: function () {
@@ -48,14 +49,22 @@ function metricize(consumer, client) {
     requestPendingDurationlogOn: function () {
       consumer.metrics.options.requestPendingDuration.logOn = true;
     },
+    requestPendingDurationlogOff: function () {
+      consumer.metrics.options.requestPendingDuration.logOn = false;
+    },
     requestPendingDurationBreakpoint: function (interval) {
       consumer.metrics.options.requestPendingDuration.breakpoint = interval;
     },
     requestPendingDurationBreakpointOff: function () {
       consumer.metrics.options.requestPendingDuration.breakpoint = null;
     },
+    // turns request queue size logging on
     requestQueueSizelogOn: function () {
       consumer.metrics.options.requestQueueSize.logOn = true;
+    },
+    // turns off logging request queue size
+    requestQueueSizelogOff: function () {
+      consumer.metrics.options.requestQueueSize.logOn = false;
     },
     //creates a breakpoint at the input interval
     requestQueueSizeBreakpoint: function (interval) {
@@ -66,7 +75,7 @@ function metricize(consumer, client) {
       consumer.metrics.options.requestQueueSize.breakpoint = null;
     },
     latencyOffsetFetch: [], //sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
-    currentQueueSizeHistory: [], //sends the developer the current history and pattern of queuesizehistroy in requestQueueSize.js
+    //currentQueueSizeHistory: [], sends the developer the current history and pattern of queuesizehistroy in requestQueueSize.js
     options: {
       heartbeat: {
         logOn: false, // set within heartbeat.js
@@ -74,11 +83,11 @@ function metricize(consumer, client) {
         offsetLagBreakpoint: null, // set within endBatchProcess.js
       },
       requestPendingDuration: {
-        logOn: true, //set within requestPendingDuration.js
+        logOn: false, //set within requestPendingDuration.js
         breakpoint: null, //set within requestPendingDuration.js
       },
       requestQueueSize: {
-        logOn: true, //set within requestQueueSize.js
+        logOn: false, //set within requestQueueSize.js
         breakpoint: null, //set within requestQueueSize.js
       },
     },
