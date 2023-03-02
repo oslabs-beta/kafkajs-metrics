@@ -15,39 +15,50 @@ function requestPendingDuration(consumer, e) {
   //if pending duration should also be 0. which means there is no latency anything above 0 has latency
   if (
     consumer.metrics.options.requestPendingDuration.logOn &&
-    e.payload.apiName === 'OffsetFetch' &&
+    e.payload.apiName !== 'OffsetFetch' &&
     e.payload.pendingDuration > 1
   ) {
+    if (consumer.metrics.name) {
+      console.log(
+        `latency occuring in ${e.payload.apiName} for consumer ${consumer.metrics.name} (member Id: ${consumer.metrics.memberId})`
+      );
+    } else {
+      console.log(
+        `latency occuring in ${e.payload.apiName} for consumer (member Id: ${consumer.metrics.memberId})`
+      );
+    }
+  }
+
+  if (
+    e.payload.pendingDuration >
+      consumer.metrics.options.requestPendingDuration.breakpoint &&
+    consumer.metrics.options.requestPendingDuration.breakpoint
+  ) {
+    //the developer can turn on or off the function and decide their intervals. if the interval is above the average pending duration alert the user
+    if (consumer.metrics.name) {
+      console.warn(
+        `BREAKPOINT ALERT: requestPendingDuration is above ${consumer.metrics.options.requestPendingDuration.breakpoint} in ${e.payload.apiName} for consumer ${consumer.metrics.name} (member Id: ${consumer.metrics.memberId})`
+      );
+    } else {
+      console.warn(
+        `BREAKPOINT ALERT: requestPendingDuration is above ${consumer.metrics.options.requestPendingDuration.breakpoint} in ${e.payload.apiName} for consumer (member Id: ${consumer.metrics.memberId})`
+      );
+    }
+  }
+
+  if (e.payload.apiName === 'OffsetFetch') {
     //the offsetfetchdata stores the desired data from the request
     const offsetFetchData = {
       APINAME: `${e.payload.apiName}`,
       PENDINGDURATION: `${e.payload.pendingDuration} ms`,
       TIMESTAMP: `${e.timestamp}`,
     };
-    // //push the object/data to the array this is will store the current history of latency from offsetfetch
-    // consumer.metrics.latencyOffsetFetch.push(offsetFetchData);
-    // //check to see if latencyOffsetFetch has more than 10 elements - if so, removes the first element (oldest element)
-    // if (consumer.metrics.latencyOffsetFetch.length > 10){
-    //   //removes the first element because we always want the first 10 most recent data
-    //   consumer.metrics.latencyOffsetFetch.shift();
-    // }
-    //the developer can turn on or off the function and decide their intervals. if the interval is above the average pending duration alert the user
-    console.warn('ALERT: latency warning!'); //, consumer.metrics.latencyOffsetFetch
-  }
-  if (
-    e.payload.pendingDuration >
-      consumer.metrics.options.requestPendingDuration.breakpoint &&
-    consumer.metrics.options.requestPendingDuration.breakpoint
-  ) {
-    // console log breakpoint alert warning with/without consumer name
-    if (consumer.metrics.name) {
-      console.warn(
-        `BREAKPOINT ALERT: OffsetFetch latency exceeded for consumer ${consumer.metrics.name} (member id: ${consumer.metrics.memberId}); last 10 OffsetFetch events: ${consumer.metrics.latencyOffsetFetch}`
-      );
-    } else {
-      console.warn(
-        `BREAKPOINT ALERT: OffsetFetch latency exceeded for consumer (member id: ${consumer.metrics.memberId}); last 10 OffsetFetch Request events: ${consumer.metrics.latencyOffsetFetch}`
-      );
+    // push the object/data to the array this is will store the current history of latency from offsetfetch
+    consumer.metrics.latencyOffsetFetch.push(offsetFetchData);
+    // check to see if latencyOffsetFetch has more than 10 elements - if so, removes the first element (oldest element)
+    if (consumer.metrics.latencyOffsetFetch.length > 10) {
+      // removes the first element because we always want the first 10 most recent data
+      consumer.metrics.latencyOffsetFetch.shift();
     }
   }
 }

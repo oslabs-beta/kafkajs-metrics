@@ -74,8 +74,8 @@ function metricize(consumer, client) {
     requestQueueSizeBreakpointOff: function () {
       consumer.metrics.options.requestQueueSize.breakpoint = null;
     },
-    latencyOffsetFetch: [], //sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
-    //currentQueueSizeHistory: [], sends the developer the current history and pattern of queuesizehistroy in requestQueueSize.js
+    latencyOffsetFetch: [], // sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
+    // currentQueueSizeHistory: [], // sends the developer the current history and pattern of queuesizehistroy in requestQueueSize.js
     options: {
       heartbeat: {
         logOn: false, // set within heartbeat.js
