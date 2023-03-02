@@ -9,11 +9,14 @@ function metricize(producer, client) {
   producer.metrics = {
     name: Object.keys({ producer })[0],
     isConnected: false,
-    latencyOffsetFetch: [],//sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
-    currentQueueSizeHistory: [],//stores the presistant data into an array i want the user to get current history of data
-    currentQueueSizeHistory: [], //stores the presistant data into an array i want the user to get current history of data
+    latencyOffsetFetch: [], //sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
+    //currentQueueSizeHistory: [], stores the presistant data into an array i want the user to get current history of data
+    totalRequestTimeouts: 0,
     requestPendingDurationlogOn: function () {
       producer.metrics.options.requestPendingDuration.logOn = true;
+    },
+    requestPendingDurationlogOff: function () {
+      producer.metrics.options.requestPendingDuration.logOn = false;
     },
     requestPendingDurationBreakpoint: function (interval) {
       producer.metrics.options.requestPendingDuration.breakpoint = interval;
@@ -23,6 +26,9 @@ function metricize(producer, client) {
     }, 
     requestQueueSizelogOn: function () {
       producer.metrics.options.requestQueueSize.logOn = true;
+    },
+    requestQueueSizelogOff: function () {
+      producer.metrics.options.requestQueueSize.logOn = false;
     },
     //creates a breakpoint at the input interval 
     requestQueueSizeBreakpoint: function (interval) {
@@ -34,11 +40,11 @@ function metricize(producer, client) {
     },
     options: {
       requestPendingDuration: {
-        logOn: true, //set within requestPendingDuration.js
+        logOn: false, //set within requestPendingDuration.js
         breakpoint: null, //set within requestPendingDuration.js
       },
       requestQueueSize: {
-        logOn: true, //set within requestQueueSize.js
+        logOn: false, //set within requestQueueSize.js
         breakpoint: null, //set within requestQueueSize.js
       }
     },

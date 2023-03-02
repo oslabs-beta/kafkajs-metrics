@@ -1,16 +1,20 @@
-function calculateTimeoutRate(consumer) {
-  let count = 0;
-  const removeListener = consumer.on('consumer.network.request_timeout', () => {
-    count += 1;
-  });
-  setTimeout(() => {
-    removeListener();
-    consumer.metrics.timeoutRate = count / 30;
-  }, 30000);
+function calculateRate(consumer) {
+  const startNum = consumer.metrics.totalRequestTimeouts;
+  setTimeout((start) => {
+    const end = consumer.metrics.totalRequestTimeouts;
+    consumer.metrics.timeoutRate = (end - start) / 30;
+  }, 30000, startNum);
 }
 
 function requestTimeoutRate(consumer) {
-  setInterval(calculateTimeoutRate, 60000, consumer);
+  consumer.on('consumer.network.request_timeout', (e) => {
+    consumer.metrics.totalRequestTimeouts += 1;
+
+  });
+
+  calculateRate(consumer);
+
+  setInterval(calculateRate, 60000, consumer);
 }
 
 module.exports = requestTimeoutRate;
