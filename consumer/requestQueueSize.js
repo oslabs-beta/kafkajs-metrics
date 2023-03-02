@@ -25,14 +25,13 @@ function requestQueueSize(consumer) {
       consumer.metrics.options.requestQueueSize.breakpoint
     ) {
       if (consumer.metrics.name) {
-        // console logs with/without consumer name
         console.warn(
-          `BREAKPOINT ALERT: The requestQueueSize is above 5. Current requestQueueSize is ${e.payload.queueSize} for consumer ${consumer.metrics.name} (member id: ${consumer.metrics.memberId})` //'current queue size history ->',currentQueueSizeHistory
-        );
+          `BREAKPOINT ALERT: requestQueueSize is above ${consumer.metrics.options.requestQueueSize.breakpoint} for consumer ${consumer.metrics.name} (member id: ${consumer.metrics.memberId}) Current requestQueueSize is : ${e.payload.queueSize} `
+        ); //, 'current queue size history ->', consumer.metrics.currentQueueSizeHistory}
       } else {
         console.warn(
-          `BREAKPOINT ALERT: The requestQueueSize is above 5. Current requestQueueSize is ${e.payload.queueSize} for consumer (member id: ${consumer.metrics.memberId})`
-        ); // 'current queue size history ->', currentQueueSizeHistory
+          `BREAKPOINT ALERT: requestQueueSize is above ${consumer.metrics.options.requestQueueSize.breakpoint} for consumer (member id: ${consumer.metrics.memberId}) Current requestQueueSize is : ${e.payload.queueSize} `
+        );
       }
     }
   });

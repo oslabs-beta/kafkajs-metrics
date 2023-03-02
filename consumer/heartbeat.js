@@ -1,17 +1,3 @@
-// Overall functionality:
-// provides constantly updated static property values for lastHeartbeat timestamp, lastHeartbeatDuration, longestHeartbeatDuration
-// provides methods to turn on/off console log for each heartbeat event emitted
-// provides methods to set/turn off breakpoint alert message when lastHeartbeatDuration exceeds inputted time interval
-// TODO: Consider accessing saved consumer name for console logs
-
-// These properties (with default values) on consumer.metrics are related to heartbeatOn function:
-// consumer.metrics.lastHeartbeat = 0;
-// consumer.metrics.lastHeartbeatDuration = 0;
-// consumer.metrics.longestHeartbeatDuration = 0;
-
-// consumer.metrics.options.heartbeat.logOn = false;
-// consumer.metrics.options.heartbeat.breakpoint = null;
-
 function heartbeatOn(consumer) {
   // initializes event emitter for HEARTBEAT
   consumer.on('consumer.heartbeat', (e) => {
@@ -62,9 +48,6 @@ function heartbeatOn(consumer) {
           );
         }
       }
-
-      // ADD FUNCTIONALITY TO DISCONNECT EVENT EMITTER IF A DISCONNECT EVENT OCCURS
-      // RESET LAST HEARTBEAT, LASTHEARTBEAT DURATION, LONGEST HEARTBEAT DURATION
     }
   });
 }
