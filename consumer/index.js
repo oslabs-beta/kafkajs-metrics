@@ -3,14 +3,14 @@ const heartbeat = require('./heartbeat');
 const { initialConnectionAge, successfulConnectionAge } = require('./connect');
 const { requestEvents } = require('./request');
 const requestTimeoutRate = require('./request_timeout');
-const requestQueueSize = require('./requestQueueSize')
+const requestQueueSize = require('./requestQueueSize');
 const totalPartitions = require('./group_join');
 const consumerDisconnect = require('./disconnect');
 
 function metricize(consumer, client) {
   // create empty metrics property on consumer
   consumer.metrics = {
-    name: Object.keys({ consumer })[0],
+    name: null,
     memberId: null, // set within group_join.js, reset on disconnect in disconnect.js
     isConnected: false,
     lastHeartbeat: 0, // updated within heartbeat.js, reset on disconnect in disconnect.js
@@ -26,7 +26,7 @@ function metricize(consumer, client) {
     totalPartitions: 0, // updated within group_join.js
     // turns on logging every heartbeat
     heartbeatLogOn: function () {
-    consumer.metrics.options.heartbeat.logOn = true;
+      consumer.metrics.options.heartbeat.logOn = true;
     },
     // turns off logging every heartbeat
     heartbeatLogOff: function () {
@@ -66,7 +66,7 @@ function metricize(consumer, client) {
     requestQueueSizelogOff: function () {
       consumer.metrics.options.requestQueueSize.logOn = false;
     },
-    //creates a breakpoint at the input interval 
+    //creates a breakpoint at the input interval
     requestQueueSizeBreakpoint: function (interval) {
       consumer.metrics.options.requestQueueSize.breakpoint = interval;
     },
@@ -74,7 +74,7 @@ function metricize(consumer, client) {
     requestQueueSizeBreakpointOff: function () {
       consumer.metrics.options.requestQueueSize.breakpoint = null;
     },
-    latencyOffsetFetch: [],// sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
+    latencyOffsetFetch: [], // sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
     // currentQueueSizeHistory: [], // sends the developer the current history and pattern of queuesizehistroy in requestQueueSize.js
     options: {
       heartbeat: {
@@ -89,7 +89,7 @@ function metricize(consumer, client) {
       requestQueueSize: {
         logOn: false, //set within requestQueueSize.js
         breakpoint: null, //set within requestQueueSize.js
-      }
+      },
     },
   };
   // run functions to create metrics for consumer instrumentation events
