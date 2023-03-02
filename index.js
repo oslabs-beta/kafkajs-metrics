@@ -3,6 +3,10 @@ const consumerMetricize = require('./consumer');
 const producerMetricize = require('./producer');
 const adminMetricize = require('./admin');
 
+function getConsumerData(consumer) {
+  consumer.metrics.totalRequests
+}
+
 // metricize kafka client
 function metricize(client) {
   // create client.metrics property for global metrics
@@ -17,6 +21,9 @@ function metricize(client) {
   client.consumer = function wrapConsumer() {
     return consumerMetricize(vanillaConsumer.apply(this, arguments), client);
   };
+
+  // start sending metrics to database
+
 
   // metricize producer constructor
   const vanillaProducer = client.producer;
