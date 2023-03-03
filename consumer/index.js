@@ -6,6 +6,79 @@ const requestTimeoutRate = require('./request_timeout');
 const requestQueueSize = require('./requestQueueSize');
 const totalPartitions = require('./group_join');
 const consumerDisconnect = require('./disconnect');
+const fs = require('fs');
+
+function getConsumerData(promise, consumer, client) {
+  // consumer.then(data => {
+  //   console.log('data', data);
+  // })
+  // setInterval((data) => {
+  //   fs.appendFile('/Users/admin/Desktop/osp/project/kafkajs-test/db.text', data, ((err) => {
+  //     if (err) {
+  //       console.log('err: ', err);
+  //     } else {
+  //       console.log('success: ', data);
+  //     }
+  //   }))
+  // }, 5000, consumer.metrics.totalRequests.toString());
+  if (client.metrics.options.visualize) {
+
+    const Redis = require('redis');
+
+    const redisClient = Redis.createClient({
+      url: 'rediss://red-cg11tq4eoogv676437bg:Y2IG87W5lT5sONA63l61QGxzdtx0FGh6@ohio-redis.render.com:6379',
+    });
+
+    // const redisClient = Redis.createClient({
+    //   socket: {
+    //     host: 'ohio-redis.render.com',
+    //     port: '6379',
+    //   },
+    //   password: 'Y2IG87W5lT5sONA63l61QGxzdtx0FGh6',
+    //   legacyMode: true,
+    // });
+
+    const stupidFunc = async (client) => {
+      await client.connect();
+
+      await client.set('key', 'value');
+      const value = await client.get('key');
+      await client.disconnect();  
+    }
+
+    redisClient.on('error', err => {
+      console.log('err', err);
+    })
+
+    stupidFunc(redisClient);
+
+    // setTimeout( async (client) => {
+    //   await client.set('totalRequests', consumer.metrics.totalRequests.toString());
+    // }, 10000, redisClient);
+    // const redisClient = Redis.createClient({
+    //   socket: {
+    //     host: 'ohio-redis.render.com',
+    //     port: '6379',
+    //   },
+    //   password: 'Y2IG87W5lT5sONA63l61QGxzdtx0FGh6',
+    //   legacyMode: true,
+    // })
+    // setInterval(() => {
+    //   fs.appendFile('/Users/admin/Desktop/osp/project/kafkajs-test/db.text', consumer.metrics.totalRequests.toString(), (err) => {
+    //     if (err) {
+    //       console.log('err: ', err);
+    //     } else {
+    //       console.log('success: ', consumer.metrics.totalRequests)
+    //     }
+    //   })
+    // }, 5000);
+  }
+}
+
+// function setVisualizer(dumbThing, consumer) {
+//   setTimeout(getConsumerData, 0, consumer);
+// }
+
 
 function metricize(consumer, client) {
   // create empty metrics property on consumer
@@ -102,7 +175,10 @@ function metricize(consumer, client) {
   totalPartitions(consumer);
   heartbeat(consumer);
   requestQueueSize(consumer);
+  const vanillaConsumerConnect = consumer.connect;
+  consumer.connect = function WrapConsumerConnect() {
+    return getConsumerData(vanillaConsumerConnect.apply(this, arguments), this, client);
+  }
   return consumer;
 }
-
 module.exports = metricize;
