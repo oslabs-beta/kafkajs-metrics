@@ -26,22 +26,12 @@ function getConsumerData(promise, consumer, client) {
     const Redis = require('redis');
 
     const redisClient = Redis.createClient({
-      url: 'rediss://red-cg11tq4eoogv676437bg:Y2IG87W5lT5sONA63l61QGxzdtx0FGh6@ohio-redis.render.com:6379',
     });
-
-    // const redisClient = Redis.createClient({
-    //   socket: {
-    //     host: 'ohio-redis.render.com',
-    //     port: '6379',
-    //   },
-    //   password: 'Y2IG87W5lT5sONA63l61QGxzdtx0FGh6',
-    //   legacyMode: true,
-    // });
 
     const stupidFunc = async (client) => {
       await client.connect();
 
-      await client.set('key', 'value');
+      await client.set('memberId', JSON.stringify({'messagesConsumed': [1, 2, 3]}));
       const value = await client.get('key');
       await client.disconnect();  
     }
@@ -52,17 +42,7 @@ function getConsumerData(promise, consumer, client) {
 
     stupidFunc(redisClient);
 
-    // setTimeout( async (client) => {
-    //   await client.set('totalRequests', consumer.metrics.totalRequests.toString());
-    // }, 10000, redisClient);
-    // const redisClient = Redis.createClient({
-    //   socket: {
-    //     host: 'ohio-redis.render.com',
-    //     port: '6379',
-    //   },
-    //   password: 'Y2IG87W5lT5sONA63l61QGxzdtx0FGh6',
-    //   legacyMode: true,
-    // })
+
     // setInterval(() => {
     //   fs.appendFile('/Users/admin/Desktop/osp/project/kafkajs-test/db.text', consumer.metrics.totalRequests.toString(), (err) => {
     //     if (err) {
