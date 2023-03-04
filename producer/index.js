@@ -4,7 +4,7 @@ const requestTimeoutRate = require('./request_timeout');
 const requestQueueSize = require('./requestQueueSize');
 const producerDisconnect = require('./disconnect');
 
-function metricize(producer, client) {
+function metricizeProducer(producer, client) {
   // create empty metrics property on producer
   producer.metrics = {
     name: null,
@@ -62,4 +62,4 @@ function metricize(producer, client) {
   return producer;
 }
 
-module.exports = metricize;
+module.exports = metricizeProducer;

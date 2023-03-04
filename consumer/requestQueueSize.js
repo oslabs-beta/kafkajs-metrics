@@ -24,15 +24,15 @@ function requestQueueSize(consumer) {
         consumer.metrics.options.requestQueueSize.breakpoint &&
       consumer.metrics.options.requestQueueSize.breakpoint
     ) {
-      if (consumer.metrics.name) {
-        console.warn(
-          `BREAKPOINT ALERT: requestQueueSize is above ${consumer.metrics.options.requestQueueSize.breakpoint} for consumer ${consumer.metrics.name} (member id: ${consumer.metrics.memberId}) Current requestQueueSize is : ${e.payload.queueSize} `
-        ); //, 'current queue size history ->', consumer.metrics.currentQueueSizeHistory}
-      } else {
-        console.warn(
-          `BREAKPOINT ALERT: requestQueueSize is above ${consumer.metrics.options.requestQueueSize.breakpoint} for consumer (member id: ${consumer.metrics.memberId}) Current requestQueueSize is : ${e.payload.queueSize} `
-        );
-      }
+      console.warn(
+        `BREAKPOINT ALERT: requestQueueSize is above ${
+          consumer.metrics.options.requestQueueSize.breakpoint
+        } for consumer ${
+          consumer.metrics.name ? consumer.metrics.name : ''
+        } (member id: ${
+          consumer.metrics.memberId
+        }) Current requestQueueSize is : ${e.payload.queueSize} `
+      ); //, 'current queue size history ->', consumer.metrics.currentQueueSizeHistory}
     }
   });
 }

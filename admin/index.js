@@ -1,7 +1,7 @@
 const connect = require('./connect');
 const disconnect = require('./disconnect');
 
-function metricize(admin, client) {
+function metricizeAdmin(admin, client) {
   // create empty metrics property on admin
   admin.metrics = {
     isConnected: false, // modified in connect.js and disconnect.js
@@ -12,4 +12,4 @@ function metricize(admin, client) {
   return admin;
 }
 
-module.exports = metricize;
+module.exports = metricizeAdmin;

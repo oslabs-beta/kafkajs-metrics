@@ -1,14 +1,12 @@
-function initialConnectionAge(consumer) {
-  let initialConnection = 0;
-
-  const removeListener = consumer.on('consumer.connect', (e) => {
-    initialConnection = e.timestamp;
-    removeListener();
+function connectConsumer(consumer, client) {
+  consumer.on('consumer.connect', (e) => {
+    trackConsumerConnects(consumer, client);
+    setInitialConnectionTimestamp(consumer, e);
+    setCurrentConnectionTimestamp(consumer, e);
   });
-
-  consumer.initialConnectionAge = () => new Date().getTime() - initialConnection;
 }
 
+// if isConnected is false, set to true and increment totalConsumers on client
 function trackConsumerConnects(consumer, client) {
   if (consumer.metrics.isConnected === false) {
     client.metrics.totalConsumers += 1;
@@ -16,14 +14,16 @@ function trackConsumerConnects(consumer, client) {
   }
 }
 
-function successfulConnectionAge(consumer, client) {
-  let mostRecentConnection = 0;
-  consumer.on('consumer.connect', (e) => {
-    mostRecentConnection = e.timestamp;
-    trackConsumerConnects(consumer, client);
-  });
-
-  consumer.ageSinceLastConnection = () => new Date().getTime() - mostRecentConnection;
+// if initialConnectionTimestamp is null, set equal to connect event's timestamp
+function setInitialConnectionTimestamp(consumer, e) {
+  if (!consumer.metrics.initialConnectionTimestamp) {
+    consumer.metrics.initialConnectionTimestamp = e.timestamp;
+  }
 }
 
-module.exports = { initialConnectionAge, successfulConnectionAge };
+// set currentConnectionTimestamp equal to connect event's timestamp
+function setCurrentConnectionTimestamp(consumer, e) {
+  consumer.metrics.currentConnectionTimestamp = e.timestamp;
+}
+
+module.exports = connectConsumer;
