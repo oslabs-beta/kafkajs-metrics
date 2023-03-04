@@ -1,6 +1,5 @@
 function groupJoin(consumer) {
   consumer.on('consumer.group_join', (e) => {
-    console.log(e.payload.memberAssignment);
     setMemberId(consumer, e);
     setTotalPartitions(consumer, e);
   });
@@ -15,9 +14,11 @@ function setMemberId(consumer, e) {
 function setTotalPartitions(consumer, e) {
   const topicArr = Object.keys(e.payload.memberAssignment);
   let sum = 0;
-  for (const topic of topicArr) {
+  topicArr.forEach((topic) => {
     sum += e.payload.memberAssignment[topic].length;
-  }
+  });
+  // for (const topic of topicArr) {
+  // }
   consumer.metrics.totalPartitions = sum;
 }
 

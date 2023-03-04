@@ -1,4 +1,4 @@
-function connectConsumer(consumer, client) {
+function connect(consumer, client) {
   consumer.on('consumer.connect', (e) => {
     trackConsumerConnects(consumer, client);
     setInitialConnectionTimestamp(consumer, e);
@@ -26,4 +26,4 @@ function setCurrentConnectionTimestamp(consumer, e) {
   consumer.metrics.currentConnectionTimestamp = e.timestamp;
 }
 
-module.exports = connectConsumer;
+module.exports = connect;

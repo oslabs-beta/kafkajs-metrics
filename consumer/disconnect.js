@@ -1,4 +1,4 @@
-function disconnectConsumer(consumer, client) {
+function disconnect(consumer, client) {
   consumer.on('consumer.disconnect', () => {
     trackConsumerDisconnects(consumer, client);
     resetCurrentConnectionTimestamp(consumer);
@@ -32,4 +32,4 @@ function resetHeartbeatMetrics(consumer) {
   consumer.metrics.longestHeartbeatDuration = 0;
 }
 
-module.exports = disconnectConsumer;
+module.exports = disconnect;
