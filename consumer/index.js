@@ -9,23 +9,12 @@ const consumerDisconnect = require('./disconnect');
 const fs = require('fs');
 
 function getConsumerData(promise, consumer, client) {
-  // consumer.then(data => {
-  //   console.log('data', data);
-  // })
-  // setInterval((data) => {
-  //   fs.appendFile('/Users/admin/Desktop/osp/project/kafkajs-test/db.text', data, ((err) => {
-  //     if (err) {
-  //       console.log('err: ', err);
-  //     } else {
-  //       console.log('success: ', data);
-  //     }
-  //   }))
-  // }, 5000, consumer.metrics.totalRequests.toString());
   if (client.metrics.options.visualize) {
 
     const Redis = require('redis');
 
     const redisClient = Redis.createClient({
+      //url in test.js
     });
 
     const stupidFunc = async (client) => {
@@ -41,23 +30,8 @@ function getConsumerData(promise, consumer, client) {
     })
 
     stupidFunc(redisClient);
-
-
-    // setInterval(() => {
-    //   fs.appendFile('/Users/admin/Desktop/osp/project/kafkajs-test/db.text', consumer.metrics.totalRequests.toString(), (err) => {
-    //     if (err) {
-    //       console.log('err: ', err);
-    //     } else {
-    //       console.log('success: ', consumer.metrics.totalRequests)
-    //     }
-    //   })
-    // }, 5000);
   }
 }
-
-// function setVisualizer(dumbThing, consumer) {
-//   setTimeout(getConsumerData, 0, consumer);
-// }
 
 
 function metricize(consumer, client) {
