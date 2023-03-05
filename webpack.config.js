@@ -27,5 +27,11 @@ module.exports = {
         static: {
             directory: path.join(__dirname, './dist'),
         },
+
+        proxy: {
+            '/token': {
+                target: 'http://localhost:3000/',
+            }
+        }
     },
 }

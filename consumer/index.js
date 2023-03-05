@@ -7,29 +7,53 @@ const requestQueueSize = require('./requestQueueSize');
 const totalPartitions = require('./group_join');
 const consumerDisconnect = require('./disconnect');
 const fs = require('fs');
+const { response } = require('../server/server');
 
-function getConsumerData(promise, consumer, client) {
-  if (client.metrics.options.visualize) {
+// function getConsumerData(promise, consumer, client) {
+//   if (client.metrics.options.visualize) {
 
-    const Redis = require('redis');
+//     const Redis = require('redis');
 
-    const redisClient = Redis.createClient({
-      //url in test.js
-    });
+//     const redisClient = Redis.createClient({
+//       //url in test.js
+//     });
 
-    const stupidFunc = async (client) => {
-      await client.connect();
+//     const stupidFunc = async (client) => {
+//       await client.connect();
 
-      await client.set('memberId', JSON.stringify({'messagesConsumed': [1, 2, 3]}));
-      const value = await client.get('key');
-      await client.disconnect();  
-    }
+//       await client.set('memberId', JSON.stringify({'messagesConsumed': [1, 2, 3]}));
+//       const value = await client.get('key');
+//       await client.disconnect();  
+//     }
 
-    redisClient.on('error', err => {
-      console.log('err', err);
+//     redisClient.on('error', err => {
+//       console.log('err', err);
+//     })
+
+//     stupidFunc(redisClient);
+//   }
+// }
+
+function getConsumerData (promise, consumer, client) {
+  if (client.metrics.options.visualize && client.metrics.options.token) {
+    console.log('token: ', client.metrics.options.token);
+    //post request to token
+    fetch('/token', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({token: client.metrics.options.token}),
     })
-
-    stupidFunc(redisClient);
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log('data', data);
+    })
+    .catch((err) =>{
+      console.log('error in consumer data/main chart page: ', err)
+    })
   }
 }
 

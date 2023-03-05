@@ -5,7 +5,7 @@ const adminMetricize = require('./admin');
 
 
 // metricize kafka client
-function metricize(client, visualize = false) {
+function metricize(client, visualize = false, token = false) {
   // create client.metrics property for global metrics
 
   client.metrics = {
@@ -14,6 +14,7 @@ function metricize(client, visualize = false) {
     totalAdmins: 0, // modified in admin/connect.js and admin/disconnect.js
     options: {
       visualize: visualize,
+      token: token,
     }
   };
 

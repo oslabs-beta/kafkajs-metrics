@@ -19,6 +19,10 @@ class Main extends Component {
     // if this.state.token is null, setState for token
     // query and set state with info for all charts
 
+    // componentDidMount() {
+
+    // }
+
     updateState(value) {
         const clone = JSON.parse(JSON.stringify(this.state));
         this.setState({...clone, datasets: value.datasets});

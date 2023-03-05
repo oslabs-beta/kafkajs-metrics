@@ -1,8 +1,13 @@
 const express = require('express');
+const redisController = require('./controllers/redisController.js');
 
 const app = express();
 
 app.use(express.json());
+
+app.post('/token', redisController.setToken, (req, res) => {
+    res.status(200).json({success: true});
+})
 
 // global error handler
 
