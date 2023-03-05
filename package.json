@@ -4,6 +4,7 @@
   "description": "Metrics package for KafkaJS",
   "main": "index.js",
   "scripts": {
+    "start": "concurrently \"webpack-dev-server --open\" \"nodemon ./server/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,13 +18,30 @@
   },
   "homepage": "https://github.com/oslabs-beta/kafkaMetrics#readme",
   "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^9.1.2",
+    "concurrently": "^7.6.0",
     "eslint": "^8.35.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
-    "prettier": "^2.8.4"
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "nodemon": "^2.0.21",
+    "prettier": "^2.8.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "chart.js": "^4.2.1",
+    "express": "^4.18.2",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.2",
     "redis": "^4.6.5"
   }
 }
