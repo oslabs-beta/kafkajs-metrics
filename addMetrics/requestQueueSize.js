@@ -26,11 +26,13 @@ function sendRqsBreakpointAlert(obj, e, type) {
     e.payload.queueSize > obj.metrics.options.requestQueueSize.breakpoint
   ) {
     console.warn(
-      `BREAKPOINT ALERT: Request queueSize breakpoint (${
-        obj.metrics.options.requestQueueSize.breakpoint
-      }) exceeded for ${type} ${obj.metrics.name}${
+      `BREAKPOINT ALERT: Request queueSize breakpoint exceeded by ${
+        e.payload.queueSize - obj.metrics.options.requestQueueSize.breakpoint
+      }ms for ${type} ${obj.metrics.name}${
         type === 'consumer' ? ` (member ID: ${obj.metrics.memberId})` : ''
-      }\nCurrent requestQueueSize is ${e.payload.queueSize}`
+      }\nCurrent requestQueueSize is ${e.payload.queueSize}, breakpoint is ${
+        obj.metrics.options.requestQueueSize.breakpoint
+      }`
     );
   }
 }

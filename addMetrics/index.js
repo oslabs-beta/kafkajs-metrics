@@ -6,6 +6,7 @@ const heartbeat = require('./heartbeat');
 const request = require('./request');
 const requestQueueSize = require('./requestQueueSize');
 const requestTimeout = require('./requestTimeout');
+const calculateRates = require('./calculateRates');
 
 function addMetrics(obj, client, type) {
   // create empty metrics property on obj
@@ -16,13 +17,15 @@ function addMetrics(obj, client, type) {
     initialConnectionTimestamp: null, // updated in connect.js
     currentConnectionTimestamp: null, // updated in connect.js, reset in disconnect.js
     totalRequests: 0, // updated in request.js
-    requestRate: 0, // updated in request.js
     totalRequestTimeouts: 0, // updated in requestTimeout.js
-    timeoutRate: 0, // updated in requestTimeout.js
+    requestRate: null, // updated in calculateRates.js
+    requestRateLifetime: null, // updated in calculateRates.js
+    timeoutRate: null, // updated in calculateRates.js
+    timeoutRateLifetime: null, // updated in calculateRates.js
 
     // CONNECTION METHODS
     // returns time since initial connection; returns null if obj never connected
-    initialConnectionAge() {
+    ageSinceInitialConnection() {
       return obj.metrics.initialConnectionTimestamp
         ? new Date().getTime() - obj.metrics.initialConnectionTimestamp
         : null;
@@ -44,8 +47,8 @@ function addMetrics(obj, client, type) {
       obj.metrics.options.requestPendingDuration.logOn = false;
     },
     // creates request pendingDuration breakpoint at specified interval (ms)
-    requestPendingDurationSetBreakpoint(interval) {
-      obj.metrics.options.requestPendingDuration.breakpoint = interval;
+    requestPendingDurationSetBreakpoint(bp) {
+      obj.metrics.options.requestPendingDuration.breakpoint = bp;
     },
     // cancels existing request pendingDuration breakpoint
     requestPendingDurationCancelBreakpoint() {
@@ -61,23 +64,23 @@ function addMetrics(obj, client, type) {
     requestQueueSizeLogOff() {
       obj.metrics.options.requestQueueSize.logOn = false;
     },
-    // creates requestQueueSize breakpoint at specified interval (ms)
-    requestQueueSizeSetBreakpoint(interval) {
-      obj.metrics.options.requestQueueSize.breakpoint = interval;
+    // creates requestQueueSize breakpoint at specified size
+    requestQueueSizeSetBreakpoint(bp) {
+      obj.metrics.options.requestQueueSize.breakpoint = bp;
     },
     // cancels existing requestQueueSize breakpoint
     requestQueueSizeCancelBreakpoint() {
       obj.metrics.options.requestQueueSize.breakpoint = null;
     },
 
-    // RATE PERIOD METHODS
-    // updates request rate period (ms)
-    requestRateSetPeriod(interval) {
-      obj.metrics.options.requestRatePeriod = interval;
+    // RATE INTERVAL METHODS
+    // updates frequency (ms) at which rate metrics should be calculated
+    setRateFrequency(t) {
+      obj.metrics.options.rate.frequency = t;
     },
-    // updates timeout rate period (ms)
-    timeoutRateSetPeriod(interval) {
-      obj.metrics.options.timeoutRatePeriod = interval;
+    // updates period (ms) that rate metrics should use to calculate averages
+    setRatePeriod(t) {
+      obj.metrics.options.rate.period = t;
     },
 
     // OPTIONS
@@ -91,8 +94,10 @@ function addMetrics(obj, client, type) {
         logOn: false, // read in requestQueueSize.js
         breakpoint: null, // read in requestQueueSize.js
       },
-      requestRatePeriod: 5000, // read in request.js
-      timeoutRatePeriod: 5000, // read in requestTimeout.js
+      rate: {
+        frequency: 1000, // read in calculateRates.js
+        period: 5000, // read in calculateRates.js
+      },
     },
   };
 
@@ -113,6 +118,8 @@ function addMetrics(obj, client, type) {
       longestHeartbeatDuration: 0, // updated in heartbeat.js, reset in disconnect.js
       messagesConsumed: 0, // updated in endBatchProcess.js
       offsetLag: null, // updated in endBatchProcess.js
+      messageConsumptionRate: null, // updated in calculateRates.js
+      messageConsumptionRateLifetime: null, // updated in calculateRates.js
 
       // HEARTBEAT METHODS
       // turns on logging every heartbeat (off by default)
@@ -124,8 +131,8 @@ function addMetrics(obj, client, type) {
         obj.metrics.options.heartbeat.logOn = false;
       },
       // creates heartbeat breakpoint at specified interval (ms)
-      heartbeatSetBreakpoint(interval) {
-        obj.metrics.options.heartbeat.breakpoint = interval;
+      heartbeatSetBreakpoint(bp) {
+        obj.metrics.options.heartbeat.breakpoint = bp;
       },
       // cancels existing heartbeat breakpoint
       heartbeatCancelBreakpoint() {
@@ -133,9 +140,9 @@ function addMetrics(obj, client, type) {
       },
 
       // OFFSET LAG METHODS
-      // creates offsetLag breakpoint at specified interval (ms)
-      offsetLagSetBreakpoint(interval) {
-        obj.metrics.options.offsetLag.breakpoint = interval;
+      // creates offsetLag breakpoint at specified integer
+      offsetLagSetBreakpoint(bp) {
+        obj.metrics.options.offsetLag.breakpoint = bp;
       },
       // cancels existing offsetLag breakpoint
       offsetLagCancelBreakpoint() {
@@ -153,6 +160,7 @@ function addMetrics(obj, client, type) {
         logOn: false, // read in endBatchProcess.js
         breakpoint: null, // read in endBatchProcess.js
       },
+      messageConsumptionRatePeriod: 5000, // read in request.js
     };
 
     // update consumer object with new metrics and options
@@ -164,6 +172,9 @@ function addMetrics(obj, client, type) {
     groupJoin(obj);
     heartbeat(obj);
   }
+
+  // begin calculating rate variables
+  calculateRates(obj, type);
 
   // return updated object
   return obj;

@@ -30,7 +30,7 @@ function sendBreakpointAlert(consumer, e) {
     const msExceeded =
       lastDuration - consumer.metrics.options.heartbeat.breakpoint;
     console.warn(
-      `BREAKPOINT ALERT: Heartbeat breakpoint exceeded by ${msExceeded}ms for consumer ${consumer.metrics.name} (member id: ${consumer.metrics.memberId}).\nLast heartbeat duration was ${lastDuration}ms`
+      `BREAKPOINT ALERT: Heartbeat breakpoint exceeded by ${msExceeded}ms for consumer ${consumer.metrics.name} (member id: ${consumer.metrics.memberId})\nLast heartbeat duration was ${lastDuration}ms, breakpoint is ${consumer.metrics.options.heartbeat.breakpoint}`
     );
   }
 }

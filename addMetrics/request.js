@@ -1,7 +1,6 @@
-function request(obj, client, type) {
+function request(obj, type) {
   obj.on(`${type}.network.request`, (e) => {
     incrementTotalRequests(obj);
-    calculateRequestRate(obj);
     sendRpdLog(obj, e, type);
     sendRpdBreakpointAlert(obj, e, type);
   });
@@ -10,23 +9,6 @@ function request(obj, client, type) {
 // increment totalRequests variable
 function incrementTotalRequests(obj) {
   obj.metrics.totalRequests += 1;
-}
-
-// after X ms, calculates requests/second over the previous (X/1000) seconds
-// X is the obj.metrics.options.requestRatePeriod property
-function calculateRequestRate(obj) {
-  // save current number of total requests to pass into setTimeout
-  const startNum = obj.metrics.totalRequests;
-  // after X ms, calculate difference in totalRequests and divide by X/1000 to update requestRate
-  setTimeout(
-    (start) => {
-      const end = obj.metrics.totalRequests;
-      obj.metrics.requestRate =
-        (end - start) / (obj.metrics.options.requestRatePeriod / 1000);
-    },
-    obj.metrics.options.requestRatePeriod,
-    startNum
-  );
 }
 
 // if log is on, send log anytime pendingDuration exceeds 1 for apiName other than OffsetFetch
@@ -55,13 +37,16 @@ function sendRpdBreakpointAlert(obj, e, type) {
       obj.metrics.options.requestPendingDuration.breakpoint
   ) {
     console.warn(
-      `BREAKPOINT ALERT: Request pendingDuration breakpoint (${
+      `BREAKPOINT ALERT: Request pendingDuration breakpoint exceeded by ${
+        e.payload.pendingDuration -
         obj.metrics.options.requestPendingDuration.breakpoint
-      }ms) exceeded for ${type} ${obj.metrics.name}${
+      }ms for ${type} ${obj.metrics.name}${
         type === 'consumer' ? ` (member ID: ${obj.metrics.memberId})` : ''
       }\nLast request pendingDuration was ${
         e.payload.pendingDuration
-      } for API ${e.payload.apiName}`
+      } for API ${e.payload.apiName}, breakpoint is ${
+        obj.metrics.options.requestPendingDuration.breakpoint
+      }ms`
     );
   }
 }
