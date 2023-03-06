@@ -1,8 +1,10 @@
 const Redis = require('redis');
 
-const redisClient = Redis.createClient({
-    //url in test.js
-});
+// const redisClient = Redis.createClient({
+//     //url in test.js
+// });
+
+const test = 'hello';
 
 //     const stupidFunc = async (client) => {
 //       await client.connect();
@@ -22,8 +24,12 @@ const redisClient = Redis.createClient({
 const redisController = {};
 
 redisController.setToken = (req, res, next) => {
-    const { token } = req.body;
-    //call the stupidFunc to put data into redis
+    // const { token } = req.body;
+    // //call the stupidFunc to put data into redis
+    // const setData = async (client) => {
+    //     await client.connect()
+    // }
+    res.locals.test = test;
     return next();
 }
 

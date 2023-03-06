@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 app.post('/token', redisController.setToken, (req, res) => {
-    res.status(200).json({success: true});
+    res.status(200).json({success: res.locals.test});
 })
 
 // global error handler
