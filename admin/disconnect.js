@@ -1,11 +1,21 @@
 function disconnect(admin, client) {
-  // each time admin.connect fires:
   admin.on('admin.disconnect', () => {
-    // if not currently disconnected, decrement totalAdmins on client
-    if (admin.metrics.isConnected) client.metrics.totalAdmins -= 1;
-    // set isConnected to true
-    admin.metrics.isConnected = false;
+    trackAdminDisconnects(admin, client);
+    resetCurrentConnectionTimestamp(admin);
   });
+}
+
+// updates isConnected for admin and totalAdmins for client on admin disconnect
+function trackAdminDisconnects(admin, client) {
+  if (admin.metrics.isConnected === true) {
+    client.metrics.totalAdmins -= 1;
+    admin.metrics.isConnected = false;
+  }
+}
+
+// resets admin currentConnectionTimestamp to null on disconnect
+function resetCurrentConnectionTimestamp(admin) {
+  admin.metrics.currentConnectionTimestamp = null;
 }
 
 module.exports = disconnect;

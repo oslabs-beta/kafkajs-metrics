@@ -1,64 +1,94 @@
-const { requestEvents } = require('./request');
-const { initialConnectionAge, successfulConnectionAge } = require('./connect');
-const requestTimeoutRate = require('./request_timeout');
+const connect = require('./connect');
+const disconnect = require('./disconnect');
+const request = require('./request');
 const requestQueueSize = require('./requestQueueSize');
-const producerDisconnect = require('./disconnect');
+const requestTimeout = require('./requestTimeout');
 
 function metricizeProducer(producer, client) {
   // create empty metrics property on producer
   producer.metrics = {
-    name: null,
-    isConnected: false,
-    latencyOffsetFetch: [], //sends the developer the current history and pattern of offsetfetch latency in requestPendingDuration.js
-    //currentQueueSizeHistory: [], stores the presistant data into an array i want the user to get current history of data
-    totalRequestTimeouts: 0,
-    requestPendingDurationlogOn: function () {
+    // VARIABLES
+    name: '', // set by user, used in various console logs
+    isConnected: false, // set in connect.js, reset in disconnect.js
+    initialConnectionTimestamp: null, // updated in connect.js
+    currentConnectionTimestamp: null, // updated in connect.js, reset in disconnect.js
+    totalRequests: 0, // updated in request.js
+    requestRate: 0, // updated in request.js
+    totalRequestTimeouts: 0, // updated in requestTimeout.js
+    timeoutRate: 0, // updated in requestTimeout.js
+
+    // CONNECTION METHODS
+    // returns time since initial connection; returns null if producer never connected
+    initialConnectionAge() {
+      return producer.metrics.initialConnectionTimestamp
+        ? new Date().getTime() - producer.metrics.initialConnectionTimestamp
+        : null;
+    },
+    // returns time since current connection; returns null if producer not currently connected
+    ageSinceLastConnection() {
+      return producer.metrics.currentConnectionTimestamp
+        ? new Date().getTime() - producer.metrics.currentConnectionTimestamp
+        : null;
+    },
+
+    // REQUEST PENDING DURATION METHODS
+    // turns on logging pendingDuration for every request (off by default)
+    requestPendingDurationLogOn() {
       producer.metrics.options.requestPendingDuration.logOn = true;
     },
-    requestPendingDurationlogOff: function () {
+    // turns off logging pendingDuration for every request
+    requestPendingDurationLogOff() {
       producer.metrics.options.requestPendingDuration.logOn = false;
     },
-    requestPendingDurationBreakpoint: function (interval) {
+    // creates request pendingDuration breakpoint at specified interval (ms)
+    requestPendingDurationBreakpoint(interval) {
       producer.metrics.options.requestPendingDuration.breakpoint = interval;
     },
-    requestPendingDurationBreakpointOff: function () {
+    // cancels existing request pendingDuration breakpoint
+    requestPendingDurationBreakpointOff() {
       producer.metrics.options.requestPendingDuration.breakpoint = null;
     },
-    requestQueueSizelogOn: function () {
+
+    // REQUEST QUEUE SIZE METHODS
+    // turns on logging requestQueueSize for every request (off by default)
+    requestQueueSizeLogOn() {
       producer.metrics.options.requestQueueSize.logOn = true;
     },
-    requestQueueSizelogOff: function () {
+    // turns off logging requestQueueSize for every request
+    requestQueueSizeLogOff() {
       producer.metrics.options.requestQueueSize.logOn = false;
     },
-    //creates a breakpoint at the input interval
-    requestQueueSizeBreakpoint: function (interval) {
+    // creates requestQueueSize breakpoint at specified interval (ms)
+    requestQueueSizeBreakpoint(interval) {
       producer.metrics.options.requestQueueSize.breakpoint = interval;
     },
-    // ends a previously-input breakpoint at the inputted interval
-    requestQueueSizeBreakpointOff: function () {
+    // cancels existing requestQueueSize breakpoint
+    requestQueueSizeBreakpointOff() {
       producer.metrics.options.requestQueueSize.breakpoint = null;
     },
+
+    // OPTIONS
+    // contains settings for console logs and breakpoint alerts
     options: {
       requestPendingDuration: {
-        logOn: false, //set within requestPendingDuration.js
-        breakpoint: null, //set within requestPendingDuration.js
+        logOn: false, // set in requestPendingDuration.js
+        breakpoint: null, // set in requestPendingDuration.js
       },
       requestQueueSize: {
-        logOn: false, //set within requestQueueSize.js
-        breakpoint: null, //set within requestQueueSize.js
+        logOn: false, // set in requestQueueSize.js
+        breakpoint: null, // set in requestQueueSize.js
       },
     },
-    totalRequests: 0, // updated within request.js
-    requestRate: 0, // updated within request.js
-    timeoutRate: 0, // updated within request_timeout.js
   };
+
   // run functions to create metrics for producer instrumentation events
-  requestEvents(producer);
-  initialConnectionAge(producer);
-  successfulConnectionAge(producer, client);
-  producerDisconnect(producer, client);
-  requestTimeoutRate(producer);
+  connect(producer, client);
+  disconnect(producer, client);
+  request(producer);
   requestQueueSize(producer);
+  requestTimeout(producer);
+
+  // return updated producer object
   return producer;
 }
 

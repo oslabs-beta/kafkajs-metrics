@@ -35,7 +35,7 @@ function sendRpdLog(consumer, e) {
     e.payload.pendingDuration > 1
   ) {
     console.log(
-      `Latency occuring in ${e.payload.apiName} for consumer ${consumer.metrics.name} (member Id: ${consumer.metrics.memberId}).\npendingDuration for last request was ${e.payload.pendingDuration}ms`
+      `Latency occuring in ${e.payload.apiName} API for consumer ${consumer.metrics.name} (member Id: ${consumer.metrics.memberId}).\npendingDuration for last request was ${e.payload.pendingDuration}ms`
     );
   }
 }
@@ -50,27 +50,9 @@ function sendRpdBreakpointAlert(consumer, e) {
   ) {
     console.warn(
       `BREAKPOINT ALERT: Request pendingDuration breakpoint (${consumer.metrics.options.requestPendingDuration.breakpoint}ms) exceeded for consumer ${consumer.metrics.name} (member Id: ${consumer.metrics.memberId}).\n
-      Last request pendingDuration was ${e.payload.pendingDuration} for apiName ${e.payload.apiName}`
+      Last request pendingDuration was ${e.payload.pendingDuration} for API ${e.payload.apiName}`
     );
   }
 }
-
-// function storeOffsetFetchData(consumer, e) {
-//   if (e.payload.apiName === 'OffsetFetch') {
-//     // the offsetfetchdata stores the desired data from the request
-//     const offsetFetchData = {
-//       APINAME: `${e.payload.apiName}`,
-//       PENDINGDURATION: `${e.payload.pendingDuration} ms`,
-//       TIMESTAMP: `${e.timestamp}`,
-//     };
-//     // push the object/data to the array to store current history of latency from offsetfetch
-//     consumer.metrics.latencyOffsetFetch.push(offsetFetchData);
-//     // remove oldest element if length exceeds 10
-//     if (consumer.metrics.latencyOffsetFetch.length > 10) {
-//       // removes the first element because we always want the first 10 most recent data
-//       consumer.metrics.latencyOffsetFetch.shift();
-//     }
-//   }
-// }
 
 module.exports = request;

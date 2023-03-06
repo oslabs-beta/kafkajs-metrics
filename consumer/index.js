@@ -12,10 +12,11 @@ function metricizeConsumer(consumer, client) {
   consumer.metrics = {
     // VARIABLES
     name: '', // set by user, used in various console logs
-    memberId: null, // set in group_join.js, reset in disconnect.js
     isConnected: false, // set in connect.js, reset in disconnect.js
     initialConnectionTimestamp: null, // updated in connect.js
     currentConnectionTimestamp: null, // updated in connect.js, reset in disconnect.js
+    memberId: null, // set in groupJoin.js, reset in disconnect.js
+    totalPartitions: 0, // updated in groupJoin.js
     lastHeartbeat: 0, // updated in heartbeat.js, reset in disconnect.js
     lastHeartbeatDuration: 0, // updated in heartbeat.js, reset in disconnect.js
     longestHeartbeatDuration: 0, // updated in heartbeat.js, reset in disconnect.js
@@ -23,10 +24,8 @@ function metricizeConsumer(consumer, client) {
     offsetLag: null, // updated in endBatchProcess.js
     totalRequests: 0, // updated in request.js
     requestRate: 0, // updated in request.js
-    timeoutRate: 0, // updated in request_timeout.js
-    totalRequestTimeouts: 0, // updated in request_timeout.js
-    totalPartitions: 0, // updated in group_join.js
-    // latencyOffsetFetch: [], // stores history of offsetFetch latency in request.js
+    totalRequestTimeouts: 0, // updated in requestTimeout.js
+    timeoutRate: 0, // updated in requestTimeout.js
 
     // CONNECTION METHODS
     // returns time since initial connection; returns null if consumer never connected
@@ -52,11 +51,11 @@ function metricizeConsumer(consumer, client) {
       consumer.metrics.options.heartbeat.logOn = false;
     },
     // creates heartbeat breakpoint at specified interval (ms)
-    heartbeatBreakpoint(interval) {
+    heartbeatSetBreakpoint(interval) {
       consumer.metrics.options.heartbeat.breakpoint = interval;
     },
     // cancels existing heartbeat breakpoint
-    heartbeatBreakpointOff() {
+    heartbeatCancelBreakpoint() {
       consumer.metrics.options.heartbeat.breakpoint = null;
     },
 

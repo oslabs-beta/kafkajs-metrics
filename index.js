@@ -7,8 +7,8 @@ const metricizeAdmin = require('./admin');
 function metricize(client) {
   // create client.metrics property for global metrics
   client.metrics = {
-    totalConsumers: 0,
-    totalProducers: 0,
+    totalConsumers: 0, // modified in consumer/connect.js and consumer/disconnect.js
+    totalProducers: 0, // modified in producer/connect.js and producer/disconnect.js
     totalAdmins: 0, // modified in admin/connect.js and admin/disconnect.js
   };
 

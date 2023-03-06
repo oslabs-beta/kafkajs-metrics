@@ -1,14 +1,12 @@
-function initialConnectionAge(producer) {
-  let initialConnection = 0;
-
-  const removeListener = producer.on('producer.connect', (e) => {
-    initialConnection = e.timestamp;
-    removeListener();
+function connect(producer, client) {
+  producer.on('producer.connect', (e) => {
+    trackProducerConnects(producer, client);
+    setInitialConnectionTimestamp(producer, e);
+    setCurrentConnectionTimestamp(producer, e);
   });
-
-  producer.initialConnectionAge = () => new Date().getTime() - initialConnection;
 }
 
+// if isConnected is false, set to true and increment totalPonsumers on client
 function trackProducerConnects(producer, client) {
   if (producer.metrics.isConnected === false) {
     client.metrics.totalProducers += 1;
@@ -16,14 +14,16 @@ function trackProducerConnects(producer, client) {
   }
 }
 
-function successfulConnectionAge(producer, client) {
-  let mostRecentConnection = 0;
-  producer.on('producer.connect', (e) => {
-    mostRecentConnection = e.timestamp;
-    trackProducerConnects(producer, client);
-  });
-
-  producer.ageSinceLastConnection = () => new Date().getTime() - mostRecentConnection;
+// if initialConnectionTimestamp is null, set equal to connect event's timestamp
+function setInitialConnectionTimestamp(producer, e) {
+  if (!producer.metrics.initialConnectionTimestamp) {
+    producer.metrics.initialConnectionTimestamp = e.timestamp;
+  }
 }
 
-module.exports = { initialConnectionAge, successfulConnectionAge };
+// set currentConnectionTimestamp equal to connect event's timestamp
+function setCurrentConnectionTimestamp(producer, e) {
+  producer.metrics.currentConnectionTimestamp = e.timestamp;
+}
+
+module.exports = connect;

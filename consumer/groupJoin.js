@@ -17,8 +17,6 @@ function setTotalPartitions(consumer, e) {
   topicArr.forEach((topic) => {
     sum += e.payload.memberAssignment[topic].length;
   });
-  // for (const topic of topicArr) {
-  // }
   consumer.metrics.totalPartitions = sum;
 }
 
