@@ -7,9 +7,9 @@ const request = require('./request');
 const requestQueueSize = require('./requestQueueSize');
 const requestTimeout = require('./requestTimeout');
 
-function metricizeConsumer(consumer, client) {
-  // create empty metrics property on consumer
-  consumer.metrics = {
+function addMetrics(obj, client, type) {
+  // create empty metrics property on obj
+  obj.metrics = {
     // VARIABLES
     name: '', // set by user, used in various console logs
     isConnected: false, // set in connect.js, reset in disconnect.js
@@ -28,81 +28,81 @@ function metricizeConsumer(consumer, client) {
     timeoutRate: 0, // updated in requestTimeout.js
 
     // CONNECTION METHODS
-    // returns time since initial connection; returns null if consumer never connected
+    // returns time since initial connection; returns null if obj never connected
     initialConnectionAge() {
-      return consumer.metrics.initialConnectionTimestamp
-        ? new Date().getTime() - consumer.metrics.initialConnectionTimestamp
+      return obj.metrics.initialConnectionTimestamp
+        ? new Date().getTime() - obj.metrics.initialConnectionTimestamp
         : null;
     },
-    // returns time since current connection; returns null if consumer not currently connected
+    // returns time since current connection; returns null if obj not currently connected
     ageSinceLastConnection() {
-      return consumer.metrics.currentConnectionTimestamp
-        ? new Date().getTime() - consumer.metrics.currentConnectionTimestamp
+      return obj.metrics.currentConnectionTimestamp
+        ? new Date().getTime() - obj.metrics.currentConnectionTimestamp
         : null;
     },
 
     // HEARTBEAT METHODS
     // turns on logging every heartbeat (off by default)
     heartbeatLogOn() {
-      consumer.metrics.options.heartbeat.logOn = true;
+      obj.metrics.options.heartbeat.logOn = true;
     },
     // turns off logging every heartbeat
     heartbeatLogOff() {
-      consumer.metrics.options.heartbeat.logOn = false;
+      obj.metrics.options.heartbeat.logOn = false;
     },
     // creates heartbeat breakpoint at specified interval (ms)
     heartbeatSetBreakpoint(interval) {
-      consumer.metrics.options.heartbeat.breakpoint = interval;
+      obj.metrics.options.heartbeat.breakpoint = interval;
     },
     // cancels existing heartbeat breakpoint
     heartbeatCancelBreakpoint() {
-      consumer.metrics.options.heartbeat.breakpoint = null;
+      obj.metrics.options.heartbeat.breakpoint = null;
     },
 
     // OFFSET LAG METHODS
     // creates offsetLag breakpoint at specified interval (ms)
     offsetLagBreakpoint(interval) {
-      consumer.metrics.options.offsetLag.breakpoint = interval;
+      obj.metrics.options.offsetLag.breakpoint = interval;
     },
     // cancels existing offsetLag breakpoint
     offsetLagBreakpointOff() {
-      consumer.metrics.options.offsetLag.breakpoint = null;
+      obj.metrics.options.offsetLag.breakpoint = null;
     },
 
     // REQUEST PENDING DURATION METHODS
     // turns on logging pendingDuration for every request (off by default)
     requestPendingDurationLogOn() {
-      consumer.metrics.options.requestPendingDuration.logOn = true;
+      obj.metrics.options.requestPendingDuration.logOn = true;
     },
     // turns off logging pendingDuration for every request
     requestPendingDurationLogOff() {
-      consumer.metrics.options.requestPendingDuration.logOn = false;
+      obj.metrics.options.requestPendingDuration.logOn = false;
     },
     // creates request pendingDuration breakpoint at specified interval (ms)
     requestPendingDurationBreakpoint(interval) {
-      consumer.metrics.options.requestPendingDuration.breakpoint = interval;
+      obj.metrics.options.requestPendingDuration.breakpoint = interval;
     },
     // cancels existing request pendingDuration breakpoint
     requestPendingDurationBreakpointOff() {
-      consumer.metrics.options.requestPendingDuration.breakpoint = null;
+      obj.metrics.options.requestPendingDuration.breakpoint = null;
     },
 
     // REQUEST QUEUE SIZE METHODS
     // turns on logging requestQueueSize for every request (off by default)
     requestQueueSizeLogOn() {
-      consumer.metrics.options.requestQueueSize.logOn = true;
+      obj.metrics.options.requestQueueSize.logOn = true;
     },
     // turns off logging requestQueueSize for every request
     requestQueueSizeLogOff() {
-      consumer.metrics.options.requestQueueSize.logOn = false;
+      obj.metrics.options.requestQueueSize.logOn = false;
     },
     // creates requestQueueSize breakpoint at specified interval (ms)
     requestQueueSizeBreakpoint(interval) {
-      consumer.metrics.options.requestQueueSize.breakpoint = interval;
+      obj.metrics.options.requestQueueSize.breakpoint = interval;
     },
     // cancels existing requestQueueSize breakpoint
     requestQueueSizeBreakpointOff() {
-      consumer.metrics.options.requestQueueSize.breakpoint = null;
+      obj.metrics.options.requestQueueSize.breakpoint = null;
     },
 
     // OPTIONS
@@ -127,18 +127,18 @@ function metricizeConsumer(consumer, client) {
     },
   };
 
-  // run functions to create metrics for consumer instrumentation events
-  connect(consumer, client);
-  disconnect(consumer, client);
-  endBatchProcess(consumer);
-  groupJoin(consumer);
-  heartbeat(consumer);
-  request(consumer);
-  requestQueueSize(consumer);
-  requestTimeout(consumer);
+  // run functions to create metrics for instrumentation events
+  connect(obj, client, type);
+  disconnect(obj, client);
+  endBatchProcess(obj);
+  groupJoin(obj);
+  heartbeat(obj);
+  request(obj);
+  requestQueueSize(obj);
+  requestTimeout(obj);
 
-  // return updated consumer object
-  return consumer;
+  // return updated object
+  return obj;
 }
 
-module.exports = metricizeConsumer;
+module.exports = addMetrics;
