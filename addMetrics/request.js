@@ -1,56 +1,67 @@
-function request(consumer) {
-  consumer.on('consumer.network.request', (e) => {
-    incrementTotalRequests(consumer);
-    calculateRequestRate(consumer);
-    sendRpdLog(consumer, e);
-    sendRpdBreakpointAlert(consumer, e);
+function request(obj, client, type) {
+  obj.on(`${type}.network.request`, (e) => {
+    incrementTotalRequests(obj);
+    calculateRequestRate(obj);
+    sendRpdLog(obj, e, type);
+    sendRpdBreakpointAlert(obj, e, type);
   });
 }
 
 // increment totalRequests variable
-function incrementTotalRequests(consumer) {
-  consumer.metrics.totalRequests += 1;
+function incrementTotalRequests(obj) {
+  obj.metrics.totalRequests += 1;
 }
 
-// after 30 seconds, calculates the number of requests per seconds over the previous 30 seconds
-function calculateRequestRate(consumer) {
+// after X ms, calculates requests/second over the previous (X/1000) seconds
+// X is the obj.metrics.options.requestRatePeriod property
+function calculateRequestRate(obj) {
   // save current number of total requests to pass into setTimeout
-  const startNum = consumer.metrics.totalRequests;
-  // after 30 seconds, calculate difference in totalRequests and divide by 30 to update requestRate
+  const startNum = obj.metrics.totalRequests;
+  // after X ms, calculate difference in totalRequests and divide by X/1000 to update requestRate
   setTimeout(
     (start) => {
-      const end = consumer.metrics.totalRequests;
-      consumer.metrics.requestRate = (end - start) / 30;
+      const end = obj.metrics.totalRequests;
+      obj.metrics.requestRate =
+        (end - start) / (obj.metrics.options.requestRatePeriod / 1000);
     },
-    30000,
+    obj.metrics.options.requestRatePeriod,
     startNum
   );
 }
 
 // if log is on, send log anytime pendingDuration exceeds 1 for apiName other than OffsetFetch
-function sendRpdLog(consumer, e) {
+function sendRpdLog(obj, e, type) {
   if (
-    consumer.metrics.options.requestPendingDuration.logOn &&
+    obj.metrics.options.requestPendingDuration.logOn &&
     e.payload.apiName !== 'OffsetFetch' &&
     e.payload.pendingDuration > 1
   ) {
     console.log(
-      `Latency occuring in ${e.payload.apiName} API for consumer ${consumer.metrics.name} (member Id: ${consumer.metrics.memberId}).\npendingDuration for last request was ${e.payload.pendingDuration}ms`
+      `Latency occuring in ${e.payload.apiName} API for ${type} ${
+        obj.metrics.name
+      }${
+        type === 'consumer' ? ` (member ID: ${obj.metrics.memberId})` : ''
+      }\npendingDuration for last request was ${e.payload.pendingDuration}ms`
     );
   }
 }
 
 // if breakpoint is set, send breakpoint if pendingDuration exceeds breakpoint
-function sendRpdBreakpointAlert(consumer, e) {
+function sendRpdBreakpointAlert(obj, e, type) {
   // check if breakpoint is set and pendingDuration is greater than breakpoint
   if (
-    consumer.metrics.options.requestPendingDuration.breakpoint &&
+    obj.metrics.options.requestPendingDuration.breakpoint &&
     e.payload.pendingDuration >
-      consumer.metrics.options.requestPendingDuration.breakpoint
+      obj.metrics.options.requestPendingDuration.breakpoint
   ) {
     console.warn(
-      `BREAKPOINT ALERT: Request pendingDuration breakpoint (${consumer.metrics.options.requestPendingDuration.breakpoint}ms) exceeded for consumer ${consumer.metrics.name} (member Id: ${consumer.metrics.memberId}).\n
-      Last request pendingDuration was ${e.payload.pendingDuration} for API ${e.payload.apiName}`
+      `BREAKPOINT ALERT: Request pendingDuration breakpoint (${
+        obj.metrics.options.requestPendingDuration.breakpoint
+      }ms) exceeded for ${type} ${obj.metrics.name}${
+        type === 'consumer' ? ` (member ID: ${obj.metrics.memberId})` : ''
+      }\nLast request pendingDuration was ${
+        e.payload.pendingDuration
+      } for API ${e.payload.apiName}`
     );
   }
 }

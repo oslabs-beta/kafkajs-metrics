@@ -15,13 +15,6 @@ function addMetrics(obj, client, type) {
     isConnected: false, // set in connect.js, reset in disconnect.js
     initialConnectionTimestamp: null, // updated in connect.js
     currentConnectionTimestamp: null, // updated in connect.js, reset in disconnect.js
-    memberId: null, // set in groupJoin.js, reset in disconnect.js
-    totalPartitions: 0, // updated in groupJoin.js
-    lastHeartbeat: 0, // updated in heartbeat.js, reset in disconnect.js
-    lastHeartbeatDuration: 0, // updated in heartbeat.js, reset in disconnect.js
-    longestHeartbeatDuration: 0, // updated in heartbeat.js, reset in disconnect.js
-    messagesConsumed: 0, // updated in endBatchProcess.js
-    offsetLag: null, // updated in endBatchProcess.js
     totalRequests: 0, // updated in request.js
     requestRate: 0, // updated in request.js
     totalRequestTimeouts: 0, // updated in requestTimeout.js
@@ -41,34 +34,6 @@ function addMetrics(obj, client, type) {
         : null;
     },
 
-    // HEARTBEAT METHODS
-    // turns on logging every heartbeat (off by default)
-    heartbeatLogOn() {
-      obj.metrics.options.heartbeat.logOn = true;
-    },
-    // turns off logging every heartbeat
-    heartbeatLogOff() {
-      obj.metrics.options.heartbeat.logOn = false;
-    },
-    // creates heartbeat breakpoint at specified interval (ms)
-    heartbeatSetBreakpoint(interval) {
-      obj.metrics.options.heartbeat.breakpoint = interval;
-    },
-    // cancels existing heartbeat breakpoint
-    heartbeatCancelBreakpoint() {
-      obj.metrics.options.heartbeat.breakpoint = null;
-    },
-
-    // OFFSET LAG METHODS
-    // creates offsetLag breakpoint at specified interval (ms)
-    offsetLagBreakpoint(interval) {
-      obj.metrics.options.offsetLag.breakpoint = interval;
-    },
-    // cancels existing offsetLag breakpoint
-    offsetLagBreakpointOff() {
-      obj.metrics.options.offsetLag.breakpoint = null;
-    },
-
     // REQUEST PENDING DURATION METHODS
     // turns on logging pendingDuration for every request (off by default)
     requestPendingDurationLogOn() {
@@ -79,11 +44,11 @@ function addMetrics(obj, client, type) {
       obj.metrics.options.requestPendingDuration.logOn = false;
     },
     // creates request pendingDuration breakpoint at specified interval (ms)
-    requestPendingDurationBreakpoint(interval) {
+    requestPendingDurationSetBreakpoint(interval) {
       obj.metrics.options.requestPendingDuration.breakpoint = interval;
     },
     // cancels existing request pendingDuration breakpoint
-    requestPendingDurationBreakpointOff() {
+    requestPendingDurationCancelBreakpoint() {
       obj.metrics.options.requestPendingDuration.breakpoint = null;
     },
 
@@ -97,45 +62,108 @@ function addMetrics(obj, client, type) {
       obj.metrics.options.requestQueueSize.logOn = false;
     },
     // creates requestQueueSize breakpoint at specified interval (ms)
-    requestQueueSizeBreakpoint(interval) {
+    requestQueueSizeSetBreakpoint(interval) {
       obj.metrics.options.requestQueueSize.breakpoint = interval;
     },
     // cancels existing requestQueueSize breakpoint
-    requestQueueSizeBreakpointOff() {
+    requestQueueSizeCancelBreakpoint() {
       obj.metrics.options.requestQueueSize.breakpoint = null;
+    },
+
+    // RATE PERIOD METHODS
+    // updates request rate period (ms)
+    requestRateSetPeriod(interval) {
+      obj.metrics.options.requestRatePeriod = interval;
+    },
+    // updates timeout rate period (ms)
+    timeoutRateSetPeriod(interval) {
+      obj.metrics.options.timeoutRatePeriod = interval;
     },
 
     // OPTIONS
     // contains settings for console logs and breakpoint alerts
     options: {
-      heartbeat: {
-        logOn: false, // set in heartbeat.js
-        breakpoint: null, // set in heartbeat.js
-      },
       requestPendingDuration: {
-        logOn: false, // set in requestPendingDuration.js
-        breakpoint: null, // set in requestPendingDuration.js
+        logOn: false, // read in requestPendingDuration.js
+        breakpoint: null, // read in requestPendingDuration.js
       },
       requestQueueSize: {
-        logOn: false, // set in requestQueueSize.js
-        breakpoint: null, // set in requestQueueSize.js
+        logOn: false, // read in requestQueueSize.js
+        breakpoint: null, // read in requestQueueSize.js
       },
-      offsetLag: {
-        logOn: false, // set in endBatchProcess.js
-        breakpoint: null, // set in endBatchProcess.js
-      },
+      requestRatePeriod: 5000, // read in request.js
+      timeoutRatePeriod: 5000, // read in requestTimeout.js
     },
   };
 
   // run functions to create metrics for instrumentation events
   connect(obj, client, type);
-  disconnect(obj, client);
-  endBatchProcess(obj);
-  groupJoin(obj);
-  heartbeat(obj);
-  request(obj);
-  requestQueueSize(obj);
-  requestTimeout(obj);
+  disconnect(obj, client, type);
+  request(obj, type);
+  requestQueueSize(obj, type);
+  requestTimeout(obj, type);
+
+  if (type === 'consumer') {
+    // define consumer-specific variables & methods
+    const consumerMetrics = {
+      memberId: null, // set in groupJoin.js, reset in disconnect.js
+      totalPartitions: 0, // updated in groupJoin.js
+      lastHeartbeat: 0, // updated in heartbeat.js, reset in disconnect.js
+      lastHeartbeatDuration: 0, // updated in heartbeat.js, reset in disconnect.js
+      longestHeartbeatDuration: 0, // updated in heartbeat.js, reset in disconnect.js
+      messagesConsumed: 0, // updated in endBatchProcess.js
+      offsetLag: null, // updated in endBatchProcess.js
+
+      // HEARTBEAT METHODS
+      // turns on logging every heartbeat (off by default)
+      heartbeatLogOn() {
+        obj.metrics.options.heartbeat.logOn = true;
+      },
+      // turns off logging every heartbeat
+      heartbeatLogOff() {
+        obj.metrics.options.heartbeat.logOn = false;
+      },
+      // creates heartbeat breakpoint at specified interval (ms)
+      heartbeatSetBreakpoint(interval) {
+        obj.metrics.options.heartbeat.breakpoint = interval;
+      },
+      // cancels existing heartbeat breakpoint
+      heartbeatCancelBreakpoint() {
+        obj.metrics.options.heartbeat.breakpoint = null;
+      },
+
+      // OFFSET LAG METHODS
+      // creates offsetLag breakpoint at specified interval (ms)
+      offsetLagSetBreakpoint(interval) {
+        obj.metrics.options.offsetLag.breakpoint = interval;
+      },
+      // cancels existing offsetLag breakpoint
+      offsetLagCancelBreakpoint() {
+        obj.metrics.options.offsetLag.breakpoint = null;
+      },
+    };
+
+    // define consumer-specific options
+    const consumerOptions = {
+      heartbeat: {
+        logOn: false, // read in heartbeat.js
+        breakpoint: null, // read in heartbeat.js
+      },
+      offsetLag: {
+        logOn: false, // read in endBatchProcess.js
+        breakpoint: null, // read in endBatchProcess.js
+      },
+    };
+
+    // update consumer object with new metrics and options
+    obj.metrics = Object.assign(obj.metrics, consumerMetrics);
+    obj.metrics.options = Object.assign(obj.metrics.options, consumerOptions);
+
+    // run consumer-specific instrumentation event generators
+    endBatchProcess(obj);
+    groupJoin(obj);
+    heartbeat(obj);
+  }
 
   // return updated object
   return obj;

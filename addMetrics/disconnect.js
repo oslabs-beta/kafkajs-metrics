@@ -1,23 +1,39 @@
-function disconnect(consumer, client) {
-  consumer.on('consumer.disconnect', () => {
-    trackConsumerDisconnects(consumer, client);
-    resetCurrentConnectionTimestamp(consumer);
-    resetMemberId(consumer);
-    resetHeartbeatMetrics(consumer);
+function disconnect(obj, client, type) {
+  obj.on(`${type}.disconnect`, () => {
+    trackDisconnects(obj, client, type);
+    resetCurrentConnectionTimestamp(obj);
+    if (type === 'consumer') {
+      resetMemberId(obj);
+      resetHeartbeatMetrics(obj);
+    }
   });
 }
 
-// updates isConnected for consumer and totalConsumers for client on consumer disconnect
-function trackConsumerDisconnects(consumer, client) {
-  if (consumer.metrics.isConnected === true) {
-    client.metrics.totalConsumers -= 1;
-    consumer.metrics.isConnected = false;
+// updates isConnected for obj and totalConsumers (etc.) for client on obj disconnect
+function trackDisconnects(obj, client, type) {
+  if (obj.metrics.isConnected === false) {
+    switch (type) {
+      case 'consumer':
+        client.metrics.totalConsumers += 1;
+        break;
+      case 'producer':
+        client.metrics.totalProducers += 1;
+        break;
+      case 'admin':
+        client.metrics.totalAdmins += 1;
+        break;
+      default:
+        console.error(
+          'ERROR: switch statement reached default case in addMetrics/disconnect.js'
+        );
+    }
+    obj.metrics.isConnected = false;
   }
 }
 
-// resets consumer currentConnectionTimestamp to null on disconnect
-function resetCurrentConnectionTimestamp(consumer) {
-  consumer.metrics.currentConnectionTimestamp = null;
+// resets currentConnectionTimestamp to null on disconnect
+function resetCurrentConnectionTimestamp(obj) {
+  obj.metrics.currentConnectionTimestamp = null;
 }
 
 // resets consumer memberId to null on disconnect

@@ -21,7 +21,7 @@ function trackConnects(obj, client, type) {
         break;
       default:
         console.error(
-          'ERROR: switch statement reached default case in metricize/connect.js'
+          'ERROR: switch statement reached default case in addMetrics/connect.js'
         );
     }
     obj.metrics.isConnected = true;
