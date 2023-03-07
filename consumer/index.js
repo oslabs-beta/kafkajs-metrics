@@ -9,41 +9,19 @@ const consumerDisconnect = require('./disconnect');
 const fs = require('fs');
 const { response } = require('../server/server');
 
-// function getConsumerData(promise, consumer, client) {
-//   if (client.metrics.options.visualize) {
-
-//     const Redis = require('redis');
-
-//     const redisClient = Redis.createClient({
-//       //url in test.js
-//     });
-
-//     const stupidFunc = async (client) => {
-//       await client.connect();
-
-//       await client.set('memberId', JSON.stringify({'messagesConsumed': [1, 2, 3]}));
-//       const value = await client.get('key');
-//       await client.disconnect();  
-//     }
-
-//     redisClient.on('error', err => {
-//       console.log('err', err);
-//     })
-
-//     stupidFunc(redisClient);
-//   }
-// }
-
 function getConsumerData (promise, consumer, client) {
   if (client.metrics.options.visualize && client.metrics.options.token) {
-    console.log('token: ', client.metrics.options.token);
-    //post request to token
-    fetch('/token', {
+    client.metrics.options.consumerNum++
+    const clientName = `-Consumer${client.metrics.options.consumerNum}`;
+    const name = client.metrics.options.token;
+    const combinedName = client.metrics.options.token+clientName;
+    console.log('combinedName: ', combinedName);
+    fetch('http://localhost:3000/track', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({token: client.metrics.options.token}),
+      body: JSON.stringify({name: combinedName, token: name}),
     })
     .then((res) => {
       return res.json();
@@ -52,8 +30,39 @@ function getConsumerData (promise, consumer, client) {
       console.log('data', data);
     })
     .catch((err) =>{
-      console.log('error in consumer data/main chart page: ', err)
+      console.log('error in consumer track: ', err)
     })
+
+  setInterval(() => {
+    const dataObj = {
+      messagesConsumed: consumer.metrics.messagesConsumed,
+      offSetLag: consumer.metrics.offsetLag,
+      lastHeartbeat: consumer.metrics.lastHeartbeat,
+      totalRequests: consumer.metrics.totalRequests,
+      requestRate: consumer.metrics.requestRate,
+      timeoutRate: consumer.metrics.timeoutRate,
+      clientName,
+    }
+    const bodyObj = {};
+    bodyObj.name = name;
+    bodyObj.data = dataObj;
+    fetch('http://localhost:3000/data', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({data: bodyObj, name: combinedName}),
+        })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log('data', data);
+        })
+        .catch((err) =>{
+          console.log('error in consumer data/main chart page: ', err)
+        })
+  }, 5000);
   }
 }
 

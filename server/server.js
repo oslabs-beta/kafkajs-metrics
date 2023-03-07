@@ -1,12 +1,28 @@
 const express = require('express');
-const redisController = require('./controllers/redisController.js');
+const redisController = require('./controllers/redisControllers.js');
 
 const app = express();
 
 app.use(express.json());
 
 app.post('/token', redisController.setToken, (req, res) => {
-    res.status(200).json({success: res.locals.test});
+    res.status(200).json({success: 'ok'});
+})
+
+app.post('/checktoken', redisController.checkToken, (req, res) => {
+    res.status(200).json({token: res.locals.check});
+})
+
+app.post('/data', redisController.setData, (req, res) => {
+    res.status(200).json({success: 'ok'});
+})
+
+app.post('/getData', redisController.getData, (req,res) => {
+    res.status(200).json({data: res.locals.finalData});
+})
+
+app.post('/track', redisController.track, (req, res) => {
+    res.status(200).json({success: 'ok'});
 })
 
 // global error handler

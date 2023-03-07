@@ -8,6 +8,26 @@ const adminMetricize = require('./admin');
 function metricize(client, visualize = false, token = false) {
   // create client.metrics property for global metrics
 
+  if (visualize && token) {
+    //post request to token
+    fetch('http://localhost:3000/token', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({token: token}),
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log('data', data);
+    })
+    .catch((err) =>{
+      console.log('error in initial redis token: ', err)
+    })
+  }
+
   client.metrics = {
     totalConsumers: 0,
     totalProducers: 0,
@@ -15,6 +35,8 @@ function metricize(client, visualize = false, token = false) {
     options: {
       visualize: visualize,
       token: token,
+      consumerNum: 0,
+      producerNum: 0,
     }
   };
 
