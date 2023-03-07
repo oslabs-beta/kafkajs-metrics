@@ -7,15 +7,17 @@ class ChartSection extends Component {
     render() {
         console.log('in chart section');
         return(
-            <div>
-            <div>Hello, World!</div>
-            <LineChart data = {this.props.data}/>
-            <LineChart data = {this.props.data}/>
-            <LineChart data = {this.props.data}/>
-            <LineChart data = {this.props.data}/>
-            <LineChart data = {this.props.data}/>
-            <LineChart data = {this.props.data}/>
+            <div className='graphContainer'>
+                <div style={{width: 500}}>
+                <LineChart data = {this.props.data}/>
+                <LineChart data = {this.props.data}/>
+                <LineChart data = {this.props.data}/>
+                <LineChart data = {this.props.data}/>
+                <LineChart data = {this.props.data}/>
+                <LineChart data = {this.props.data}/>
+                </div>
             </div>
+            
         );
     }
 

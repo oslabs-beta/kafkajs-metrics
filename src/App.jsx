@@ -5,6 +5,7 @@ import Home from './components/Home.jsx';
 import MainTokenPage from './components/mainTokenPage.jsx';
 import Main from './components/mainChartPage.jsx';
 
+
 export default function App() {
     return (
         <div>
