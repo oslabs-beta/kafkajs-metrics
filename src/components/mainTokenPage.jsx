@@ -8,39 +8,35 @@ class MainTokenPage extends Component {
             token: null,
             authenticated: false,
         }
+        this.checkToken = this.checkToken.bind(this);
     }
 
-    componentDidMount() {
-         // if token is not null, query the database to check for the appropriate token key
-        // if response is {token : false}, don't do anything and alert the user
-        // if the set interval runs more than a certain number of times, alert the user that the token has expired
-        // if token matches, route to mainChartPage
-
-        // below, setting this to never run (instead of just commenting the whole thing out) until the route is ready
-        // will want this to happen on an interval
-        if (false) {
+    checkToken() {
+        if (this.state.token !== null) {
             fetch('http://localhost:3000/checktoken', {
-                method: 'POST',
+                 method: 'POST',
                 headers: {
-                  "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
+                withCredentials: true,
                 body: JSON.stringify({token: this.state.token}),
-              })
-              .then((res) => {
-                return res.json();
-              })
-              .then((data) => {
-                console.log('data', data);
-              })
-              .catch((err) =>{
-                console.log('error in main token page /checktoken: ', err)
-              })
-        }
-
-        setTimeout(() => {
-            const clone = JSON.parse(JSON.stringify(this.state));
-            this.setState({...clone, authenticated: true});
-        }, 5000);
+                })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    if (data.token) {
+                        const clone = JSON.parse(JSON.stringify(this.state));
+                        this.setState({...clone, authenticated: true});
+                    } else {
+                        alert('Incorrect token.');
+                    }
+    
+                })
+                .catch((err) =>{
+                    console.log('error in main token page /checktoken: ', err)
+                })
+            }
     }
 
     render() {
@@ -51,6 +47,9 @@ class MainTokenPage extends Component {
                 this.setState({...clone, token: Math.random() * 10});
             }}>generate access token</button>
             <div style={{border: 'solid'}}>{this.state.token || ''}</div>
+            <button onClick={() => {
+                this.checkToken();
+            }}>authenticate</button>
             <div style={{border: 'solid'}}>instructions:</div>
             </>
         )

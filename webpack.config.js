@@ -24,13 +24,16 @@ module.exports = {
         }),
     ],
     devServer: {
+        headers: { 'Access-Control-Allow-Origin': 'http://localhost:3000/' },
+
         static: {
             directory: path.join(__dirname, './dist'),
         },
 
         proxy: {
-            '/token': {
+            '/checktoken': {
                 target: 'http://localhost:3000/',
+                secure: false,
             }
         }
     },

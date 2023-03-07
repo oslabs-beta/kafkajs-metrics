@@ -50,10 +50,13 @@ redisController.checkToken = (req, res, next) => {
     // if result is nill, res.locals.check = false
     // else, res.locals.check = true
     const { token } = req.body;
+    console.log('token', token);
+    console.log('type of', typeof token);
     const checkRedisToken = async (token, client) => {
         // await client.connect();
-        res.locals.check = await client.get(token);
+        data = await client.lRange(token.toString(), 0, -1);
         // await client.disconnect();
+        res.locals.check = data.length ? true : false;
         return next();
     }
     checkRedisToken(token, client);
