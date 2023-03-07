@@ -1,12 +1,12 @@
-const connect = require('./connect');
-const disconnect = require('./disconnect');
-const endBatchProcess = require('./endBatchProcess');
-const groupJoin = require('./groupJoin');
-const heartbeat = require('./heartbeat');
-const request = require('./request');
-const requestQueueSize = require('./requestQueueSize');
-const requestTimeout = require('./requestTimeout');
-const calculateRates = require('./calculateRates');
+const connect = require('./eventMetrics/connect');
+const disconnect = require('./eventMetrics/disconnect');
+const endBatchProcess = require('./eventMetrics/endBatchProcess');
+const groupJoin = require('./eventMetrics/groupJoin');
+const heartbeat = require('./eventMetrics/heartbeat');
+const request = require('./eventMetrics/request');
+const requestQueueSize = require('./eventMetrics/requestQueueSize');
+const requestTimeout = require('./eventMetrics/requestTimeout');
+const calculateRates = require('./periodicMetrics/calculateRates');
 
 function addMetrics(obj, client, type) {
   // create empty metrics property on obj
@@ -95,8 +95,8 @@ function addMetrics(obj, client, type) {
         breakpoint: null, // read in requestQueueSize.js
       },
       rate: {
-        frequency: 1000, // read in calculateRates.js
-        period: 5000, // read in calculateRates.js
+        period: 5000, // how long rate metrics analysis runs; read in calculateRates.js
+        frequency: 1000, // how often rate metrics update; read in calculateRates.js
       },
     },
   };
@@ -160,7 +160,6 @@ function addMetrics(obj, client, type) {
         logOn: false, // read in endBatchProcess.js
         breakpoint: null, // read in endBatchProcess.js
       },
-      messageConsumptionRatePeriod: 5000, // read in request.js
     };
 
     // update consumer object with new metrics and options
