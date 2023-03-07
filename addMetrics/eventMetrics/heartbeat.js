@@ -18,20 +18,19 @@ function sendHeartbeatLog(consumer, e) {
 
 // sends breakpoint alert if required
 function sendBreakpointAlert(consumer, e) {
-  // check if breakpoint is set, lastHeartbeatDuration exists and is greater than breakpoint
+  // save last heartbeat duration
+  const lastDuration = e.timestamp - consumer.metrics.lastHeartbeat;
+  // check if breakpoint is set, lastHeartbeat is not 0, and lastDuration is greater than breakpoint
   if (
     consumer.metrics.options.heartbeat.breakpoint &&
-    consumer.metrics.lastHeartbeatDuration &&
-    consumer.metrics.lastHeartbeatDuration >
-      consumer.metrics.options.heartbeat.breakpoint
+    consumer.metrics.lastHeartbeat &&
+    lastDuration > consumer.metrics.options.heartbeat.breakpoint
   ) {
-    // save last heartbeat duration
-    const lastDuration = e.timestamp - consumer.metrics.lastHeartbeat;
     // save difference between last duration and breakpoint
     const msExceeded =
       lastDuration - consumer.metrics.options.heartbeat.breakpoint;
     console.warn(
-      `BREAKPOINT ALERT: Heartbeat breakpoint exceeded by ${msExceeded}ms for consumer ${consumer.metrics.name} (member id: ${consumer.metrics.memberId}).\nLast heartbeat duration was ${lastDuration}ms`
+      `BREAKPOINT ALERT: Heartbeat breakpoint exceeded by ${msExceeded}ms for consumer ${consumer.metrics.name} (member id: ${consumer.metrics.memberId})\nLast heartbeat duration was ${lastDuration}ms, breakpoint is ${consumer.metrics.options.heartbeat.breakpoint}`
     );
   }
 }

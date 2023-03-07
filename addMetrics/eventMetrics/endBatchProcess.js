@@ -24,7 +24,14 @@ function sendBreakpointAlert(consumer) {
     consumer.metrics.offsetLag > consumer.metrics.options.offsetLag.breakpoint
   ) {
     console.warn(
-      `BREAKPOINT ALERT: offsetLag breakpoint (${consumer.metrics.options.offsetLag.breakpoint}) exceeded for consumer ${consumer.metrics.name} (member id: ${consumer.metrics.memberId}).\nCurrent offsetLag is ${consumer.metrics.offsetLag}`
+      `BREAKPOINT ALERT: offsetLag breakpoint exceeded by ${
+        consumer.metrics.offsetLag -
+        consumer.metrics.options.offsetLag.breakpoint
+      } for consumer ${consumer.metrics.name} (member id: ${
+        consumer.metrics.memberId
+      }).\nCurrent offsetLag is ${consumer.metrics.offsetLag}, breakpoint is ${
+        consumer.metrics.options.offsetLag.breakpoint
+      }`
     );
   }
 }
