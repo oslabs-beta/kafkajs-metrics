@@ -5,26 +5,10 @@ import SideBar from './sidebar.jsx';
 class Main extends Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        //     datasets: [
-        //         {
-        //             label: 'Ummmmm',
-        //             data: [2, 8, 6, 5],
-        //         },
-        //         {
-        //             label: 'ummm2',
-        //             data: [1,3,5,7],
-        //         }
-        //     ]
-        // };
         this.state = {default: true};
         this.updateState = this.updateState.bind(this);
     }
 
-    //needs to be a component did mount for here, too
-    // if this.state.token is null, setState for token
-    // query and set state with info for all charts
 
     componentDidUpdate() {
         if (! this.state.default && ! this.state.ok) {
@@ -34,7 +18,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3000/getData', {
+        fetch('/getData', {
             method: 'POST',
            headers: {
                'Content-Type': 'application/json',
@@ -82,16 +66,13 @@ class Main extends Component {
                console.log(stateObj);
            })
            .catch((err) =>{
-               console.log('error in main token page /checktoken: ', err)
+               console.log('error in main chart page /checktoken: ', err)
            })
     }
 
     updateState() {
-        //fix update function
-        // const clone = JSON.parse(JSON.stringify(this.state));
-        // this.setState({...clone, datasets: value.datasets});
 
-        fetch('http://localhost:3000/getData', {
+        fetch('/getData', {
             method: 'POST',
            headers: {
                'Content-Type': 'application/json',
@@ -134,12 +115,13 @@ class Main extends Component {
                this.setState({...stateObjClone});
            })
            .catch((err) => {
-            console.log('err in update state', err);
+            console.log('err in update state main chart page', err);
            })
     }
 
     render() {
         console.log('this.state', this.state);
+        console.log('TYPE', this.props.type);
         if (! this.state.ok) {
             return (
                 <div>Loading!</div>
@@ -148,16 +130,10 @@ class Main extends Component {
             return (
                 <div>
                 <SideBar />
-                <ChartSection data = {this.state.charts} update = {this.updateState}/>
+                <ChartSection data = {this.state.charts} update = {this.updateState} type = {this.props.type}/>
                 </div>
                 )
         }
-        // return (
-        //     <div>
-        //     <SideBar />
-        //     <ChartSection data = {this.state} update = {this.updateState}/>
-        //     </div>
-        //     )
     }
 }
 

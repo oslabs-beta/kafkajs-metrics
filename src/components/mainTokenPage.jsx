@@ -13,8 +13,8 @@ class MainTokenPage extends Component {
 
     checkToken() {
         if (this.state.token !== null) {
-            fetch('http://localhost:3000/checktoken', {
-                 method: 'POST',
+            fetch('/checktoken', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
