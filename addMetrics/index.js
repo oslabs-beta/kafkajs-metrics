@@ -8,6 +8,8 @@ const requestQueueSize = require('./eventMetrics/requestQueueSize');
 const requestTimeout = require('./eventMetrics/requestTimeout');
 const calculateRates = require('./periodicMetrics/calculateRates');
 
+/// / this is just to have something to commit
+
 function addMetrics(obj, client, type) {
   // create empty metrics property on obj
   obj.metrics = {
