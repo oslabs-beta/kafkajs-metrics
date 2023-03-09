@@ -12,6 +12,6 @@
   "rules": {
     "no-param-reassign": 0,
     "prefer-rest-params": 0,
-    "operator-linebreak": "after"
+    "operator-linebreak": 1
   }
 }
