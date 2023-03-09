@@ -1,9 +1,11 @@
 const express = require('express');
+const path = require('path');
 const redisController = require('./controllers/redisControllers.js');
 
 const app = express();
 
 app.use(express.json());
+app.use(express.static(path.resolve(__dirname, '../../assets')));
 
 app.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', ['*']);
