@@ -52,10 +52,6 @@ function metricize(client, visualize = false, token = false) {
     );
   };
 
-<<<<<<<<< Temporary merge branch 1
-
-  // metricize producer constructor
-=========
   // add metrics to producer constructor
   const vanillaProducer = client.producer;
   client.producer = function wrapProducer() {

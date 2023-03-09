@@ -1,7 +1,7 @@
 const Redis = require('redis');
 
 const client = Redis.createClient({
-  // test.js
+  url: 'rediss://red-cg11tq4eoogv676437bg:Y2IG87W5lT5sONA63l61QGxzdtx0FGh6@ohio-redis.render.com:6379',
 });
 
 client.on('error', (err) => {
