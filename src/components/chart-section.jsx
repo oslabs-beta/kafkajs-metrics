@@ -6,32 +6,26 @@ class ChartSection extends Component {
 
     render() {
         console.log('in chart section');
-        return(
-            <div className='graphContainer'>
-                <div style={{width: 500}}>
-                <LineChart data = {this.props.data}/>
-                <LineChart data = {this.props.data}/>
-                <LineChart data = {this.props.data}/>
-                <LineChart data = {this.props.data}/>
-                <LineChart data = {this.props.data}/>
-                <LineChart data = {this.props.data}/>
-                </div>
+        console.log('props.data', this.props.data);
+        return (
+            <div>
+            <LineChart data = {this.props.data.messagesConsumed}/>
+            <LineChart data = {this.props.data.messageConsumptionRate}/>
+            <LineChart data = {this.props.data.lastHeartbeat}/>
+            <LineChart data = {this.props.data.totalRequests}/>
+            <LineChart data = {this.props.data.requestRate}/>
+            <LineChart data = {this.props.data.totalRequestTimeouts}/>
             </div>
-            
-        );
+        )
     }
 
     componentDidMount() {
         // get data from redis, setState with it
         // then start the interval to get data from redis and setState with it over and over again
         console.log('mount data', this.props.data);
-        setInterval(()=> {
-            const newData = [7, Math.random()*10, Math.random()*10, Math.random()*10, Math.random()*10, 15]
-            this.props.update({datasets: [{
-                label: 'Ummmmm',
-                data: newData,
-            }]});
-        }, 5000);
+        setInterval(() => {
+            this.props.update();
+        }, 5000)
     }
 }
 

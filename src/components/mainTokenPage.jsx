@@ -8,18 +8,35 @@ class MainTokenPage extends Component {
             token: null,
             authenticated: false,
         }
+        this.checkToken = this.checkToken.bind(this);
     }
 
-    componentDidMount() {
-        // if token is not null, query the database to check for the appropriate token key
-        // if token key is not there, don't do anything
-        // if token key is there but value does not match, alert the user
-        // if the set interval runs more than a certain number of times, alert the user that the token has expired
-        // if token matches, route to mainChartPage
-        setTimeout(() => {
-            const clone = JSON.parse(JSON.stringify(this.state));
-            this.setState({...clone, authenticated: true});
-        }, 5000);
+    checkToken() {
+        if (this.state.token !== null) {
+            fetch('/checktoken', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                body: JSON.stringify({token: this.state.token}),
+                })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    if (data.token) {
+                        const clone = JSON.parse(JSON.stringify(this.state));
+                        this.setState({...clone, authenticated: true});
+                    } else {
+                        alert('Incorrect token.');
+                    }
+    
+                })
+                .catch((err) =>{
+                    console.log('error in main token page /checktoken: ', err)
+                })
+            }
     }
 
     render() {
@@ -30,6 +47,9 @@ class MainTokenPage extends Component {
                 this.setState({...clone, token: Math.random() * 10});
             }}>generate access token</button>
             <div style={{border: 'solid'}}>{this.state.token || ''}</div>
+            <button onClick={() => {
+                this.checkToken();
+            }}>authenticate</button>
             <div style={{border: 'solid'}}>instructions:</div>
             </>
         )

@@ -8,6 +8,85 @@ const requestQueueSize = require('./eventMetrics/requestQueueSize');
 const requestTimeout = require('./eventMetrics/requestTimeout');
 const calculateRates = require('./periodicMetrics/calculateRates');
 
+function getData(promise, obj, client, type) {
+  if (type === 'consumer') {
+  if (client.metrics.options.visualize && client.metrics.options.token) {
+    client.metrics.options.consumerNum += 1;
+    // if (type === 'producer') client.metrics.options.producerNum += 1;
+    const newType = type[0].toUpperCase() + type.slice(1);
+    const clientName = `-${newType}${client.metrics.options.consumerNum}`;
+    const name = client.metrics.options.token;
+    const combinedName = client.metrics.options.token + clientName;
+    console.log('combinedName: ', combinedName);
+    fetch('http://localhost:3000/track', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name: combinedName, token: name }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('data', data);
+      })
+      .catch((err) => {
+        console.log('error in consumer track: ', err);
+      });
+
+    setInterval(() => {
+      // const dataObj = {
+      //   messagesConsumed: consumer.metrics.messagesConsumed,
+      //   offSetLag: consumer.metrics.offsetLag,
+      //   lastHeartbeat: consumer.metrics.lastHeartbeat,
+      //   totalRequests: consumer.metrics.totalRequests,
+      //   requestRate: consumer.metrics.requestRate,
+      //   timeoutRate: consumer.metrics.timeoutRate,
+      //   clientName,
+      // };
+      let dataObj;
+
+      if (type === 'consumer') {
+        dataObj = {
+          messagesConsumed: obj.metrics.messagesConsumed,
+          lastHeartbeat: obj.metrics.lastHeartbeat,
+          totalRequests: obj.metrics.totalRequests,
+          requestRate: obj.metrics.requestRate,
+          messageConsumptionRate: obj.metrics.messageConsumptionRate,
+          totalRequestTimeouts: obj.metrics.totalRequestTimeouts,
+          clientName
+        };
+      } else {
+        dataObj = {
+          totalRequests: obj.metrics.totalRequests,
+          totalRequestTimeouts: obj.metrics.totalRequestTimeouts,
+          requestRate: obj.metrics.requestRate,
+          timeoutRate: obj.metrics.timeoutRate,
+          clientName
+        };
+      }
+
+      const bodyObj = {};
+      bodyObj.name = name;
+      bodyObj.data = dataObj;
+      fetch('http://localhost:3000/data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: bodyObj, name: combinedName }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('data', data);
+        })
+        .catch((err) => {
+          console.log('error in consumer data/main chart page: ', err);
+        });
+    }, 5000);
+  }
+}
+}
+
 function addMetrics(obj, client, type) {
   // create empty metrics property on obj
   obj.metrics = {
@@ -174,6 +253,11 @@ function addMetrics(obj, client, type) {
 
   // begin calculating rate variables
   calculateRates(obj, type);
+
+  const vanillaConnect = obj.connect;
+  obj.connect = function WrapConnect() {
+    return getData(vanillaConnect.apply(this, arguments), this, client, type);
+  };
 
   // return updated object
   return obj;
