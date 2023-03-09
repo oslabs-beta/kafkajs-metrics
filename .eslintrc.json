@@ -12,6 +12,10 @@
   "rules": {
     "no-param-reassign": 0,
     "prefer-rest-params": 0,
-    "operator-linebreak": 1
+    "operator-linebreak": 0,
+    "no-use-before-define": 0,
+    "no-console": 0,
+    "prefer-template": 0,
+    "comma-dangle": 0
   }
 }

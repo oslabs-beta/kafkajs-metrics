@@ -1,8 +1,9 @@
-// require in producer/consumer/admin folders
-const consumerMetricize = require('./consumer');
-const producerMetricize = require('./producer');
-const adminMetricize = require('./admin');
+// const consumerMetricize = require('./consumer');
+// const producerMetricize = require('./producer');
+// const adminMetricize = require('./admin');
 
+// require in producer/consumer/admin folders
+const addMetrics = require('./addMetrics');
 
 // metricize kafka client
 function metricize(client, visualize = false, token = false) {
@@ -29,9 +30,9 @@ function metricize(client, visualize = false, token = false) {
   }
 
   client.metrics = {
-    totalConsumers: 0,
-    totalProducers: 0,
-    totalAdmins: 0, // modified in admin/connect.js and admin/disconnect.js
+    totalConsumers: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
+    totalProducers: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
+    totalAdmins: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
     options: {
       visualize: visualize,
       token: token,
@@ -41,23 +42,31 @@ function metricize(client, visualize = false, token = false) {
   };
 
 
-  // metricize consumer constructor
+  // add metrics to consumer constructor
   const vanillaConsumer = client.consumer;
   client.consumer = function wrapConsumer() {
-    return consumerMetricize(vanillaConsumer.apply(this, arguments), client);
+    return addMetrics(
+      vanillaConsumer.apply(this, arguments),
+      client,
+      'consumer'
+    );
   };
 
 
-  // metricize producer constructor
+  // add metrics to producer constructor
   const vanillaProducer = client.producer;
   client.producer = function wrapProducer() {
-    return producerMetricize(vanillaProducer.apply(this, arguments), client);
+    return addMetrics(
+      vanillaProducer.apply(this, arguments),
+      client,
+      'producer'
+    );
   };
 
-  // metricize admin constructor
+  // add metrics to admin constructor
   const vanillaAdmin = client.admin;
   client.admin = function wrapAdmin() {
-    return adminMetricize(vanillaAdmin.apply(this, arguments), client);
+    return addMetrics(vanillaAdmin.apply(this, arguments), client, 'admin');
   };
 
 }
