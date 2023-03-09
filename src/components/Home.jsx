@@ -2,6 +2,7 @@ import React from 'react';
 import KeyFeatureComponent from "./keyFeatureComponent.jsx"
 import howToComponents from './howToComponents.jsx';
 import Footer from './footer.jsx';
+
 export default function Home() {
     return (
     <>    

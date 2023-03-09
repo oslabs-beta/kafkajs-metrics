@@ -71,9 +71,6 @@ nav h1 {
 
 
 //side bar//
-
-
-
 .sidebarContainer a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
@@ -89,7 +86,7 @@ nav h1 {
 }
 
 .main {
-  margin-left: 140px; /* Same width as the sidebar + left position in px */
+  margin-left: 40px; /* Same width as the sidebar + left position in px */
   font-size: 28px; /* Increased text to enable scrolling */
   padding: 0px 10px;
 }
@@ -101,7 +98,7 @@ nav h1 {
 
 //HOME CONTENTS
 
-/*contents top 1/3 */
+/*contents top 1/3  of home page*/
 .container {
   display: flex;
   justify-content: center;
@@ -130,7 +127,9 @@ p{
   font-family: 'Roboto', sans-serif;
   font-size: x-large;
 }
-///// key feature container and contents
+
+
+// key feature container and contents
 .keyFeatureContainer {
   display: flex;
   justify-content: center;
@@ -161,9 +160,8 @@ p{
   color: #FF6B6B;
   display: block;
 }
-//how to componenets
+
 /// keyfeature component
-/// /// keyfeature component
 .feature {
   display: flex;
   justify-content: center;
@@ -211,7 +209,7 @@ p{
   color: #2B283A;
 }
 /// how to container 
-/// ///// key feature container and contents
+
 .howToContainer {
   display: flex;
   justify-content: center;
@@ -238,6 +236,7 @@ p{
   font-size: 60px;
   padding: 20px;
 }
+
 //how to componenets
 .howToContent {
   display: flex;
@@ -286,8 +285,132 @@ p{
   color: #2B283A;
 }
 
-//footer
-/* nav bar */
+
+//team page containers
+.TeamCardContainer {
+  display: flex;
+  justify-content: center;
+}
+.TeamCardContainerContents{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0px 36px;
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  text-align: center;
+  flex: 1;
+  justify-content: center;
+};
+.TeamContents {
+  padding: 20px; /* add some padding to the content */
+}
+.TeamContents h1, h3{
+  font-family: 'Roboto', sans-serif;
+  font-size: x-large;
+  padding: 20px;
+}
+.TeamContents h1:hover {
+  color: #FF6B6B;
+  display: block;
+}
+
+//team card components 
+.TeamCardComponents {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.TeamCard {
+  flex-basis: 100px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  padding-bottom: 20px;
+  background-color: white;
+}
+
+.TeamCard > img {
+  width: 100%;
+  height: auto;
+  align-self: center;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.TeamCard > h3 {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.TeamCardInfo{
+  display: flex;
+  align-items: center;
+}
+
+.TeamCardInfo > img {
+  height: 11px;
+  margin-right: 8px;
+}
+
+.TeamCardInfo > p {
+  margin-block: 3px;
+  font-size: 12px;
+  color: #2B283A;
+}
+
+//mainchartpage containers
+.MainChartPagecontainer {
+  display: flex;
+  justify-content: center;
+}
+
+.MainChartPagecontainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0px 36px;
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  text-align: center;
+  flex: 1;
+  justify-content: center;
+};
+.MainChartPagecontainer {
+  padding: 20px; /* add some padding to the content */
+}
+
+
+.MainCharts {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.MainCharts {
+  flex-basis: 100px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  padding-bottom: 20px;
+  background-color: white;
+  width: 500px;
+}
+
+//Footer
 .Footer {
   height: 70px;
   display: flex;
@@ -296,8 +419,6 @@ p{
   margin: 0;
   padding: 20px;
 }
-
-
 .Footer h1 {
   display: inline-block;
   margin-bottom: 10px;

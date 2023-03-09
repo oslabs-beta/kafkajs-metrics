@@ -32,9 +32,9 @@ class Main extends Component {
         console.log('type', this.props.type);
         console.log('token', this.props.token);
         return (
-        <div className='container'>
+        <div className='MainChartPagecontainer'>
           <SideBar />
-          <div>
+          <div className='MainCharts'>
              <ChartSection data = {this.state} update = {this.updateState}/>
           </div>
         </div>

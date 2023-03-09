@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
 export default function Navbar() {
     return (
         <nav className='generalNav'> 
@@ -20,7 +21,7 @@ export default function Navbar() {
                 <a href='https://github.com/oslabs-beta/kafkaMetrics.git'>GIT</a>
               </li>
               <li>
-                <a href="#">Team</a>
+                <Link to='/team'>Team</Link>
               </li>
            </ul>
           </div>
