@@ -292,6 +292,7 @@ p{
   justify-content: center;
 }
 .TeamCardContainerContents{
+  height: 500px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -310,7 +311,6 @@ p{
 }
 .TeamContents h1, h3{
   font-family: 'Roboto', sans-serif;
-  font-size: x-large;
   padding: 20px;
 }
 .TeamContents h1:hover {
@@ -339,17 +339,36 @@ p{
 
 .TeamCard > img {
   width: 100%;
-  height: auto;
-  align-self: center;
-  border-radius: 5px;
+  height: 100px; /* set the height to a fixed value */
   object-fit: cover;
+  border-radius: 5px;
 }
 
 .TeamCard > h3 {
   font-weight: 700;
   font-size: 18px;
 }
-
+.TeamCard > h3:hover {
+  color: #FF6B6B;
+  display: block;
+}
+.TeamCard > button {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  padding: 0 16px;
+  background-color: #0070d2;
+  border-radius: 0.25rem;
+  border: 1px solid #0070d2;
+  color: #fff;
+  font-size: 13px;
+  line-height: 30px;
+  font-weight: 400;
+  text-align: center;
+}
+.TeamCard > button:hover {
+  color: #fff;
+}
 .TeamCardInfo{
   display: flex;
   align-items: center;
@@ -409,6 +428,45 @@ p{
   background-color: white;
   width: 500px;
 }
+
+//visualizer
+.AuthenticContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  height: 90vh;
+}
+.AuthenticContainerContents{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  justify-items: center;
+
+  border-radius: 5%;
+  width: 200px;
+  height: auto;
+  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+};
+
+.AuthenticContainerContents > button {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  padding: 0 16px;
+  background-color: #0070d2;
+  border-radius: 0.25rem;
+  border: 1px solid #0070d2;
+  color: #fff;
+  font-size: 13px;
+  line-height: 30px;
+  font-weight: 400;
+  text-align: center;
+}
+
+
 
 //Footer
 .Footer {

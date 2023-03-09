@@ -42,15 +42,19 @@ class MainTokenPage extends Component {
     render() {
         return this.state.authenticated ? <Main type = 'consumer' token = {this.state.token}/> : (
             <>
-            <button onClick={() => {
-                const clone = JSON.parse(JSON.stringify(this.state));
-                this.setState({...clone, token: Math.random() * 10});
-            }}>generate access token</button>
-            <div style={{border: 'solid'}}>{this.state.token || ''}</div>
-            <button onClick={() => {
-                this.checkToken();
-            }}>authenticate</button>
-            <div style={{border: 'solid'}}>instructions:</div>
+            <div className='AuthenticContainer'>
+                <div className='AuthenticContainerContents'>
+                    <button onClick={() => {
+                        const clone = JSON.parse(JSON.stringify(this.state));
+                        this.setState({...clone, token: Math.random() * 10});
+                    }}>generate access token</button>
+                    <div  style={{border: 'solid'}}>{this.state.token || ''}</div>
+                    <button onClick={() => {
+                        this.checkToken();
+                    }}>authenticate</button>
+                <div style={{border: 'solid'}}>instructions:</div>
+                </div>
+            </div>     
             </>
         )
     }
