@@ -15,7 +15,18 @@ module.exports = {
               exclude: /node_modules/,
               use: ['babel-loader'],
             },
-        ],
+            {
+              test: /.(css|s[ac]ss)$/,
+              use: ['style-loader', 'css-loader', 'sass-loader'],
+            },
+            {
+              test: /\.(png|jpe?g|gif)$/i,
+              use: [
+              {
+               loader: 'file-loader',
+              }, ],
+            },
+          ],
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -48,4 +59,5 @@ module.exports = {
             },
 
     },
+ }
 }
