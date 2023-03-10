@@ -15,7 +15,6 @@ export default function App() {
                     <Route exact path = '/' element = {<Home />}/>
                     <Route path = '/visualizer' element = {<MainTokenPage />} />
                     <Route path='/mainChartPage/consumer' element={<Main type='consumer'/>}></Route>
-                    <Route path='/mainChartPage/producer' element={<Main type='producer'/>}></Route>
                     <Route path='/team' element={<TeamPage />} />
                 </Routes>
             </div>

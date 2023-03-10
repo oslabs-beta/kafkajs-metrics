@@ -9,12 +9,12 @@ class ChartSection extends Component {
         console.log('props.data', this.props.data);
         return (
             <div>
-            <LineChart data = {this.props.data.messagesConsumed}/>
-            <LineChart data = {this.props.data.messageConsumptionRate}/>
-            <LineChart data = {this.props.data.lastHeartbeat}/>
-            <LineChart data = {this.props.data.totalRequests}/>
-            <LineChart data = {this.props.data.requestRate}/>
-            <LineChart data = {this.props.data.totalRequestTimeouts}/>
+            <LineChart data = {this.props.data.messagesConsumed} name = 'messagesConsumed'/>
+            <LineChart data = {this.props.data.messageConsumptionRate} name = 'messageConsumptionRate'/>
+            <LineChart data = {this.props.data.lastHeartbeat} name = 'lastHeartbeat'/>
+            <LineChart data = {this.props.data.totalRequests} name = 'totalRequests'/>
+            <LineChart data = {this.props.data.requestRate} name = 'requestRate'/>
+            <LineChart data = {this.props.data.totalRequestTimeouts} name = 'totalRequestTimeouts'/>
             </div>
         )
     }

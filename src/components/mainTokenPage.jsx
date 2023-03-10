@@ -7,6 +7,8 @@ class MainTokenPage extends Component {
         this.state= {
             token: null,
             authenticated: false,
+            // token: 1234567,
+            // authenticated: true,
         }
         this.checkToken = this.checkToken.bind(this);
     }

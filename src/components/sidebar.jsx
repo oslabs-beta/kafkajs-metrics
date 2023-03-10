@@ -6,7 +6,6 @@ function SideBar() {
         <div className='sidebarContainer'>
         <ul>
             <Link to='/mainChartPage/consumer'>Consumer</Link>
-            <Link to='/mainChartPage/producer'>Producer</Link>
         </ul>
         </div>
     )
