@@ -283,7 +283,7 @@ function addMetrics(obj, client, type) {
        * @type {number}
        * @example
        * console.log(consumer.metrics.totalPartitions);
-       * // => prints to the console: 4
+       * // => prints to the console: 3
        */
       totalPartitions: 0, // updated in groupJoin.js
       /**
