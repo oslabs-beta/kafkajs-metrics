@@ -6,6 +6,7 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {default: true};
+ 
         this.updateState = this.updateState.bind(this);
     }
 

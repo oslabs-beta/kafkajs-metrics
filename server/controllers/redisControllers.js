@@ -2,7 +2,6 @@ const Redis = require('redis');
 
 const client = Redis.createClient({
   // test.js
-
 });
 
 client.on('error', (err) => {

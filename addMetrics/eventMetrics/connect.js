@@ -40,4 +40,4 @@ function setCurrentConnectionTimestamp(obj, e) {
   obj.metrics.currentConnectionTimestamp = e.timestamp;
 }
 
-module.exports = connect;
+module.exports = { connect, trackConnects };
