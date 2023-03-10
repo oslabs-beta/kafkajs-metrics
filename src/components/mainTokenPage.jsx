@@ -7,6 +7,7 @@ class MainTokenPage extends Component {
         this.state= {
             token: null,
             authenticated: false,
+            tokenGenerated: false,
         }
         this.checkToken = this.checkToken.bind(this);
     }
@@ -42,15 +43,23 @@ class MainTokenPage extends Component {
     render() {
         return this.state.authenticated ? <Main type = 'consumer' token = {this.state.token}/> : (
             <>
-            <button onClick={() => {
-                const clone = JSON.parse(JSON.stringify(this.state));
-                this.setState({...clone, token: Math.random() * 10});
-            }}>generate access token</button>
-            <div style={{border: 'solid'}}>{this.state.token || ''}</div>
-            <button onClick={() => {
-                this.checkToken();
-            }}>authenticate</button>
-            <div style={{border: 'solid'}}>instructions:</div>
+            <div className='AuthenticContainer'>
+                <div className='AuthenticContainerContents'>
+                    <button onClick={() => {
+                        const clone = JSON.parse(JSON.stringify(this.state));
+                        this.setState({...clone, token: Math.random() * 10, tokenGenerated: true});
+                    }}>Generate Access Token</button>
+                    <div  style={{border: 'solid', borderColor:'transparent', fontFamily: 'Roboto, sans-serif', textAlign: 'center'}}>{this.state.token || ''}</div>
+                    {this.state.tokenGenerated && 
+                    <button className='CopyButton' onClick={() => {
+                      navigator.clipboard.writeText(this.state.token);
+                     }}>Copy</button>}
+                    <button onClick={() => {
+                        this.checkToken();
+                    }}>Authenticate</button>
+                    <div style={{border: 'solid', borderColor:'transparent', fontFamily: 'Roboto, sans-serif'}}>Instructions:</div>
+                </div>
+            </div>     
             </>
         )
     }

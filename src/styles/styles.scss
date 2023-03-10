@@ -314,7 +314,6 @@ nav h1 {
 .TeamContents h1,
 h3 {
   font-family: 'Roboto', sans-serif;
-  font-size: x-large;
   padding: 20px;
 }
 .TeamContents h1:hover {
@@ -343,17 +342,36 @@ h3 {
 
 .TeamCard > img {
   width: 100%;
-  height: auto;
-  align-self: center;
-  border-radius: 5px;
+  height: 100px; /* set the height to a fixed value */
   object-fit: cover;
+  border-radius: 5px;
 }
 
 .TeamCard > h3 {
   font-weight: 700;
   font-size: 18px;
 }
-
+.TeamCard > h3:hover {
+  color: #ff6b6b;
+  display: block;
+}
+.TeamCard > button {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  padding: 0 16px;
+  background-color: #0070d2;
+  border-radius: 0.25rem;
+  border: 1px solid #0070d2;
+  color: #fff;
+  font-size: 13px;
+  line-height: 30px;
+  font-weight: 400;
+  text-align: center;
+}
+.TeamCard > button:hover {
+  color: #fff;
+}
 .TeamCardInfo {
   display: flex;
   align-items: center;
@@ -411,6 +429,53 @@ h3 {
   padding-bottom: 20px;
   background-color: $white;
   width: 500px;
+}
+
+//visualizer
+.AuthenticContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  height: 90vh;
+}
+.AuthenticContainerContents {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  justify-items: center;
+  border-radius: 5%;
+  height: auto;
+  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+}
+
+.AuthenticContainerContents > button {
+  display: inline-block;
+  cursor: pointer;
+  padding: 10px 16px;
+  background-color: #0070d2;
+  border-radius: 0.25rem;
+  border: 1px solid #0070d2;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.AuthenticContainerContents > .CopyButton {
+  display: inline-block;
+  cursor: pointer;
+  padding: 8px 12px;
+  background-color: #ff6b6b;
+  border-radius: 0.25rem;
+  font-size: 13px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 //Footer

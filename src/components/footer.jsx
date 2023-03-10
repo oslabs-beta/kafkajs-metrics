@@ -27,7 +27,7 @@ export default function Footer() {
             <a href="https://github.com/oslabs-beta/kafkaMetrics.git">GIT</a>
           </li>
           <li>
-            <a href="#">Team</a>
+            <a href="/team">Team</a>
           </li>
         </ul>
       </div>

@@ -128,9 +128,9 @@ class Main extends Component {
             )
         } else {
             return (
-                <div>
+                <div className='MainChartPageContainter'>
                 <SideBar />
-                <ChartSection data = {this.state.charts} update = {this.updateState} type = {this.props.type}/>
+                <ChartSection data = {this.state.charts} update = {this.updateState} type = {this.props.type} />
                 </div>
                 )
         }
