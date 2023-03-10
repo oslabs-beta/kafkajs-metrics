@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
 
 body {
   background-color: #FFFFFF;
@@ -292,7 +291,6 @@ p{
   justify-content: center;
 }
 .TeamCardContainerContents{
-  height: 500px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -442,28 +440,38 @@ p{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
   justify-items: center;
-
   border-radius: 5%;
-  width: 200px;
   height: auto;
   box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
 };
 
 .AuthenticContainerContents > button {
   display: inline-block;
-  outline: none;
   cursor: pointer;
-  padding: 0 16px;
+  padding: 10px 16px;
   background-color: #0070d2;
   border-radius: 0.25rem;
   border: 1px solid #0070d2;
   color: #fff;
   font-size: 13px;
-  line-height: 30px;
   font-weight: 400;
   text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.AuthenticContainerContents > .CopyButton {
+  display: inline-block;
+  cursor: pointer;
+  padding: 8px 12px;
+  background-color: #FF6B6B;
+  border-radius: 0.25rem;
+  font-size: 13px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 
