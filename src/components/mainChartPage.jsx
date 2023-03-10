@@ -6,66 +6,7 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {default: true};
-        // this.state = {
-        //     default: false,
-        //     ok: true,
-        //     charts: {
-        //         lastHeartbeat: {
-        //             datasets: [
-        //                 {
-        //                     label: 'Consumer1',
-        //                     data: [0, 15, 20, 45],
-        //                 }
-        //             ],
-        //             labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        //         },
-        //         messageConsumptionRate: {
-        //             datasets: [
-        //                 {
-        //                     label: 'Consumer1',
-        //                     data: [0, 15, 20, 45],
-        //                 }
-        //             ],
-        //             labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        //         },
-        //         messagesConsumed: {
-        //             datasets: [
-        //                 {
-        //                     label: 'Consumer1',
-        //                     data: [0, 15, 20, 45],
-        //                 }
-        //             ],
-        //             labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        //         },
-        //         requestRate: {
-        //             datasets: [
-        //                 {
-        //                     label: 'Consumer1',
-        //                     data: [0, 15, 20, 45],
-        //                 }
-        //             ],
-        //             labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        //         },
-        //         totalRequestTimeouts: {
-        //             datasets: [
-        //                 {
-        //                     label: 'Consumer1',
-        //                     data: [0, 15, 20, 45],
-        //                 }
-        //             ],
-        //             labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        //         },
-        //         totalRequests: {
-        //             datasets: [
-        //                 {
-        //                     label: 'Consumer1',
-        //                     data: [0, 15, 20, 45],
-        //                 }
-        //             ],
-        //             labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        //         }
-        //     }
-        // }
+ 
         this.updateState = this.updateState.bind(this);
     }
 
@@ -188,9 +129,9 @@ class Main extends Component {
             )
         } else {
             return (
-                <div>
+                <div className='MainChartPageContainter'>
                 <SideBar />
-                <ChartSection data = {this.state.charts} update = {this.updateState} type = {this.props.type}/>
+                <ChartSection data = {this.state.charts} update = {this.updateState} type = {this.props.type} />
                 </div>
                 )
         }

@@ -2,7 +2,7 @@ import React from 'react';
 import TeamCards from './TeamCards.jsx';
 import AmandaImg from "../../assets/Amanda.png";
 import RebeccaImg from "../../assets/Rebecca.png";
-import JoshImg from "../../assets/Josh.jpg";
+import JoshImg from "../../assets/Josh.png";
 import PaulImg from "../../assets/Paul.png";
 import RananImg from "../../assets/Ranan.png";
 
@@ -22,13 +22,13 @@ export default function TeamPage() {
                 img={RebeccaImg}
                 name="Rebecca Anderson"
             />
-            <TeamCards 
-                img={JoshImg}
-                name="Joshwa Tesoro"
-            />
             <TeamCards  
                 img={PaulImg}
                 name="Paul Davey"
+            />
+            <TeamCards 
+                img={JoshImg}
+                name="Joshwa Tesoro"
             />
             <TeamCards 
                 img={RananImg}
