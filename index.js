@@ -1,7 +1,3 @@
-// const consumerMetricize = require('./consumer');
-// const producerMetricize = require('./producer');
-// const adminMetricize = require('./admin');
-
 // require in producer/consumer/admin folders
 const addMetrics = require('./addMetrics');
 
@@ -35,7 +31,6 @@ function metricize(client, visualize = false, token = false) {
       visualize,
       token,
       consumerNum: 0,
-      producerNum: 0,
     }
   };
 
