@@ -1,5 +1,5 @@
-const connect = require('./eventMetrics/connect');
-const disconnect = require('./eventMetrics/disconnect');
+const { connect } = require('./eventMetrics/connect');
+const { disconnect } = require('./eventMetrics/disconnect');
 const endBatchProcess = require('./eventMetrics/endBatchProcess');
 const groupJoin = require('./eventMetrics/groupJoin');
 const heartbeat = require('./eventMetrics/heartbeat');

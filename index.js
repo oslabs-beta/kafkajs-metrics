@@ -37,7 +37,6 @@ function metricize(client, visualize = false, token = false) {
       visualize: visualize,
       token: token,
       consumerNum: 0,
-      producerNum: 0,
     }
   };
 
