@@ -8,7 +8,7 @@ class ChartSection extends Component {
         console.log('in chart section');
         console.log('props.data', this.props.data);
         return (
-            <div>
+            <div className='Charts' style={{width: '500px'}}>
             <LineChart data = {this.props.data.messagesConsumed}/>
             <LineChart data = {this.props.data.messageConsumptionRate}/>
             <LineChart data = {this.props.data.lastHeartbeat}/>
