@@ -150,8 +150,8 @@ nav h1 {
   }
 }
 
-// key feature container
-.keyFeatures {
+// homepage section container
+.homepageSection {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -172,15 +172,16 @@ nav h1 {
   }
 }
 
-/// keyfeature component
-.keyFeatureCardArea {
+.cardArea {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 40px;
 }
 
-.keyFeatureCard {
+// individual feature cards
+
+.card {
   flex-basis: 225px;
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -210,83 +211,10 @@ nav h1 {
     font-size: 12px;
     color: $white;
   }
-}
 
-/// how to container
-
-.howToContainer {
-  display: flex;
-  justify-content: center;
-}
-.howToContainerContents {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 0px 36px;
-  margin-top: 50px;
-  margin-left: 50px;
-  margin-right: 50px;
-  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  text-align: center;
-  flex: 1;
-  justify-content: center;
-}
-// .contents {
-//   padding: 20px; /* add some padding to the content */
-// }
-// .contents h1 {
-//   font-family: 'Roboto', sans-serif;
-//   font-size: 60px;
-//   padding: 20px;
-// }
-
-//how to componenets
-.howToContent {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-}
-
-.howToCard {
-  flex-basis: 225px;
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  padding: 13px;
-  padding-bottom: 20px;
-  background-color: $white;
-}
-
-.howToCard > img {
-  width: 100%;
-  height: auto;
-  align-self: center;
-  border-radius: 5px;
-  object-fit: cover;
-}
-
-.howToCard > h3 {
-  font-weight: 700;
-  font-size: 18px;
-}
-
-.howToCardInfo {
-  display: flex;
-  align-items: center;
-}
-
-.howToCardInfo > img {
-  height: 11px;
-  margin-right: 8px;
-}
-
-.howToCardInfo > p {
-  margin-block: 3px;
-  font-size: 12px;
-  color: $darkblue;
+  li {
+    text-align: left;
+  }
 }
 
 //team page containers
