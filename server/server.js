@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const redisController = require('./controllers/redisControllers.js');
+const redisController = require('./controllers/redisControllers');
 
 const app = express();
 
