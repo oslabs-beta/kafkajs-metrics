@@ -126,6 +126,7 @@ redisController.getData = (req, res, next) => {
       if (data !== 'true' && data !== 'ok') {
         // data currently is combined hash plus consumer Name
         res.locals.finalData[data] = await client.get(data);
+
         // ** below option only sends consumerName ('clientName') to frontend,
         // **(not hashed token + consumerName)
         // const metricsObj = await client.get(data);
