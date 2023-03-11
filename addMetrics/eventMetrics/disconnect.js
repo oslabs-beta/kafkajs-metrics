@@ -11,16 +11,16 @@ function disconnect(obj, client, type) {
 
 // updates isConnected for obj and totalConsumers (etc.) for client on obj disconnect
 function trackDisconnects(obj, client, type) {
-  if (obj.metrics.isConnected === false) {
+  if (obj.metrics.isConnected === true) {
     switch (type) {
       case 'consumer':
-        client.metrics.totalConsumers += 1;
+        client.metrics.totalConsumers -= 1;
         break;
       case 'producer':
-        client.metrics.totalProducers += 1;
+        client.metrics.totalProducers -= 1;
         break;
       case 'admin':
-        client.metrics.totalAdmins += 1;
+        client.metrics.totalAdmins -= 1;
         break;
       default:
         console.error(
@@ -48,4 +48,4 @@ function resetHeartbeatMetrics(consumer) {
   consumer.metrics.longestHeartbeatDuration = 0;
 }
 
-module.exports = disconnect;
+module.exports = { disconnect, trackDisconnects };

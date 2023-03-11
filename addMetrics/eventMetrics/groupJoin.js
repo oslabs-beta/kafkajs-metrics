@@ -20,4 +20,4 @@ function setTotalPartitions(consumer, e) {
   consumer.metrics.totalPartitions = sum;
 }
 
-module.exports = groupJoin;
+module.exports = { groupJoin, setTotalPartitions };
