@@ -22,29 +22,38 @@ a {
   text-decoration: none;
 }
 
+h1 {
+  font-size: 60px;
+  color: $salmon;
+  padding: 20px;
+}
+
 /* nav bar */
 nav {
-  background-color: $turquoise;
+  background-color: lighten($darkblue, 2%);
   height: 120px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   padding: 0px 40px;
-  h1 a {
-    display: inline-block;
+  h1 {
+    padding: 0px;
     font-size: 40px;
     font-weight: 900;
-    color: $darkblue;
+    display: inline-block;
+    a {
+      color: $turquoise;
+    }
   }
   .links a {
     display: inline-block;
-    color: $darkblue;
+    color: $salmon;
     font-size: 18px;
     padding: 1em;
     display: inline-block;
     text-decoration: none;
-    @media (max-width: 760px) {
+    @media screen and (max-width: 790px) {
       display: none;
     }
   }
@@ -86,7 +95,7 @@ nav {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 40px;
+  padding: 20px 40px 40px 40px;
   margin: 40px;
   box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
@@ -124,16 +133,24 @@ nav {
 // homepage section container
 .homepageSection {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   margin-bottom: 50px;
   text-align: center;
   flex: 1;
   justify-content: center;
-  h1 {
-    font-size: 60px;
-    color: $salmon;
-    padding: 20px;
+}
+
+.cardGrid {
+  display: grid;
+  margin: 0px 40px;
+  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  @media screen and (max-width: 1780px) and (min-width: 910px) {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+  }
+  @media screen and (min-width: 1780px) {
+    grid-template-columns: repeat(6, minmax(250px, 1fr));
   }
 }
 
@@ -142,12 +159,13 @@ nav {
   justify-content: center;
   flex-wrap: wrap;
   gap: 40px;
+  margin: 0px 40px;
 }
 
 // individual feature cards
 
 .card {
-  flex-basis: 225px;
+  flex-basis: 250px;
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   display: flex;
@@ -160,7 +178,7 @@ nav {
     width: 100%;
     height: auto;
     align-self: center;
-    border-radius: 5px;
+    border-radius: 10px;
     object-fit: cover;
   }
 
@@ -181,39 +199,9 @@ nav {
   }
 }
 
-//team page containers
-.TeamCardContainer {
-  display: flex;
-  justify-content: center;
-}
-.TeamCardContainerContents {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 0px 36px;
-  margin-top: 50px;
-  margin-left: 50px;
-  margin-right: 50px;
-  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  text-align: center;
-  flex: 1;
-  justify-content: center;
-}
-.TeamContents {
-  padding: 20px; /* add some padding to the content */
-  h1,
-  h3 {
-    padding: 20px;
-  }
-  h1:hover {
-    color: $salmon;
-    display: block;
-  }
-}
+// team cards
 
-//team card components
-.TeamCardComponents {
+.teamCardGrid {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -221,62 +209,37 @@ nav {
 }
 
 .TeamCard {
-  flex-basis: 100px;
+  width: 200px;
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  padding: 8px;
-  padding-bottom: 20px;
-  background-color: $white;
-}
-
-.TeamCard > img {
-  width: 100%;
-  height: 100px; /* set the height to a fixed value */
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.TeamCard > h3 {
-  font-weight: 700;
-  font-size: 18px;
-}
-.TeamCard > h3:hover {
-  color: #ff6b6b;
-  display: block;
-}
-.TeamCard > button {
-  display: inline-block;
-  outline: none;
-  cursor: pointer;
-  padding: 0 16px;
-  background-color: #0070d2;
-  border-radius: 0.25rem;
-  border: 1px solid #0070d2;
-  color: #fff;
-  font-size: 13px;
-  line-height: 30px;
-  font-weight: 400;
-  text-align: center;
-}
-.TeamCard > button:hover {
-  color: #fff;
-}
-.TeamCardInfo {
-  display: flex;
-  align-items: center;
-}
-
-.TeamCardInfo > img {
-  height: 11px;
-  margin-right: 8px;
-}
-
-.TeamCardInfo > p {
-  margin-block: 3px;
-  font-size: 12px;
-  color: $darkblue;
+  padding: 10px;
+  background-color: lighten($darkblue, 2%);
+  img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  h3 {
+    font-weight: 700;
+    font-size: 20px;
+    color: $turquoise;
+    margin-bottom: 0px;
+  }
+  p {
+    margin-top: 10px;
+    margin-bottom: 25px;
+  }
+  .logoBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  .logo {
+    width: 30px;
+    border-radius: 0px;
+  }
 }
 
 //mainchartpage containers
@@ -369,49 +332,33 @@ nav {
   margin-bottom: 10px;
 }
 
-//Footer
-.Footer {
-  height: 70px;
+// footer
+.footer {
+  background-color: lighten($darkblue, 2%);
+  height: 120px;
   display: flex;
   justify-content: space-between;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  align-items: center;
   margin: 0;
-  padding: 20px;
-}
-.Footer h1 {
-  display: inline-block;
-  margin-bottom: 10px;
-  margin-left: 100px;
-  font-size: 15px;
-  font-weight: bold;
-  color: $darkblue;
-}
-
-.footer-links ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.footer-links li {
-  display: inline-block;
-  color: $salmon;
-  padding: 1em;
-  margin-top: 15px;
-  margin-right: 60px;
-  display: inline-block;
-  font-size: 12px;
-  text-decoration: none;
-}
-.footer-links li a:link {
-  color: $darkblue;
-  text-decoration: none;
-}
-.footer-links li a:visited {
-  color: $darkblue;
-  text-decoration: none;
-}
-.footer-links li a:hover {
-  color: $salmon;
-  display: block;
+  padding: 0px 40px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  .disclaimer {
+    display: inline-block;
+    width: 335px;
+    font-size: 12px;
+    color: $white;
+  }
+  .links a {
+    display: inline-block;
+    color: $salmon;
+    font-size: 18px;
+    padding: 1em;
+    display: inline-block;
+    text-decoration: none;
+    @media screen and (max-width: 760px) {
+      display: none;
+    }
+  }
 }
