@@ -26,28 +26,35 @@ app.get(
 );
 
 // coming from kafkaMetrics index.js fetch request - adds token as key and [true] as value to Redis
-// *** ADD BCRYPT FUNCTIONALITY
+// *** ADD BCRYPT FUNCTIONALITY - run through bcrypt before setting token
 app.post('/token', redisController.setToken, (req, res) => {
   res.status(200).json({ success: 'ok' });
 });
 
 // coming from mainTokenPage onclick for authenticate button - verifies that token on req body exists as key in Redis database, returns true or false { token: true/false }
+// *** ADD BCRYPT FUNCTIONALITY
+// *** ADD check for cookie if req.token doesn't exist - if cookie exists, consider sending it back to frontend to update state token property
 app.post('/checktoken', redisController.checkToken, (req, res) => {
   console.log('res.locals.check', res.locals.check);
   res.status(200).json({ token: res.locals.check });
 });
 
 // coming from kafkaMetrics addMetrics/index.js and sent on an setInterval of 5000ms, req.body includes data object; if this is the first time data is set for this consumer instance, a key is created in Redis with consumer name and value is set to data obj; when this occurs again, saved data object is overwritten with new req data object
+// ? add in redisController.checkToken AND include token on req.body in index.js in kafkaMetrics
+// *** if checkToken middleware is added, BCRYPT needs to be added
 app.post('/data', redisController.setData, (req, res) => {
   res.status(200).json({ success: 'good' });
 });
 
 // coming from mainChartPage in updateState and componentDidMount - req.body includes token. getData controller accesses array list value in Redis associated with token, then uses consumer names from that array to access all consumer's data metrics objects. res.locals.finalData is an object containing consumer names as keys and their data objects as associated values
+// *** ADD check for cookie if req.token doesn't exist - if cookie exists, consider sending it back to frontend to update state token property
+// *** ADD BCRYPT
 app.post('/getData', redisController.getData, (req, res) => {
   res.status(200).json({ data: res.locals.finalData });
 });
 
 // coming from kafkaMetrics addMetrics/index.js, req.body includes name: combinedName and token: token; redisController.track pushes name to Redis token value list
+// ADD BCRYPT
 app.post('/track', redisController.track, (req, res) => {
   res.status(200).json({ success: 'ok' });
 });
