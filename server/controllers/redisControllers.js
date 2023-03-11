@@ -2,6 +2,7 @@ const Redis = require('redis');
 
 const client = Redis.createClient({
   // test.js
+  url: 'rediss://red-cg11tq4eoogv676437bg:Y2IG87W5lT5sONA63l61QGxzdtx0FGh6@ohio-redis.render.com:6379',
 });
 
 client.on('error', (err) => {
@@ -48,6 +49,7 @@ const setInstances = async (name, token, next) => {
 
 const redisController = {};
 
+// establish token as key in database, establish value as an array
 redisController.setToken = (req, res, next) => {
   if (!req.body.token) {
     return next({
@@ -70,6 +72,7 @@ redisController.checkToken = (req, res, next) => {
 //     });
 //   }
   const { token } = req.body;
+  // query the database for the token recieved from front end to authorize
   const checkRedisToken = async (token, client) => {
     try {
       const data = await client.lRange(token.toString(), 0, -1);
@@ -94,6 +97,8 @@ redisController.setData = (req, res, next) => {
 //       message: { err: 'recieved unexpected input' },
 //     });
 //   }
+
+  // input the whole data object recieved into database
   const { name, data } = req.body;
   setData(name, data, next);
   return next();
@@ -109,7 +114,11 @@ redisController.getData = (req, res, next) => {
 //   }
   const { token } = req.body;
   res.locals.finalData = {};
+
+  // iterate through the array of all the client instances and retrieve data for each one
   const getValues = async (token, client) => {
+    await client.disconnect();
+    await client.connect();
     const arr = await client.lRange(token.toString(), 0, -1);
     let count = 0;
     arr.forEach(async (data) => {
@@ -136,6 +145,8 @@ redisController.track = (req, res, next) => {
 //       message: { err: 'recieved unexpected input' },
 //     });
 //   }
+
+  // add each consumer instance to an array with the key of the token passed into metricize 
   const { name, token } = req.body;
   setInstances(name, token.toString(), next);
   return next();

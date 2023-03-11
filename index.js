@@ -3,10 +3,9 @@ const addMetrics = require('./addMetrics');
 
 // metricize kafka client
 function metricize(client, visualize = false, token = false) {
-  // create client.metrics property for global metrics
-
+  // if visualize and token have been passed into metricize function, send token to route /token
   if (visualize && token) {
-    // post request to token
+
     fetch('http://localhost:3000/token', {
       method: 'POST',
       headers: {
@@ -23,6 +22,7 @@ function metricize(client, visualize = false, token = false) {
       });
   }
 
+  // create client.metrics property for global metrics
   client.metrics = {
     totalConsumers: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
     totalProducers: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
@@ -30,7 +30,7 @@ function metricize(client, visualize = false, token = false) {
     options: {
       visualize,
       token,
-      consumerNum: 0,
+      consumerNum: 0, // modified in addMetrics/index.js
     }
   };
 
@@ -43,8 +43,6 @@ function metricize(client, visualize = false, token = false) {
       'consumer'
     );
   };
-
-  // metricize producer constructor
 
   // add metrics to producer constructor
   const vanillaProducer = client.producer;

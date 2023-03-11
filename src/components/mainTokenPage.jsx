@@ -13,6 +13,7 @@ class MainTokenPage extends Component {
     }
 
     checkToken() {
+        // post request to /checktoken to see if token is in database
         if (this.state.token !== null) {
             fetch('/checktoken', {
                 method: 'POST',
