@@ -1,4 +1,4 @@
-import { trackDisconnects } from '../addMetrics/eventMetrics/disconnect';
+import { trackDisconnects } from '../../addMetrics/eventMetrics/disconnect';
 
 describe('trackDisconnects function', () => {
   let kafkaInstance;

@@ -332,6 +332,14 @@ nav {
   margin-bottom: 10px;
 }
 
+.LoadingPage {
+  background-color: $darkblue;
+  text-align: center;
+  font-size: 5em;
+  height: 100%;
+}
+
+
 // footer
 .footer {
   background-color: lighten($darkblue, 2%);

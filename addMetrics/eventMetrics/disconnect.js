@@ -10,27 +10,6 @@ function disconnect(obj, client, type) {
 }
 
 // updates isConnected for obj and totalConsumers (etc.) for client on obj disconnect
-// function trackDisconnects(obj, client, type) {
-//   if (obj.metrics.isConnected === false) {
-//     switch (type) {
-//       case 'consumer':
-//         client.metrics.totalConsumers += 1;
-//         break;
-//       case 'producer':
-//         client.metrics.totalProducers += 1;
-//         break;
-//       case 'admin':
-//         client.metrics.totalAdmins += 1;
-//         break;
-//       default:
-//         console.error(
-//           'ERROR: switch statement reached default case in addMetrics/disconnect.js'
-//         );
-//     }
-//     obj.metrics.isConnected = false;
-//   }
-// }
-
 function trackDisconnects(obj, client, type) {
   if (obj.metrics.isConnected === true) {
     switch (type) {

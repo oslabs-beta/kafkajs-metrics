@@ -5,7 +5,7 @@ function SideBar() {
     return (
         <div className='sidebarContainer'>
         <ul>
-            <Link to='/mainChartPage/consumer'>Consumer</Link>
+            <div>Consumer</div>
         </ul>
         </div>
     )
