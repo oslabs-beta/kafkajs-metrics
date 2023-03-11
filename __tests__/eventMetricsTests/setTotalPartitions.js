@@ -1,4 +1,4 @@
-const { setTotalPartitions } = require('../addMetrics/eventMetrics/groupJoin');
+const { setTotalPartitions } = require('../../addMetrics/eventMetrics/groupJoin');
 
 describe('setTotalPartitions function', () => {
   let consumer;
