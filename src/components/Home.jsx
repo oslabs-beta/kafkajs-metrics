@@ -3,6 +3,11 @@ import React from 'react';
 import ImageCard from './ImageCard.jsx';
 import Footer from './footer.jsx';
 import CodeCard from './CodeCard.jsx';
+import code01 from '../../assets/code-snippets/code01.jpeg';
+import code02 from '../../assets/code-snippets/code02.jpeg';
+import code03 from '../../assets/code-snippets/code03.jpeg';
+import snapImg from '../../assets/code-snippets/snap.png';
+import jsImg from '../../assets/code-snippets/js.png';
 
 export default function Home() {
   return (
@@ -35,19 +40,19 @@ export default function Home() {
       </div>
       <div className="homepageSection">
         <h1>Key Features</h1>
-        <div className="cardArea">
+        <div className="cardGrid">
           <ImageCard
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+            img={code01}
             name="Event-Based Metrics"
             desc="Harness the power of KafkaJS's instrumentation events without lifting a finger—KJSM provides a full suite of live-updating metrics as soon as it's run"
           />
           <ImageCard
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+            img={code02}
             name="Breakpoint Alerts"
             desc="Monitor your KafkaJS client on your own terms with KJSM's customizable breakpoint alerts"
           />
           <ImageCard
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+            img={code03}
             name="Console Logs"
             desc="Keep an eye on your client's health the easy way with optional preconfigured console logs"
           />
@@ -57,12 +62,12 @@ export default function Home() {
             desc="Watch your consumer metrics in real time with the KJSM visualizer—just plug in a unique ID and spin up your client"
           />
           <ImageCard
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+            img={snapImg}
             name="Easy To Use"
             desc="No need to rewrite your KafkaJS client! Just add one line of code, and KJSM generates metrics for all your consumers, producers, and admins"
           />
           <ImageCard
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+            img={jsImg}
             name="Lean and Clean"
             desc="Just like KafkaJS, KJSM is lightweight, dependency-free, and 100% JavaScript. Choose between a streamlined library or add optional visualizer connectivity"
           />
@@ -132,18 +137,13 @@ export default function Home() {
             ]}
             name="Add Visualization"
             desc={[
-              'The KafkaJSMetrics visualizer monitors the health of your consumers ',
+              'The ',
               <a key="link" href="/#/visualizer">
-                here
+                KafkaJSMetrics visualizer
               </a>,
-              '. To use the online visualizer, install the visualizer-enabled version of the library and pass your secret key into the metricize function',
+              ' monitors the health of your consumers with a variety of charts. To use the visualizer, install the visualization-enabled version of the library and pass your secret key into the metricize function',
             ]}
           />
-          {/* <CodeCard
-            img="https://cdn-icons-png.flaticon.com/512/2257/2257295.png"
-            name="Logs"
-            desc="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
-          /> */}
         </div>
       </div>
       <Footer />
