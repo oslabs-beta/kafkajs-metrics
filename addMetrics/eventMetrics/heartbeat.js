@@ -11,7 +11,7 @@ function sendHeartbeatLog(consumer, e) {
   // check if logOn is true
   if (consumer.metrics.options.heartbeat.logOn) {
     console.log(
-      `heartbeat emitted at ${e.timestamp} for consumer ${consumer.metrics.name} member id: ${consumer.metrics.memberId})`
+      `heartbeat emitted at ${e.timestamp} for consumer ${consumer.metrics.name} (member id: ${consumer.metrics.memberId})`
     );
   }
 }
