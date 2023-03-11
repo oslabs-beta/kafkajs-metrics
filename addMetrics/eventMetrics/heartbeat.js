@@ -52,4 +52,4 @@ function setLastHeartbeat(consumer, e) {
   }
 }
 
-module.exports = heartbeatOn;
+module.exports = { heartbeatOn, setLastHeartbeat };
