@@ -8,12 +8,9 @@ export default function Navbar() {
         <Link to="/">KafkaJSMetrics</Link>
       </h1>
       <div className="links">
-        <a href="https://github.com/oslabs-beta/kafkaMetrics.git">Docs</a>
-
         <Link to="/visualizer">Visualizer</Link>
-
+        <a href="https://github.com/oslabs-beta/kafkaMetrics.git">Docs</a>
         <a href="https://github.com/oslabs-beta/kafkaMetrics.git">GitHub</a>
-
         <Link to="/team">Team</Link>
       </div>
     </nav>
