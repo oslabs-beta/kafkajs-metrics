@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import ImageCard from './ImageCard.jsx';
 import Footer from './footer.jsx';
@@ -85,14 +86,15 @@ export default function Home() {
                   // require metricize function<br></br>
                 </code>
                 <code>
-                  const &#123;metricize&#125; = require('../kafkaMetrics');
+                  const &#123; metricize &#125; =
+                  require(&apos;kafkajs-metrics&apos;);
                   <br></br>
                   <br></br>
                 </code>
                 <code className="greyout">
                   // metricize your client<br></br>
                 </code>
-                <code>metricize(clientName)</code>
+                <code>metricize(clientName);</code>
               </>,
             ]}
             desc={[
@@ -104,19 +106,44 @@ export default function Home() {
             ]}
           />
           <CodeCard
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+            code={[
+              <>
+                <code className="greyout">
+                  // install from the command line<br></br>
+                </code>
+                <code>
+                  npm install kafkajs-metrics-visualize<br></br>
+                  <br></br>
+                </code>
+                <code className="greyout">
+                  // require metricize function<br></br>
+                </code>
+                <code>
+                  const &#123; metricize &#125; =
+                  require(&apos;kafkajs-metrics-visualize&apos;);
+                  <br></br>
+                  <br></br>
+                </code>
+                <code className="greyout">
+                  // metricize your client<br></br>
+                </code>
+                <code>metricize(clientName, true, UNIQUE_ID_HERE);</code>
+              </>,
+            ]}
             name="Add Visualization"
             desc={[
               'The KafkaJSMetrics visualizer monitors the health of your consumers ',
-              <a href="/visualizer">here</a>,
-              '. To use this, install the visualizer-enabled version of the library and pass your secret key into the metricize function',
+              <a key="link" href="/#/visualizer">
+                here
+              </a>,
+              '. To use the online visualizer, install the visualizer-enabled version of the library and pass your secret key into the metricize function',
             ]}
           />
-          <CodeCard
+          {/* <CodeCard
             img="https://cdn-icons-png.flaticon.com/512/2257/2257295.png"
             name="Logs"
             desc="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
-          />
+          /> */}
         </div>
       </div>
       <Footer />
