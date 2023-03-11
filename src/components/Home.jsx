@@ -6,6 +6,7 @@ import CodeCard from './CodeCard.jsx';
 import code01 from '../../assets/code-snippets/code01.jpeg';
 import code02 from '../../assets/code-snippets/code02.jpeg';
 import code03 from '../../assets/code-snippets/code03.jpeg';
+import chartsImg from '../../assets/code-snippets/charts.png';
 import snapImg from '../../assets/code-snippets/snap.png';
 import jsImg from '../../assets/code-snippets/js.png';
 
@@ -57,7 +58,7 @@ export default function Home() {
             desc="Keep an eye on your client's health the easy way with optional preconfigured console logs"
           />
           <ImageCard
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+            img={chartsImg}
             name="Visualization"
             desc="Watch your consumer metrics in real time with the KJSM visualizer—just plug in a unique ID and spin up your client"
           />
@@ -108,6 +109,7 @@ export default function Home() {
                 <li key="1">npm install</li>
                 <li key="2">require</li> <li key="3">metricize</li>
               </ol>,
+              'TKTK add links to readme and documentation here',
             ]}
           />
           <CodeCard

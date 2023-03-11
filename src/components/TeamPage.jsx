@@ -40,7 +40,7 @@ export default function TeamPage() {
             img={JoshImg}
             name="Joshwa Tesoro"
             gitHubLink="https://github.com/jshwatsoro"
-            linkedInLink=""
+            linkedInLink="https://www.linkedin.com/in/joshwa-tesoro/"
           />
         </div>
       </div>
