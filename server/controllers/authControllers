@@ -1,0 +1,24 @@
+const bcrypt = require('bcrypt');
+
+const authController = {};
+
+authController.encrypt = (req, res, next) => {
+  const saltRounds = 10;
+  const myToken = res.locals.token ? res.locals.token : req.body.token;
+  res.locals.token = myToken;
+  console.log('token: ', res.locals.token);
+  try {
+    const hash = bcrypt.hashSync(myToken.toString(), saltRounds);
+    console.log('hash', hash);
+    res.locals.bToken = hash;
+    return next();
+  } catch (error) {
+    return next({
+      log: 'error in encrypt middleware',
+      status: 500,
+      message: { err: error },
+    });
+  }
+};
+
+module.exports = authController;

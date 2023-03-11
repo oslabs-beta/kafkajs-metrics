@@ -55,15 +55,16 @@ const setInstances = async (name, token, next) => {
 
 const redisController = {};
 
+// extracting encrypted token, passing in to setRedisToken
 redisController.setToken = (req, res, next) => {
-  if (!req.body.token) {
+  if (!res.locals.bToken) {
     return next({
       log: 'error occured while extracting token from request body in setToken middleware',
-      status: 200,
+      status: 500,
       message: { err: 'recieved unexpected input' },
     });
   }
-  const { token } = req.body;
+  const { token } = res.locals.bToken;
   setRedisToken(token.toString(), next);
   return next();
 };
@@ -76,7 +77,7 @@ redisController.checkToken = (req, res, next) => {
   //       message: { err: 'recieved unexpected input' },
   //     });
   //   }
-  const { token } = req.body;
+  const token = res.locals.bToken;
   const checkRedisToken = async (token, client) => {
     try {
       const data = await client.lRange(token.toString(), 0, -1);
@@ -116,14 +117,20 @@ redisController.getData = (req, res, next) => {
   //       message: { err: 'recieved unexpected input' },
   //     });
   //   }
-  const { token } = req.body;
+  const token = res.locals.bToken;
   res.locals.finalData = {};
   const getValues = async (token, client) => {
     const arr = await client.lRange(token.toString(), 0, -1);
     let count = 0;
     arr.forEach(async (data) => {
       if (data !== 'true' && data !== 'ok') {
+        // data currently is combined hash plus consumer Name
         res.locals.finalData[data] = await client.get(data);
+        // ** below option only sends consumerName ('clientName') to frontend,
+        // **(not hashed token + consumerName)
+        // const metricsObj = await client.get(data);
+        // const { clientName } = metricsObj;
+        // res.locals.finalData[clientName] = metricsObj
       }
 
       count += 1;
@@ -137,6 +144,8 @@ redisController.getData = (req, res, next) => {
   getValues(token, client);
 };
 
+// *** TO DO: use Bcrypt to hash token and then create combinedName at line 151;
+// everything below 152 stays the same
 redisController.track = (req, res, next) => {
   //   if (!req.body.name || !req.body.data) {
   //     return next({
