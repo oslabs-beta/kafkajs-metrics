@@ -1,7 +1,14 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
-import KeyFeatureComponent from './keyFeatureComponent.jsx';
-import howToComponents from './howToComponents.jsx';
+import ImageCard from './ImageCard.jsx';
 import Footer from './footer.jsx';
+import CodeCard from './CodeCard.jsx';
+import code01 from '../../assets/code-snippets/code01.jpeg';
+import code02 from '../../assets/code-snippets/code02.jpeg';
+import code03 from '../../assets/code-snippets/code03.jpeg';
+import chartsImg from '../../assets/code-snippets/charts.png';
+import snapImg from '../../assets/code-snippets/snap.png';
+import jsImg from '../../assets/code-snippets/js.png';
 
 export default function Home() {
   return (
@@ -32,63 +39,131 @@ export default function Home() {
           </code>
         </div>
       </div>
-      <div className="keyFeatures">
+      <div className="homepageSection">
         <h1>Key Features</h1>
-        <div className="keyFeatureCardArea">
-          <KeyFeatureComponent
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+        <div className="cardGrid">
+          <ImageCard
+            img={code01}
             name="Event-Based Metrics"
             desc="Harness the power of KafkaJS's instrumentation events without lifting a finger—KJSM provides a full suite of live-updating metrics as soon as it's run"
           />
-          <KeyFeatureComponent
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+          <ImageCard
+            img={code02}
             name="Breakpoint Alerts"
             desc="Monitor your KafkaJS client on your own terms with KJSM's customizable breakpoint alerts"
           />
-          <KeyFeatureComponent
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+          <ImageCard
+            img={code03}
             name="Console Logs"
             desc="Keep an eye on your client's health the easy way with optional preconfigured console logs"
           />
-          <KeyFeatureComponent
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+          <ImageCard
+            img={chartsImg}
             name="Visualization"
             desc="Watch your consumer metrics in real time with the KJSM visualizer—just plug in a unique ID and spin up your client"
           />
-          <KeyFeatureComponent
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+          <ImageCard
+            img={snapImg}
             name="Easy To Use"
-            desc="No need to rewrite your KafkaJS client—just npm install, write one line of code, and KJSM adds metrics for all your consumers, producers, and admins"
+            desc="No need to rewrite your KafkaJS client! Just add one line of code, and KJSM generates metrics for all your consumers, producers, and admins"
           />
-          <KeyFeatureComponent
-            img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
+          <ImageCard
+            img={jsImg}
             name="Lean and Clean"
-            desc="Just like KafkaJS, KJSM is lightweight, dependency-free, and 100% JavaScript"
+            desc="Just like KafkaJS, KJSM is lightweight, dependency-free, and 100% JavaScript. Choose between a streamlined library or add optional visualizer connectivity"
           />
         </div>
       </div>
-      <div className="howToContainer">
-        <div className="howToContainerContents">
-          <div className="contents">
-            <h1>How to download</h1>
-            <div className="howToContent">
-              <KeyFeatureComponent
-                name="Instrumentation Events"
-                img="https://cdn-icons-png.flaticon.com/512/2257/2257295.png"
-                desc="Lorem Ipsu is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
-              />
-              <KeyFeatureComponent
-                img="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg"
-                name="Breakpoint Alerts"
-                desc="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
-              />
-              <KeyFeatureComponent
-                img="https://cdn-icons-png.flaticon.com/512/2257/2257295.png"
-                name="Logs"
-                desc="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
-              />
-            </div>
-          </div>
+      <div className="homepageSection">
+        <h1>Get Started</h1>
+        <div className="cardArea">
+          <CodeCard
+            name="Easy as 1-2-3"
+            code={[
+              <>
+                <code className="greyout">
+                  // install from the command line<br></br>
+                </code>
+                <code>
+                  npm install kafkajs-metrics<br></br>
+                  <br></br>
+                </code>
+                <code className="greyout">
+                  // require metricize function<br></br>
+                </code>
+                <code>
+                  const &#123; metricize &#125; =
+                  require(&apos;kafkajs-metrics&apos;);
+                  <br></br>
+                  <br></br>
+                </code>
+                <code className="greyout">
+                  // metricize your client<br></br>
+                </code>
+                <code>metricize(clientName);</code>
+              </>,
+            ]}
+            desc={[
+              'You can turn your KafkaJS client into a metrics-rich environment in just 3 steps:',
+              <ol key="list">
+                <li key="1">npm install</li>
+                <li key="2">require</li> <li key="3">metricize</li>
+              </ol>,
+              'For more detailed instructions on getting started, ',
+              <a
+                key="readme"
+                href="https://github.com/oslabs-beta/kafkaMetrics/blob/main/README.md"
+              >
+                check out the readme
+              </a>,
+              '. For a full list of metrics and how to use them, ',
+              <a key="docs" href="/docs/index.html">
+                see our documentation
+              </a>,
+              '.',
+            ]}
+          />
+          <CodeCard
+            code={[
+              <>
+                <code className="greyout">
+                  // install from the command line<br></br>
+                </code>
+                <code>
+                  npm install kafkajs-metrics-visualize<br></br>
+                  <br></br>
+                </code>
+                <code className="greyout">
+                  // require metricize function<br></br>
+                </code>
+                <code>
+                  const &#123; metricize &#125; =
+                  require(&apos;kafkajs-metrics-visualize&apos;);
+                  <br></br>
+                  <br></br>
+                </code>
+                <code className="greyout">
+                  // metricize your client<br></br>
+                </code>
+                <code>metricize(clientName, true, UNIQUE_ID_HERE);</code>
+              </>,
+            ]}
+            name="Add Visualization"
+            desc={[
+              'The ',
+              <a key="link" href="/#/visualizer">
+                KafkaJSMetrics visualizer
+              </a>,
+              ' monitors the health of your consumers with a variety of charts. To use the visualizer, install the visualization-enabled version of the library and pass your secret key into the metricize function. More information on using the visualizer is available in ',
+              <a
+                key="readme"
+                href="https://github.com/oslabs-beta/kafkaMetrics/blob/main/README.md"
+              >
+                our readme
+              </a>,
+              '.',
+            ]}
+          />
         </div>
       </div>
       <Footer />

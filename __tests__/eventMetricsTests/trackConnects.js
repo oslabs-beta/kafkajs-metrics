@@ -1,4 +1,4 @@
-import { trackConnects } from '../addMetrics/eventMetrics/connect';
+import { trackConnects } from '../../addMetrics/eventMetrics/connect';
 
 describe('trackConnects function', () => {
   let kafkaInstance;

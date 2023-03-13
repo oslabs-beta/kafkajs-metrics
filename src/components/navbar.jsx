@@ -1,30 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import kjsmLogo from '../../assets/logos/KJSM.png';
 
 export default function Navbar() {
-    return (
-        <nav className='generalNav'> 
-          <h1 className="title"><Link to='/'>KafkaMetricsjs</Link></h1>
-          <div className="navbar-links">
-            <ul>
-              <li>
-                <Link to='/'>Home</Link>
-              </li>
-              <li>
-                <a href="https://github.com/oslabs-beta/kafkaMetrics.git">Docs</a>
-              </li>
-              <li>
-                <Link to='/visualizer'>Visualizer</Link>
-              </li>
-              <li>
-                <a href='https://github.com/oslabs-beta/kafkaMetrics.git'>GIT</a>
-              </li>
-              <li>
-                <Link to='/team'>Team</Link>
-              </li>
-           </ul>
-          </div>
-        </nav>
-    )
+  return (
+    <nav>
+      <a href="/">
+        <img className="logo" src={kjsmLogo} />
+      </a>
+      <div className="links">
+        <Link to="/visualizer">Visualizer</Link>
+        <a href="/docs/index.html">Docs</a>
+        <a href="https://github.com/oslabs-beta/kafkaMetrics.git">GitHub</a>
+        <Link to="/team">Team</Link>
+      </div>
+    </nav>
+  );
 }

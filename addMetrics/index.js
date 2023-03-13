@@ -1,13 +1,14 @@
 const { connect } = require('./eventMetrics/connect');
 const { disconnect } = require('./eventMetrics/disconnect');
 const endBatchProcess = require('./eventMetrics/endBatchProcess');
-const groupJoin = require('./eventMetrics/groupJoin');
-const heartbeat = require('./eventMetrics/heartbeat');
+const { groupJoin } = require('./eventMetrics/groupJoin');
+const { heartbeatOn } = require('./eventMetrics/heartbeat');
 const request = require('./eventMetrics/request');
 const requestQueueSize = require('./eventMetrics/requestQueueSize');
 const requestTimeout = require('./eventMetrics/requestTimeout');
 const calculateRates = require('./periodicMetrics/calculateRates');
 
+// getData will be called when the connect method is invoked
 function getData(promise, obj, client, type) {
   if (
     type === 'consumer' &&
@@ -19,6 +20,7 @@ function getData(promise, obj, client, type) {
     if (obj.metrics.name) {
       clientName = obj.metrics.name;
     } else {
+      // if developer hasn't provided a name for any of their consumers, provide a unique default name
       client.metrics.options.consumerNum += 1;
       clientName = `Consumer${client.metrics.options.consumerNum}`;
     }
@@ -34,9 +36,10 @@ function getData(promise, obj, client, type) {
         console.log('data', data);
       })
       .catch((err) => {
-        console.log('error in consumer track: ', err);
+        console.log('error in post request to /track: ', err);
       });
 
+    // every five seconds send the data that will be displayed to /data to be set into database
     setInterval(() => {
       const dataObj = {
         messagesConsumed: obj.metrics.messagesConsumed,
@@ -64,7 +67,7 @@ function getData(promise, obj, client, type) {
           console.log('data', data);
         })
         .catch((err) => {
-          console.log('error in consumer data/main chart page: ', err);
+          console.log('error in post request to /data: ', err);
         });
     }, 5000);
   }
@@ -490,12 +493,13 @@ function addMetrics(obj, client, type) {
     // run consumer-specific instrumentation event generators
     endBatchProcess(obj);
     groupJoin(obj);
-    heartbeat(obj);
+    heartbeatOn(obj);
   }
 
   // begin calculating rate variables
   calculateRates(obj, type);
 
+  // add extra functionality to connect method
   const vanillaConnect = obj.connect;
   obj.connect = function WrapConnect() {
     return getData(vanillaConnect.apply(this, arguments), this, client, type);

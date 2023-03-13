@@ -18,6 +18,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/docs/*', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '../docs/', req.params[0]));
+});
+
 // generates token, creates cookie and sends token back on request body
 app.get(
   '/token',
@@ -113,7 +117,7 @@ app.use((err, req, res, next) => {
     message: { err: 'an error occurred' },
   };
   const error = Object.assign({}, defaultErr, err);
-  console.log(defaultErr.log);
+  console.log(error.log);
   return res.status(error.status).json(error.message);
 });
 

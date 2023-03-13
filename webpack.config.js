@@ -62,6 +62,10 @@ module.exports = {
         secure: false,
         changeOrigin: true,
       },
+      '/docs/**': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
     },
   },
 };
