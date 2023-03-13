@@ -14,10 +14,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/docs', (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, '../docs/index.html'));
-});
-
 app.get('/docs/*', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../docs/', req.params[0]));
 });
