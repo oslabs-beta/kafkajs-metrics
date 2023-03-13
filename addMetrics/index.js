@@ -9,29 +9,25 @@ const requestTimeout = require('./eventMetrics/requestTimeout');
 const calculateRates = require('./periodicMetrics/calculateRates');
 
 function getData(promise, obj, client, type) {
-  if (type === 'consumer' && client.metrics.options.visualize && client.metrics.options.token) {
-    const name = client.metrics.options.token;
-    let combinedName;
+  if (
+    type === 'consumer' &&
+    client.metrics.options.visualize &&
+    client.metrics.options.token
+  ) {
+    const { token } = client.metrics.options;
     let clientName;
-    console.log('metrics name: ', obj.metrics.name);
     if (obj.metrics.name) {
-      combinedName = `${name}-${obj.metrics.name}`;
       clientName = obj.metrics.name;
     } else {
       client.metrics.options.consumerNum += 1;
-      const newType = type[0].toUpperCase() + type.slice(1);
-      combinedName = `${name}-${newType}${client.metrics.options.consumerNum}`;
-      clientName = newType + client.metrics.options.consumerNum;
+      clientName = `Consumer${client.metrics.options.consumerNum}`;
     }
-    // const clientName = `-${newType}${client.metrics.options.consumerNum}`;
-    // const combinedName = client.metrics.options.token + clientName;
-    console.log('combinedName: ', combinedName);
     fetch('http://localhost:3000/track', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: combinedName, token: name }),
+      body: JSON.stringify({ name: clientName, token }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -49,11 +45,11 @@ function getData(promise, obj, client, type) {
         requestRate: obj.metrics.requestRate,
         messageConsumptionRate: obj.metrics.messageConsumptionRate,
         totalRequestTimeouts: obj.metrics.totalRequestTimeouts,
-        clientName
+        clientName,
       };
 
       const bodyObj = {};
-      bodyObj.name = name;
+      bodyObj.name = token;
       bodyObj.data = dataObj;
 
       fetch('http://localhost:3000/data', {
@@ -61,7 +57,7 @@ function getData(promise, obj, client, type) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ data: bodyObj, name: combinedName }),
+        body: JSON.stringify({ data: bodyObj, name: clientName, token }),
       })
         .then((res) => res.json())
         .then((data) => {

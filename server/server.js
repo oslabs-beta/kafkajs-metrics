@@ -63,9 +63,14 @@ app.post(
 // ? add in redisController.checkToken AND include token on req.body in index.js in kafkaMetrics
 // *** if checkToken middleware is added, BCRYPT needs to be added
 // eventaully: add in authController.encrypt at beginning
-app.post('/data', redisController.setData, (req, res) => {
-  res.status(200).json({ success: 'good' });
-});
+app.post(
+  '/data',
+  authController.encrypt,
+  redisController.setData,
+  (req, res) => {
+    res.status(200).json({ success: 'good' });
+  }
+);
 
 // coming from mainChartPage in updateState and componentDidMount -
 // req.body includes token. getData controller accesses array list value in

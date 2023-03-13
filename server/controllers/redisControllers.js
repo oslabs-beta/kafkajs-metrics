@@ -9,6 +9,8 @@ client.on('error', (err) => {
   console.log('err', err);
 });
 
+const combineName = (bToken, clientName) => `${bToken}-${clientName}`;
+
 const setRedisToken = async (token, next) => {
   try {
     await client.connect();
@@ -25,9 +27,21 @@ const setRedisToken = async (token, next) => {
   }
 };
 
-const setData = async (name, data, next) => {
+// verifies token exists in database, then adds consumer data to database
+const setData = async (name, data, token, next) => {
+  // verifies that token exists in database
+  console.log('in callback');
   try {
-    await client.set(name, JSON.stringify(data));
+    const returnedData = await client.lRange(token, 0, -1);
+    if (returnedData.length) {
+      await client.set(name, JSON.stringify(data));
+    } else {
+      return next({
+        log: 'error in setData:  not saved in database',
+        status: 400,
+        message: { error: 'internal error' },
+      });
+    }
   } catch (err) {
     return next({
       log:
@@ -64,7 +78,8 @@ redisController.setToken = (req, res, next) => {
       message: { err: 'recieved unexpected input' },
     });
   }
-  const { token } = res.locals.bToken;
+  const token = res.locals.bToken;
+
   setRedisToken(token.toString(), next);
   return next();
 };
@@ -78,9 +93,11 @@ redisController.checkToken = (req, res, next) => {
   //     });
   //   }
   const token = res.locals.bToken;
+  console.log('hashed token inside of checkToken', token);
   const checkRedisToken = async (token, client) => {
     try {
       const data = await client.lRange(token.toString(), 0, -1);
+      console.log('data inside of checkToken', data);
       res.locals.check = !!data.length;
       return next();
     } catch (err) {
@@ -104,8 +121,16 @@ redisController.setData = (req, res, next) => {
   //       message: { err: 'recieved unexpected input' },
   //     });
   //   }
+  // STRUCTURE OF REQ.BODY:
+  // req.body has two properties - data = bodyObj and name = combinedName;
+  // bodyObj has two properties: name = token and data = dataObj;
   const { name, data } = req.body;
-  setData(name, data, next);
+  console.log('name', name);
+  console.log('data', data);
+  const { bToken } = res.locals;
+  console.log('token, ', bToken);
+  const combinedName = combineName(bToken, name);
+  setData(combinedName, data, bToken.toString(), next);
   return next();
 };
 
@@ -122,16 +147,22 @@ redisController.getData = (req, res, next) => {
   const getValues = async (token, client) => {
     const arr = await client.lRange(token.toString(), 0, -1);
     let count = 0;
+    console.log('arr', arr);
     arr.forEach(async (data) => {
       if (data !== 'true' && data !== 'ok') {
-        // data currently is combined hash plus consumer Name
-        res.locals.finalData[data] = await client.get(data);
-
-        // ** below option only sends consumerName ('clientName') to frontend,
-        // **(not hashed token + consumerName)
-        // const metricsObj = await client.get(data);
-        // const { clientName } = metricsObj;
-        // res.locals.finalData[clientName] = metricsObj
+        let metricsObj = await client.get(data);
+        if (!metricsObj) {
+          return next({
+            log: 'error inside of getValues',
+            status: 500,
+            message: { err: 'error retrieving consumer data' },
+          });
+        }
+        metricsObj = JSON.parse(metricsObj);
+        console.log('metricsObj inside getData', metricsObj);
+        const { clientName } = metricsObj.data;
+        console.log('clientName inside getData', clientName);
+        res.locals.finalData[clientName] = JSON.stringify(metricsObj);
       }
 
       count += 1;
@@ -155,8 +186,10 @@ redisController.track = (req, res, next) => {
   //       message: { err: 'recieved unexpected input' },
   //     });
   //   }
-  const { name, token } = req.body;
-  setInstances(name, token.toString(), next);
+  const { name } = req.body;
+  const { bToken } = res.locals;
+  const combinedName = combineName(bToken, name);
+  setInstances(combinedName, bToken.toString(), next);
   return next();
 };
 

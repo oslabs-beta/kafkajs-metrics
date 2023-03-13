@@ -39,7 +39,7 @@ class Main extends Component {
                keyArr.forEach((el) => {
                     const obj = JSON.parse(data.data[el]);
                     const tempObj = {};
-                    tempObj.label = el.split('-')[1];
+                    tempObj.label = el;
                     tempObj.metrics = obj.data;
                     stack = Object.keys(tempObj.metrics);
                     stack.pop();
@@ -63,11 +63,11 @@ class Main extends Component {
                     datasets = [];
                 }
                 const clone = JSON.parse(JSON.stringify(this.state));
-                this.setState({...clone, charts: stateObj, default: false});
+                this.setState({ ...clone, charts: stateObj, default: false });
                console.log(stateObj);
            })
            .catch((err) =>{
-               console.log('error in main chart page /checktoken: ', err)
+               console.log('error in main chart page /checktoken: ', err);
            })
     }
 
@@ -92,7 +92,7 @@ class Main extends Component {
                keyArr.forEach((el) => {
                     const tempObj = {};
                     const obj = JSON.parse(data.data[el]);
-                    metricObj[el.split('-')[1]] = obj.data;
+                    metricObj[el] = obj.data;
                     tempObj.metrics = obj.data;
                     stack = Object.keys(tempObj.metrics);
                     stack.pop();
