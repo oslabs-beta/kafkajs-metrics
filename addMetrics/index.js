@@ -10,25 +10,22 @@ const calculateRates = require('./periodicMetrics/calculateRates');
 
 // getData will be called when the connect method is invoked
 function getData(promise, obj, client, type) {
-  // we'll only want to deal with data coming from consumer instances
-  if (type === 'consumer' && client.metrics.options.visualize && client.metrics.options.token) {
-    const name = client.metrics.options.token;
-    let combinedName;
+  // dealing exclusively with data coming from consumer instances
+  if (
+    type === 'consumer' &&
+    client.metrics.options.visualize &&
+    client.metrics.options.token
+  ) {
+    const { token } = client.metrics.options;
+    // clientName will be displayed in frontend charts and used in database
     let clientName;
-    console.log('metrics name: ', obj.metrics.name);
-
-    // combinedName will be used in database, clientName will be displayed in frontend charts
     if (obj.metrics.name) {
-      combinedName = `${name}-${obj.metrics.name}`;
       clientName = obj.metrics.name;
     } else {
-    // if developer hasn't provided a name for any of their consumers, provide a unique default name
+      // if developer hasn't provided a name for their consumer, provide a unique default name
       client.metrics.options.consumerNum += 1;
-      combinedName = `${name}-Consumer${client.metrics.options.consumerNum}`;
       clientName = `Consumer${client.metrics.options.consumerNum}`;
     }
-
-    console.log('combinedName: ', combinedName);
 
     // send the name and token to route /track to be set into database
     fetch('http://localhost:3000/track', {
@@ -36,7 +33,7 @@ function getData(promise, obj, client, type) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: combinedName, token: name }),
+      body: JSON.stringify({ name: clientName, token }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -55,11 +52,11 @@ function getData(promise, obj, client, type) {
         requestRate: obj.metrics.requestRate,
         messageConsumptionRate: obj.metrics.messageConsumptionRate,
         totalRequestTimeouts: obj.metrics.totalRequestTimeouts,
-        clientName
+        clientName,
       };
 
       const bodyObj = {};
-      bodyObj.name = name;
+      bodyObj.name = token;
       bodyObj.data = dataObj;
 
       fetch('http://localhost:3000/data', {
@@ -67,7 +64,7 @@ function getData(promise, obj, client, type) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ data: bodyObj, name: combinedName }),
+        body: JSON.stringify({ data: bodyObj, name: clientName, token }),
       })
         .then((res) => res.json())
         .then((data) => {

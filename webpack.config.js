@@ -57,6 +57,11 @@ module.exports = {
         target: 'http://localhost:3000/',
         secure: false,
       },
+      '/token': {
+        target: 'http://localhost:3000/',
+        secure: false,
+        changeOrigin: true,
+      },
       '/docs/**': {
         target: 'http://localhost:3000/',
         secure: false,
