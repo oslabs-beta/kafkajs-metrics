@@ -19,8 +19,7 @@ app.get('/docs', (req, res) => {
 });
 
 app.get('/docs/*', (req, res) => {
-  console.log('here');
-  res.status(200).sendFile(path.resolve(__dirname, '../docs/*'));
+  res.status(200).sendFile(path.join(__dirname, '../docs/', req.params[0]));
 });
 
 app.post('/token', redisController.setToken, (req, res) => {

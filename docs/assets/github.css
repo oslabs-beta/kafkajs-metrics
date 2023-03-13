@@ -8,8 +8,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  color: #333;
-  background: #f8f8f8;
+  color: #03273b;
+  background: #f7fff7;
   -webkit-text-size-adjust: none;
 }
 
@@ -27,7 +27,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 .hljs-subst,
 .hljs-request,
 .hljs-status {
-  color: #1184CE;
+  color: #ffe66d;
 }
 
 .hljs-number,
@@ -41,13 +41,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 .hljs-phpdoc,
 .hljs-dartdoc,
 .tex .hljs-formula {
-  color: #ed225d;
+  color: #de3b67;
 }
 
 .hljs-title,
 .hljs-id,
 .scss .hljs-preprocessor {
-  color: #900;
+  color: #ff6b6b;
   font-weight: bold;
 }
 
@@ -60,7 +60,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 .hljs-type,
 .vhdl .hljs-literal,
 .tex .hljs-command {
-  color: #458;
+  color: #2dc293;
   font-weight: bold;
 }
 
@@ -68,18 +68,18 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 .hljs-tag .hljs-title,
 .hljs-rules .hljs-property,
 .django .hljs-tag .hljs-keyword {
-  color: #000080;
+  color: #2dc293;
   font-weight: normal;
 }
 
 .hljs-attribute,
 .hljs-variable,
 .lisp .hljs-body {
-  color: #008080;
+  color: #2dc293;
 }
 
 .hljs-regexp {
-  color: #009926;
+  color: #2dc293;
 }
 
 .hljs-symbol,
@@ -89,11 +89,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 .scheme .hljs-keyword,
 .tex .hljs-special,
 .hljs-prompt {
-  color: #990073;
+  color: #de3b67;
 }
 
 .hljs-built_in {
-  color: #0086b3;
+  color: #2dc293;
 }
 
 .hljs-preprocessor,
@@ -102,22 +102,22 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 .hljs-doctype,
 .hljs-shebang,
 .hljs-cdata {
-  color: #999;
+  color: #eb6314;
   font-weight: bold;
 }
 
 .hljs-deletion {
-  background: #fdd;
+  background: #032d45;
 }
 
 .hljs-addition {
-  background: #dfd;
+  background: #032d45;
 }
 
 .diff .hljs-change {
-  background: #0086b3;
+  background: #eb6314;
 }
 
 .hljs-chunk {
-  color: #aaa;
+  color: #eb6314;
 }
