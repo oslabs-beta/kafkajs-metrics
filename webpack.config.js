@@ -43,7 +43,6 @@ module.exports = {
     },
 
     proxy: {
-
       '/checktoken': {
         target: 'http://localhost:3000/',
         secure: false,
@@ -58,7 +57,10 @@ module.exports = {
         target: 'http://localhost:3000/',
         secure: false,
       },
-
+      '/docs/**': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
     },
-  }
+  },
 };
