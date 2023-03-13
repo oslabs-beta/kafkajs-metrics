@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import kjsmLogo from '../../assets/logos/KJSM.png';
 
 export default function Navbar() {
   return (
     <nav>
-      <h1 className="title">
-        <Link to="/">KafkaJSMetrics</Link>
-      </h1>
+      <a href="/">
+        <img className="logo" src={kjsmLogo} />
+      </a>
       <div className="links">
         <Link to="/visualizer">Visualizer</Link>
         <a href="/docs/index.html">Docs</a>
