@@ -13,6 +13,7 @@ const setRedisToken = async (token, next) => {
     await client.connect();
     console.log('connected');
     await client.rPush(token, 'true');
+    // return next();
   } catch (err) {
     return next({
       log: 'error occurred while connecting to and putting data in redis in setRedisToken: ' + err,
@@ -24,7 +25,10 @@ const setRedisToken = async (token, next) => {
 
 const setData = async (name, data, next) => {
   try {
+    await client.disconnect();
+    await client.connect();
     await client.set(name, JSON.stringify(data));
+    // return next();
   } catch (err) {
     return next({
       log: 'error occurred while putting data in redis in setData function: ' + err,
@@ -37,6 +41,7 @@ const setData = async (name, data, next) => {
 const setInstances = async (name, token, next) => {
   try {
     await client.rPush(token, name);
+    // return next();
   } catch (err) {
     return next({
       log: 'error occurred while putting data in redis in setInstances function: ' + err,
@@ -116,8 +121,8 @@ redisController.getData = (req, res, next) => {
 
   // iterate through the array of all the client instances and retrieve data for each one
   const getValues = async (token, client) => {
-    await client.disconnect();
-    await client.connect();
+    // await client.disconnect();
+    // await client.connect();
     const arr = await client.lRange(token.toString(), 0, -1);
     let count = 0;
     arr.forEach(async (data) => {

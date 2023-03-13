@@ -4,7 +4,7 @@ import Main from './mainChartPage.jsx';
 class MainTokenPage extends Component {
     constructor(props) {
         super(props);
-        this.state= {
+        this.state = {
             token: null,
             authenticated: false,
             tokenGenerated: false,
@@ -21,7 +21,7 @@ class MainTokenPage extends Component {
                     'Content-Type': 'application/json',
                 },
                 withCredentials: true,
-                body: JSON.stringify({token: this.state.token}),
+                body: JSON.stringify({ token: this.state.token }),
                 })
                 .then((res) => {
                     return res.json();
@@ -29,7 +29,7 @@ class MainTokenPage extends Component {
                 .then((data) => {
                     if (data.token) {
                         const clone = JSON.parse(JSON.stringify(this.state));
-                        this.setState({...clone, authenticated: true});
+                        this.setState({ ...clone, authenticated: true });
                     } else {
                         alert('Incorrect token.');
                     }

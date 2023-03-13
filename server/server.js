@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 });
 
 app.post('/token', redisController.setToken, (req, res) => {
-  res.status(200).json({ success: 'ok' });
+  res.status(200).json({ success: 'alright' });
 });
 
 app.post('/checktoken', redisController.checkToken, (req, res) => {
