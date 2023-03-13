@@ -14,6 +14,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/docs/*', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '../docs/', req.params[0]));
+});
+
 app.post('/token', redisController.setToken, (req, res) => {
   res.status(200).json({ success: 'ok' });
 });
@@ -45,7 +49,7 @@ app.use((err, req, res, next) => {
     message: { err: 'an error occurred' },
   };
   const error = Object.assign({}, defaultErr, err);
-  console.log(defaultErr.log);
+  console.log(error.log);
   return res.status(error.status).json(error.message);
 });
 

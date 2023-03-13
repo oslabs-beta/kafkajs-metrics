@@ -117,7 +117,7 @@ export default function Home() {
                 check out the readme
               </a>,
               '. For a full list of metrics and how to use them, ',
-              <a key="docs" href="/docs">
+              <a key="docs" href="/docs/index.html">
                 see our documentation
               </a>,
               '.',
