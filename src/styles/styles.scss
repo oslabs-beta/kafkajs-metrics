@@ -357,15 +357,18 @@ nav {
     font-size: 12px;
     color: $white;
   }
-  .links a {
-    display: inline-block;
-    color: $salmon;
-    font-size: 18px;
-    padding: 1em;
-    display: inline-block;
-    text-decoration: none;
-    @media screen and (max-width: 760px) {
+  .links {
+    text-align: right;
+    @media screen and (max-width: 740px) {
       display: none;
+    }
+    a {
+      display: inline-block;
+      color: $salmon;
+      font-size: 18px;
+      padding-left: 2vw;
+      display: inline-block;
+      text-decoration: none;
     }
   }
 }
