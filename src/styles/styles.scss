@@ -37,24 +37,24 @@ nav {
   align-items: center;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   padding: 0px 40px;
-  h1 {
-    padding: 0px;
-    font-size: 40px;
-    font-weight: 900;
-    display: inline-block;
-    a {
-      color: $turquoise;
-    }
+  .logo {
+    height: 80px;
   }
-  .links a {
-    display: inline-block;
-    color: $salmon;
-    font-size: 18px;
-    padding: 1em;
-    display: inline-block;
-    text-decoration: none;
-    @media screen and (max-width: 790px) {
+  .links {
+    text-align: right;
+    @media screen and (min-width: 270px) and (max-width: 450px) {
+      width: 100px;
+    }
+    @media screen and (max-width: 270px) {
       display: none;
+    }
+    a {
+      display: inline-block;
+      color: $salmon;
+      font-size: 18px;
+      padding-left: 2vw;
+      display: inline-block;
+      text-decoration: none;
     }
   }
 }
@@ -339,7 +339,6 @@ nav {
   height: 100%;
 }
 
-
 // footer
 .footer {
   background-color: lighten($darkblue, 2%);
@@ -358,15 +357,18 @@ nav {
     font-size: 12px;
     color: $white;
   }
-  .links a {
-    display: inline-block;
-    color: $salmon;
-    font-size: 18px;
-    padding: 1em;
-    display: inline-block;
-    text-decoration: none;
-    @media screen and (max-width: 760px) {
+  .links {
+    text-align: right;
+    @media screen and (max-width: 740px) {
       display: none;
+    }
+    a {
+      display: inline-block;
+      color: $salmon;
+      font-size: 18px;
+      padding-left: 2vw;
+      display: inline-block;
+      text-decoration: none;
     }
   }
 }

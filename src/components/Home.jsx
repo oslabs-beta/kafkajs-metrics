@@ -109,7 +109,18 @@ export default function Home() {
                 <li key="1">npm install</li>
                 <li key="2">require</li> <li key="3">metricize</li>
               </ol>,
-              'TKTK add links to readme and documentation here',
+              'For more detailed instructions on getting started, ',
+              <a
+                key="readme"
+                href="https://github.com/oslabs-beta/kafkaMetrics/blob/main/README.md"
+              >
+                check out the readme
+              </a>,
+              '. For a full list of metrics and how to use them, ',
+              <a key="docs" href="/docs">
+                see our documentation
+              </a>,
+              '.',
             ]}
           />
           <CodeCard
@@ -143,7 +154,14 @@ export default function Home() {
               <a key="link" href="/#/visualizer">
                 KafkaJSMetrics visualizer
               </a>,
-              ' monitors the health of your consumers with a variety of charts. To use the visualizer, install the visualization-enabled version of the library and pass your secret key into the metricize function',
+              ' monitors the health of your consumers with a variety of charts. To use the visualizer, install the visualization-enabled version of the library and pass your secret key into the metricize function. More information on using the visualizer is available in ',
+              <a
+                key="readme"
+                href="https://github.com/oslabs-beta/kafkaMetrics/blob/main/README.md"
+              >
+                our readme
+              </a>,
+              '.',
             ]}
           />
         </div>
