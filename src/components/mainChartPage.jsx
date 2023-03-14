@@ -121,6 +121,7 @@ class Main extends Component {
   // }
 
   componentDidMount() {
+    setTimeout(() => {
     fetch('/getData', {
       method: 'POST',
       headers: {
@@ -169,6 +170,7 @@ class Main extends Component {
       .catch((err) => {
         console.log('error in main chart page /checktoken: ', err);
       });
+    }, 3000);
   }
 
   updateState() {
@@ -222,14 +224,17 @@ class Main extends Component {
     console.log('TYPE', this.props.type);
     if (!this.state.ok) {
       return (
-                        <div>Loading!</div>
+        <div>
+          <div className='LoadingPage'>Loading!</div>
+          <p className='LoadingPageNotice'>Content should appear shortly. If it does not, please refresh.</p>
+        </div>
       );
     }
     return (
-                        <div className='MainChartPageContainter'>
-                        <SideBar />
-                        <ChartSection data = {this.state.charts} update = {this.updateState} type = {this.props.type} />
-                        </div>
+        <div className='MainChartPageContainter'>
+          <SideBar />
+          <ChartSection data = {this.state.charts} update = {this.updateState} type = {this.props.type} />
+        </div>
     );
 
     //   render() {

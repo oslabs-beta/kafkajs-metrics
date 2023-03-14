@@ -2,6 +2,7 @@ const Redis = require('redis');
 
 const client = Redis.createClient({
   // test.js
+  url: 'rediss://red-cg11tq4eoogv676437bg:Y2IG87W5lT5sONA63l61QGxzdtx0FGh6@ohio-redis.render.com:6379',
 });
 
 client.on('error', (err) => {
@@ -15,6 +16,8 @@ const setRedisToken = async (token, next) => {
     await client.connect();
     console.log('connected');
     await client.rPush(token, 'true');
+    // set token to expire after 24 hours
+    await client.expire(token, 86400);
   } catch (err) {
     return next({
       log:
@@ -33,7 +36,7 @@ const setData = async (name, data, token, next) => {
   try {
     const returnedData = await client.lRange(token, 0, -1);
     if (returnedData.length) {
-      await client.set(name, JSON.stringify(data));
+      await client.setEx(name, 300, JSON.stringify(data));
     } else {
       return next({
         log: 'error in setData:  not saved in database',
