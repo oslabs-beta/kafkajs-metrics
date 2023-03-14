@@ -25,8 +25,8 @@ const setRedisToken = async (token, next) => {
 
 const setData = async (name, data, next) => {
   try {
-    await client.disconnect();
-    await client.connect();
+    // await client.disconnect();
+    // await client.connect();
     await client.set(name, JSON.stringify(data));
     // return next();
   } catch (err) {
