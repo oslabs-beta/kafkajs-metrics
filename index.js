@@ -1,19 +1,9 @@
 // require in producer/consumer/admin folders
 const addMetrics = require('./addMetrics');
 
-/**
- * Metricize Kafka Client:
- *
- * Metrics will be added to any consumer/producer/admin instance from this client
- * @param {object} client - instance of KafkaJS Client
- * @returns {object} - metricized instance of KafkaJS Client
- * @example
- * metricize(client);
- */
-
-// metricize kafka client
+// Metrics will be added to any consumer/producer/admin instance from this client
 function metricize(client, visualize = false, token = false) {
-  // if visualize and token have been passed into metricize function, send token to route /token
+  // if visualize and token have been passed into metricize function, send request to route /token
   if (visualize && token) {
     fetch('http://localhost:3000/token', {
       method: 'POST',
@@ -31,31 +21,13 @@ function metricize(client, visualize = false, token = false) {
       });
   }
 
-  // create client.metrics property for global metrics
+  // create client.metrics object for client metrics
   client.metrics = {
-    /**
-     * Number of total consumers
-     * @type {string} - number of total connected consumers
-     * @example
-     * console.log(client.metrics.totalConsumers);
-     * // => prints to the console: 25
-     */
+    // total number of connected consumers
     totalConsumers: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
-    /**
-     * Number of total producers
-     * @type {string} - number of total connected producers
-     * @example
-     * console.log(client.metrics.totalProducers);
-     * // => prints to the console: 30
-     */
+    // total number of connected producers
     totalProducers: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
-    /**
-     * Number of total admin
-     * @type {string} - number of total connected admins
-     * @example
-     * console.log(client.metrics.totalAdmins);
-     * // => prints to the console: 5
-     */
+    // total number of connected admins
     totalAdmins: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
     options: {
       visualize,
