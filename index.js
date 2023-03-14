@@ -4,24 +4,23 @@ const addMetrics = require('./addMetrics');
 /**
  * Metricize Kafka Client:
  *
- * Metrics will be added to any consumer/producer/admin instance from this client
+ * Metrics added to any consumer/producer/admin instance from this client
  * @param {object} client - instance of KafkaJS Client
  * @returns {object} - metricized instance of KafkaJS Client
  * @example
  * metricize(client);
  */
 
-// metricize kafka client
 function metricize(client) {
   /**
-   * Global Metrics Object:
+   * Client Metrics Object:
    *
-   * Includes most recently calculated global metrics on kafkaJS client
-   * @type {object} Global Metrics
+   * Includes most recently calculated client metrics on KafkaJS client
+   * @type {object} Client Metrics
    * @example
-   * const globalMetricsObject = client.metrics;
+   * const clientMetricsObject = client.metrics;
    */
-  // create client.metrics property for global metrics
+
   client.metrics = {
     /**
      * Number of total consumers

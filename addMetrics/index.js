@@ -10,35 +10,35 @@ const calculateRates = require('./periodicMetrics/calculateRates');
 
 function addMetrics(obj, client, type) {
   /**
-   * Metrics Object:
+   * Consumer/Producer/Admin Metrics Object:
    *
-   * Includes most recently calculated metrics and methods for Consumer/Producer/Admin instances
+   * Includes most recently calculated metrics and methods for consumer/producer/admin instances
    * @type {object}
    * @example
-   * const consumerMetrics = consumer.metrics;
-   * const producerMetrics = producer.metrics;
-   * const adminMetrics = admin.metrics;
+   * const consumerMetricsObject = consumer.metrics;
+   * const producerMetricsObject = producer.metrics;
+   * const adminMetricsObject = admin.metrics;
    */
-  // create empty metrics property on obj
+
   obj.metrics = {
     // VARIABLES
     /**
-     * Optional name for Consumer/Producer/Admin, set by user
+     * Optional name for consumer/producer/admin, set by user
      * @type {string}
      * @example
      * consumer.metrics.name = 'consumer_1'
      */
     name: '', // set by user, used in various console logs
     /**
-     * Boolean value to indicate if Consumer/Producer/Admin is connected
+     * Boolean value to indicate if consumer/producer/admin is connected
      * @type {boolean}
      * @example
-     * console.log(consumer.metrics.isConnected);
+     * console.log(producer.metrics.isConnected);
      * // => prints to the console: false
      */
     isConnected: false, // set in connect.js, reset in disconnect.js
     /**
-     * Timestamp value (ms) to indicate when Consumer/Producer/Admin initally connected
+     * Timestamp value (ms) indicating initial consumer/producer/admin connection
      * @type {number}
      * @example
      * console.log(consumer.metrics.initialConnectionTimestamp);
@@ -46,10 +46,10 @@ function addMetrics(obj, client, type) {
      */
     initialConnectionTimestamp: null, // updated in connect.js
     /**
-     * Timestamp value (ms) to indicate when Consumer/Producer/Admin most recently connected
+     * Timestamp value (ms) to indicating most recent consumer/producer/admin connection
      * @type {number}
      * @example
-     * console.log(consumer.metrics.currentConnectionTimestamp);
+     * console.log(admin.metrics.currentConnectionTimestamp);
      * // => prints to the console: 3957103429678
      */
     currentConnectionTimestamp: null, // updated in connect.js, reset in disconnect.js
@@ -57,7 +57,7 @@ function addMetrics(obj, client, type) {
      * Total number of requests
      * @type {number}
      * @example
-     * console.log(consumer.metrics.totalRequests);
+     * console.log(producer.metrics.totalRequests);
      * // => prints to the console: 78
      */
     totalRequests: 0, // updated in request.js
@@ -78,7 +78,7 @@ function addMetrics(obj, client, type) {
      */
     requestRate: null, // updated in calculateRates.js
     /**
-     * Request rate over Consumer/Producer/Admin lifetime (calculated since initial connection)
+     * Request rate over consumer/producer/admin lifetime (calculated since initial connection)
      * @type {number}
      * @example
      * console.log(consumer.metrics.requestRateLifetime);
@@ -89,15 +89,15 @@ function addMetrics(obj, client, type) {
      * Timeout rate per specified metrics.options.rate.period value (default is 5000 ms)
      * @type {number}
      * @example
-     * console.log(consumer.metrics.timeoutRate);
+     * console.log(producer.metrics.timeoutRate);
      * // => prints to the console: 2
      */
     timeoutRate: null, // updated in calculateRates.js
     /**
-     * Timeout rate over Consumer/Producer/Admin lifetime (calculated since initial connection)
+     * Timeout rate over consumer/producer/admin lifetime (calculated since initial connection)
      * @type {number}
      * @example
-     * console.log(consumer.metrics.timeoutRateLifetime);
+     * console.log(admin.metrics.timeoutRateLifetime);
      * // => prints to the console: 4
      */
     timeoutRateLifetime: null, // updated in calculateRates.js
@@ -105,12 +105,12 @@ function addMetrics(obj, client, type) {
     // CONNECTION METHODS
     /**
      * Returns time in ms since initial connection;
-     *  returns null if Consumer/Producer/Admin never connected
+     *  returns null if consumer/producer/admin never connected
      * @returns {(number|null)}
      * @example
      * consumer.ageSinceInitialConnection() // => 87203
      */
-    // returns time since initial connection; returns null if obj never connected
+
     ageSinceInitialConnection() {
       return obj.metrics.initialConnectionTimestamp
         ? new Date().getTime() - obj.metrics.initialConnectionTimestamp
@@ -118,12 +118,12 @@ function addMetrics(obj, client, type) {
     },
     /**
      * Returns time in ms since current connection;
-     *  returns null if Consumer/Producer/Admin is not currently connected
+     *  returns null if consumer/producer/admin is not currently connected
      * @returns {(number|null)}
      * @example
-     * consumer.ageSinceLastConnection() // => 843
+     * producer.ageSinceLastConnection() // => 843
      */
-    // returns time since current connection; returns null if obj not currently connected
+
     ageSinceLastConnection() {
       return obj.metrics.currentConnectionTimestamp
         ? new Date().getTime() - obj.metrics.currentConnectionTimestamp
@@ -144,7 +144,7 @@ function addMetrics(obj, client, type) {
     /**
      * Turns off logging pendingDuration for every request
      * @example
-     * consumer.requestPendingDurationLogOff()
+     * producer.requestPendingDurationLogOff()
      */
     // turns off logging pendingDuration for every request
     requestPendingDurationLogOff() {
@@ -262,7 +262,6 @@ function addMetrics(obj, client, type) {
   requestTimeout(obj, type);
 
   if (type === 'consumer') {
-    // define consumer-specific variables & methods
     /**
      * Additional metrics for consumer instances
      * @type {object}
@@ -295,7 +294,7 @@ function addMetrics(obj, client, type) {
        */
       lastHeartbeat: 0, // updated in heartbeat.js, reset in disconnect.js
       /**
-       * Last heartbeat duration in ms (time between last heartbeat and most recent heartbeat)
+       * Last heartbeat duration in ms (time between last heartbeat and current heartbeat)
        * @type {number} ms
        * @example
        * console.log(consumer.metrics.lastHeartbeatDuration);
@@ -319,7 +318,7 @@ function addMetrics(obj, client, type) {
        */
       messagesConsumed: 0, // updated in endBatchProcess.js
       /**
-       * Most recent end batch process event payload offsetLag
+       * Most recent end batch process offsetLag
        * @type {number}
        * @example
        * console.log(consumer.metrics.offsetLag);
