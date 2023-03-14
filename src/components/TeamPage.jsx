@@ -6,6 +6,7 @@ import JoshImg from '../../assets/team/Josh.jpg';
 import PaulImg from '../../assets/team/Paul.jpg';
 import RananImg from '../../assets/team/Ranan.jpg';
 
+// TeamPage displays a TeamCard component for each team member
 export default function TeamPage() {
   return (
     <>

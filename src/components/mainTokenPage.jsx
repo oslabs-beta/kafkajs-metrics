@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MainChartPage from './mainChartPage.jsx';
 
+// MainTokenPage lets users generate access tokens to link them to their KafkaJS client metrics
 class MainTokenPage extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +15,6 @@ class MainTokenPage extends Component {
   }
 
   checkToken() {
-    // if (this.state.token !== null) {
     fetch('/checktoken', {
       method: 'POST',
       headers: {
@@ -35,7 +35,6 @@ class MainTokenPage extends Component {
       .catch((err) => {
         console.log('error in main token page /checktoken: ', err);
       });
-    // }
   }
 
   getToken() {
@@ -51,7 +50,6 @@ class MainTokenPage extends Component {
   }
 
   render() {
-    console.log('token', this.state.token);
     return this.state.authenticated ? (
       <MainChartPage type="consumer" token={this.state.token} />
     ) : (

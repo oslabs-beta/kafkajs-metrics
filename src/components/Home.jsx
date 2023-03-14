@@ -10,7 +10,12 @@ import chartsImg from '../../assets/code-snippets/charts.png';
 import snapImg from '../../assets/code-snippets/snap.png';
 import jsImg from '../../assets/code-snippets/js.png';
 
-export default function Home() {
+// HomePage includes 4 main sections:
+// Intro introduces the product
+// Key Features demonstrates features with ImageCard components
+// Get Started tells developers how to use the library with CodeCard components
+// Footer includes legal disclaimer and links (same links as navbar)
+export default function HomePage() {
   return (
     <>
       <div className="intro">

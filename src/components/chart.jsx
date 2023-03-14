@@ -1,6 +1,7 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
+// LineChart generates a line chart with chartJS given metrics data
 function LineChart(props) {
   const options = {
     scales: {
@@ -26,7 +27,6 @@ function LineChart(props) {
       },
     },
   };
-  console.log('this is data', props.data);
   return (
     <div className="Chart">
       <div className="chartTitle">{props.name}</div>

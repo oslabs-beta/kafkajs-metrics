@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ChartSection from './chart-section.jsx';
-import SideBar from './sidebar.jsx';
 
+// MainChartPage renders a loading screen
+// When state is ok, it renders ChartSection which displays various metrics charts
 class MainChartPage extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +28,6 @@ class MainChartPage extends Component {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log('beginning', data);
           const stateObj = {};
           const metricArr = [];
           let datasets = [];
@@ -42,8 +42,6 @@ class MainChartPage extends Component {
             stack.pop();
             metricArr.push(tempObj);
           });
-          console.log('metricArr', metricArr);
-          console.log('stack', stack);
           while (stack.length) {
             const chartName = stack.pop();
             // eslint-disable-next-line no-loop-func
@@ -61,7 +59,6 @@ class MainChartPage extends Component {
           }
           const clone = JSON.parse(JSON.stringify(this.state));
           this.setState({ ...clone, charts: stateObj, default: false });
-          console.log(stateObj);
         })
         .catch((err) => {
           console.log('error in main chart page /checktoken: ', err);
@@ -79,7 +76,6 @@ class MainChartPage extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('beginning', data);
         const stateObjClone = JSON.parse(JSON.stringify(this.state));
         const metricObj = {};
         let stack;
@@ -92,16 +88,11 @@ class MainChartPage extends Component {
           stack = Object.keys(tempObj.metrics);
           stack.pop();
         });
-        console.log('metricObj in update state', metricObj);
-        console.log('stack in update state', stack);
         while (stack.length) {
           const key = stack.pop();
-          console.log('stateObjClone', stateObjClone.charts);
-          console.log('key', key);
           const dataArr = stateObjClone.charts[key].datasets;
           const labelArr = stateObjClone.charts[key].labels;
           labelArr.push(labelArr.length);
-          console.log('dataArr', dataArr);
           dataArr.forEach((obj) => {
             if (metricObj[obj.label]) {
               obj.data.push(metricObj[obj.label][key]);
@@ -116,8 +107,6 @@ class MainChartPage extends Component {
   }
 
   render() {
-    console.log('this.state', this.state);
-    console.log('TYPE', this.props.type);
     if (!this.state.ok) {
       return (
         <div>
@@ -130,10 +119,9 @@ class MainChartPage extends Component {
     }
     return (
       <div className="MainChartPageContainter">
-        <SideBar />
         <ChartSection
           data={this.state.charts}
-          update={this.updateState}
+          updateState={this.updateState}
           type={this.props.type}
         />
       </div>
