@@ -35,6 +35,7 @@ const setData = async (name, data, token, next) => {
   try {
     const returnedData = await client.lRange(token, 0, -1);
     if (returnedData.length) {
+      // set data to expire after 5 minutes
       await client.setEx(name, 300, JSON.stringify(data));
     } else {
       return next({
@@ -148,8 +149,8 @@ redisController.getData = (req, res, next) => {
 
   // iterate through the array of all the client instances and retrieve data for each one
   const getValues = async (token, client) => {
-    await client.disconnect();
-    await client.connect();
+    // await client.disconnect();
+    // await client.connect();
     const arr = await client.lRange(token.toString(), 0, -1);
     let count = 0;
     console.log('arr', arr);
