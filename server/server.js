@@ -18,11 +18,14 @@ app.use((req, res, next) => {
   next();
 });
 
+// send library documentation
 app.get('/docs/*', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../docs/', req.params[0]));
 });
 
-// generates token, creates cookie and sends token back on request body
+// ROUTES ACCESSED BY BROWSER
+
+// generate secure token, create associated cookie, and send token on request body
 app.get(
   '/token',
   cookieController.generateToken,
@@ -32,58 +35,19 @@ app.get(
   }
 );
 
-// coming from kafkaMetrics index.js fetch request - adds token as key and [true] as value to Redis
-// *** ADD BCRYPT FUNCTIONALITY - run through bcrypt before setting token
-app.post(
-  '/token',
-  authController.encrypt,
-  redisController.setToken,
-  (req, res) => {
-    res.status(200).json({ success: 'ok' });
-  }
-);
-
-// coming from mainTokenPage onclick for authenticate button -
-// verifies that token on req body exists as key in Redis database,
-// returns true or false { token: true/false }
-// *** ADD BCRYPT FUNCTIONALITY
-// *** ADD check for cookie if req.token doesn't exist -
-// if cookie exists, consider sending it back to frontend to update state token property
+// verify that token has been encrypted/added to database
+// (request from authenticate button onClick)
 app.post(
   '/checktoken',
   cookieController.checkForCookie,
   authController.encrypt,
   redisController.checkToken,
   (req, res) => {
-    console.log('res.locals.check', res.locals.check);
     res.status(200).json({ token: res.locals.check });
   }
 );
 
-// coming from kafkaMetrics addMetrics/index.js and sent on an setInterval of 5000ms,
-// req.body includes data object; if this is the first time data is set for this consumer instance,
-// a key is created in Redis with consumer name and value is set to data obj;
-// when this occurs again, saved data object is overwritten with new req data object
-// ? add in redisController.checkToken AND include token on req.body in index.js in kafkaMetrics
-// *** if checkToken middleware is added, BCRYPT needs to be added
-// eventaully: add in authController.encrypt at beginning
-app.post(
-  '/data',
-  authController.encrypt,
-  redisController.setData,
-  (req, res) => {
-    res.status(200).json({ success: 'good' });
-  }
-);
-
-// coming from mainChartPage in updateState and componentDidMount -
-// req.body includes token. getData controller accesses array list value in
-// Redis associated with token, then uses consumer names from that array to
-// access all consumer's data metrics objects. res.locals.finalData is an
-// object containing consumer names as keys and their data objects as associated values
-// *** ADD check for cookie if req.token doesn't exist -
-// if cookie exists, consider sending it back to frontend to update state token property
-// *** ADD BCRYPT
+// access all consumer data for consumer instances associated with token
 app.post(
   '/getData',
   cookieController.checkForCookie,
@@ -94,10 +58,29 @@ app.post(
   }
 );
 
-// coming from kafkaMetrics addMetrics/index.js,
-// req.body includes name: combinedName and token: token;
-// redisController.track pushes name to Redis token value list
-// ADD BCRYPT (see redisController.track)
+// ROUTES ACCESSED BY KAFKJS CLIENT:
+
+// encrypt token and add encrypted token to database
+app.post(
+  '/token',
+  authController.encrypt,
+  redisController.setToken,
+  (req, res) => {
+    res.status(200).json({ success: 'ok' });
+  }
+);
+
+// add consumer data to database after token verification (data sent at default setInterval 5000ms)
+app.post(
+  '/data',
+  authController.encrypt,
+  redisController.setData,
+  (req, res) => {
+    res.status(200).json({ success: 'good' });
+  }
+);
+
+// add consumer instance to database to be tracked
 app.post(
   '/track',
   authController.encrypt,
@@ -107,6 +90,7 @@ app.post(
   }
 );
 
+// unknown route handler
 app.use((req, res) => res.status(404).send('Page not found'));
 
 // global error handler

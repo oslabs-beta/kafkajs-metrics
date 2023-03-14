@@ -1,6 +1,7 @@
 const Redis = require('redis');
 
 const client = Redis.createClient({
+  url: 'rediss://red-cg11tq4eoogv676437bg:Y2IG87W5lT5sONA63l61QGxzdtx0FGh6@ohio-redis.render.com:6379',
   // test.js
 });
 
@@ -10,6 +11,7 @@ client.on('error', (err) => {
 
 const combineName = (bToken, clientName) => `${bToken}-${clientName}`;
 
+// add encrypted token to database
 const setRedisToken = async (token, next) => {
   try {
     await client.connect();
@@ -28,14 +30,13 @@ const setRedisToken = async (token, next) => {
   }
 };
 
-// verifies token exists in database, then adds consumer data to database
+// verify encrypted token exists in database, then adds consumer data to database
 const setData = async (name, data, token, next) => {
-  // verifies that token exists in database
-  console.log('in callback');
+  // verify that token exists in database
   try {
     const returnedData = await client.lRange(token, 0, -1);
     if (returnedData.length) {
-      // set data to expire after 5 minutes
+      // add consumer data to database, set data to expire after 5 minutes
       await client.setEx(name, 300, JSON.stringify(data));
     } else {
       return next({
@@ -55,6 +56,7 @@ const setData = async (name, data, token, next) => {
   }
 };
 
+// add consumer instance to encrypted token list in database
 const setInstances = async (name, token, next) => {
   try {
     await client.rPush(token, name);
@@ -71,7 +73,7 @@ const setInstances = async (name, token, next) => {
 
 const redisController = {};
 
-// extracting encrypted token, passing in to setRedisToken
+// add encrypted token to database
 redisController.setToken = (req, res, next) => {
   if (!res.locals.bToken) {
     return next({
@@ -86,20 +88,19 @@ redisController.setToken = (req, res, next) => {
   return next();
 };
 
+// verify token has been added to database
 redisController.checkToken = (req, res, next) => {
-  //   if (!req.body.token) {
-  //     return next({
-  //       log: 'error occured while extracting token from request body in setToken middleware',
-  //       status: 200,
-  //       message: { err: 'recieved unexpected input' },
-  //     });
-  //   }
+  if (!res.locals.bToken) {
+    return next({
+      log: 'error occured while extracting token from request body in setToken middleware',
+      status: 500,
+      message: { err: 'recieved unexpected input' },
+    });
+  }
   const token = res.locals.bToken;
-  console.log('hashed token inside of checkToken', token);
   const checkRedisToken = async (token, client) => {
     try {
       const data = await client.lRange(token.toString(), 0, -1);
-      console.log('data inside of checkToken', data);
       res.locals.check = !!data.length;
       return next();
     } catch (err) {
@@ -115,45 +116,38 @@ redisController.checkToken = (req, res, next) => {
   checkRedisToken(token, client);
 };
 
+// verify encrypted token exists in database, then adds consumer data to database
 redisController.setData = (req, res, next) => {
-  //   if (!req.body.name || !req.body.data) {
-  //     return next({
-  //       log: 'error occured while getting name and data from request body in setData middleware',
-  //       status: 200,
-  //       message: { err: 'recieved unexpected input' },
-  //     });
-  //   }
-  // STRUCTURE OF REQ.BODY:
-  // req.body has two properties - data = bodyObj and name = combinedName;
-  // bodyObj has two properties: name = token and data = dataObj;
+  if (!req.body.name || !req.body.data) {
+    return next({
+      log: 'error occured while getting name and data from request body in setData middleware',
+      status: 400,
+      message: { err: 'recieved unexpected input' },
+    });
+  }
   const { name, data } = req.body;
-  console.log('name', name);
-  console.log('data', data);
   const { bToken } = res.locals;
-  console.log('token, ', bToken);
   const combinedName = combineName(bToken, name);
   setData(combinedName, data, bToken.toString(), next);
   return next();
 };
 
+// retreive data for all consumer instances associated with token
 redisController.getData = (req, res, next) => {
-  //   if (!req.body.token) {
-  //     return next({
-  //       log: 'error occured while extracting token from request body in getData middleware',
-  //       status: 200,
-  //       message: { err: 'recieved unexpected input' },
-  //     });
-  //   }
+  if (!res.locals.bToken) {
+    return next({
+      log: 'error occured while extracting token from request body in setToken middleware',
+      status: 500,
+      message: { err: 'recieved unexpected input' },
+    });
+  }
   const token = res.locals.bToken;
   res.locals.finalData = {};
 
-  // iterate through the array of all the client instances and retrieve data for each one
+  // iterate through the list of all the client instances and retrieve data for each one
   const getValues = async (token, client) => {
-    // await client.disconnect();
-    // await client.connect();
     const arr = await client.lRange(token.toString(), 0, -1);
     let count = 0;
-    console.log('arr', arr);
     arr.forEach(async (data) => {
       if (data !== 'true' && data !== 'ok') {
         let metricsObj = await client.get(data);
@@ -165,16 +159,13 @@ redisController.getData = (req, res, next) => {
           });
         }
         metricsObj = JSON.parse(metricsObj);
-        console.log('metricsObj inside getData', metricsObj);
         const { clientName } = metricsObj.data;
-        console.log('clientName inside getData', clientName);
         res.locals.finalData[clientName] = JSON.stringify(metricsObj);
       }
 
       count += 1;
 
       if (count === arr.length) {
-        console.log('passes if');
         return next();
       }
     });
@@ -182,16 +173,15 @@ redisController.getData = (req, res, next) => {
   getValues(token, client);
 };
 
-// *** TO DO: use Bcrypt to hash token and then create combinedName at line 151;
-// everything below 152 stays the same
+// add consumer instance to encrypted token list in database
 redisController.track = (req, res, next) => {
-  //   if (!req.body.name || !req.body.data) {
-  //     return next({
-  //       log: 'error occured while getting name and data from request body in track middleware',
-  //       status: 200,
-  //       message: { err: 'recieved unexpected input' },
-  //     });
-  //   }
+  if (!req.body.name || !res.locals.bToken) {
+    return next({
+      log: 'error occured while getting name and token from request body in track middleware',
+      status: 400,
+      message: { err: 'recieved unexpected input' },
+    });
+  }
   const { name } = req.body;
   const { bToken } = res.locals;
   const combinedName = combineName(bToken, name);
