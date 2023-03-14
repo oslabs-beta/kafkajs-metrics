@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import LineChart from './LineChart.jsx';
 import { Chart as ChartJS } from 'chart.js/auto';
 
+// ChartSection renders 6 line charts for a KafkaJS client's consumers, updating every 5 seconds
 class ChartSection extends Component {
   render() {
-    console.log('in chart section');
-    console.log('props.data', this.props.data);
     return (
-      <div className="Charts" style={{ width: '500px' }}>
+      <div className="chart-section" style={{ width: '500px' }}>
         <LineChart
           data={this.props.data.messagesConsumed}
           name="messagesConsumed"
@@ -30,9 +29,8 @@ class ChartSection extends Component {
   componentDidMount() {
     // get data from redis, setState with it
     // then start the interval to get data from redis and setState with it over and over again
-    console.log('mount data', this.props.data);
     setInterval(() => {
-      this.props.update();
+      this.props.updateState();
     }, 5000);
   }
 }

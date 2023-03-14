@@ -1,5 +1,6 @@
 import React from 'react';
 
+// card with copyable code snippet – used in Get Started section of HomePage
 export default function CodeCard(props) {
   return (
     <div className="card" style={{ flexGrow: 1 }}>
