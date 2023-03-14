@@ -21,11 +21,14 @@ a {
   color: $salmon;
   text-decoration: none;
 }
-
 h1 {
   font-size: 60px;
   color: $salmon;
   padding: 20px;
+  text-align: center;
+}
+h1:hover{
+  color: $marigold
 }
 
 /* nav bar */
@@ -55,6 +58,9 @@ nav {
       padding-left: 2vw;
       display: inline-block;
       text-decoration: none;
+    }
+    a:hover{
+      color: $marigold
     }
   }
 }
@@ -243,48 +249,36 @@ nav {
 }
 
 //mainchartpage containers
-.MainChartPagecontainer {
-  display: flex;
+.Charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-rows: auto;
   justify-content: center;
+  gap: 20px;
+  margin: 0 auto;
+  max-width: 1000px;
 }
-
-.MainChartPagecontainer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 0px 36px;
-  margin-top: 50px;
-  margin-left: 50px;
-  margin-right: 50px;
-  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  text-align: center;
-  flex: 1;
-  justify-content: center;
+@media screen and (min-width: 768px) {
+  .Charts {
+    grid-template-columns: repeat(2, minmax(600px, 1fr));
+  }
 }
-.MainChartPagecontainer {
-  padding: 20px; /* add some padding to the content */
-}
-
-.MainCharts {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-}
-
-.MainCharts {
-  flex-basis: 100px;
+.Chart{
+  background-color: #032d45;
+  padding: 20px;
+  margin: 10px;
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  padding: 8px;
-  padding-bottom: 20px;
-  background-color: $white;
-  width: 500px;
+  color: #4ecdc4;
 }
-
+.chartTitle{
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  text-align: center;
+}
+.chartTitle:hover{
+  color: $salmon
+}
 //visualizer
 .AuthenticContainer {
   display: flex;
