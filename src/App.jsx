@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Navbar from './components/navbar.jsx';
-import HomePage from './components/Home.jsx';
-import MainTokenPage from './components/mainTokenPage.jsx';
-import MainChartPage from './components/mainChartPage.jsx';
+import Navbar from './components/Navbar.jsx';
+import HomePage from './components/HomePage.jsx';
+import MainTokenPage from './components/MainTokenPage.jsx';
+import MainChartPage from './components/MainChartPage.jsx';
 import TeamPage from './components/TeamPage.jsx';
 
 export default function App() {

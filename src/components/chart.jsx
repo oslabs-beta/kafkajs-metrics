@@ -28,8 +28,8 @@ function LineChart(props) {
     },
   };
   return (
-    <div className="Chart">
-      <div className="chartTitle">{props.name}</div>
+    <div className="chart">
+      <div className="chart-title">{props.name}</div>
       <Line data={props.data} options={options} />
     </div>
   );

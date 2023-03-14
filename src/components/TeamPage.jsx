@@ -10,9 +10,9 @@ import RananImg from '../../assets/team/Ranan.jpg';
 export default function TeamPage() {
   return (
     <>
-      <div className="homepageSection">
+      <div className="homepage-section">
         <h1>Meet the Team</h1>
-        <div className="teamCardGrid">
+        <div className="team-card-grid">
           <TeamCard
             img={RebeccaImg}
             name="Rebecca Anderson"

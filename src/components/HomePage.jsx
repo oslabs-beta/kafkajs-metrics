@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import ImageCard from './ImageCard.jsx';
-import Footer from './footer.jsx';
+import Footer from './Footer.jsx';
 import CodeCard from './CodeCard.jsx';
 import code01 from '../../assets/code-snippets/code01.jpeg';
 import code02 from '../../assets/code-snippets/code02.jpeg';
@@ -44,9 +44,9 @@ export default function HomePage() {
           </code>
         </div>
       </div>
-      <div className="homepageSection">
+      <div className="homepage-section">
         <h1>Key Features</h1>
-        <div className="cardGrid">
+        <div className="card-grid">
           <ImageCard
             img={code01}
             name="Event-Based Metrics"
@@ -79,9 +79,9 @@ export default function HomePage() {
           />
         </div>
       </div>
-      <div className="homepageSection">
+      <div className="homepage-section">
         <h1>Get Started</h1>
-        <div className="cardArea">
+        <div className="card-area">
           <CodeCard
             name="Easy as 1-2-3"
             code={[

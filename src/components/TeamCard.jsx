@@ -5,11 +5,11 @@ import gitHubLogo from '../../assets/logos/GitHub.png';
 // custom cards for TeamPage
 export default function TeamCard({ img, name, gitHubLink, linkedInLink }) {
   return (
-    <div className="TeamCard">
+    <div className="team-card">
       <img src={img} />
       <h3>{name}</h3>
       <p>Software Engineer</p>
-      <div className="logoBox">
+      <div className="logo-box">
         <a href={gitHubLink}>
           <img className="logo" src={gitHubLogo} />
         </a>

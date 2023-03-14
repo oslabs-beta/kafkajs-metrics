@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import LineChart from './chart.jsx';
+import LineChart from './Chart.jsx';
 
 // ChartSection renders 6 line charts for a KafkaJS client's consumers, updating every 5 seconds
 class ChartSection extends Component {
   render() {
     return (
-      <div className="Charts" style={{ width: '500px' }}>
+      <div className="chart-section" style={{ width: '500px' }}>
         <LineChart
           data={this.props.data.messagesConsumed}
           name="messagesConsumed"

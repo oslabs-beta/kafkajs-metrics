@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ChartSection from './chart-section.jsx';
+import ChartSection from './ChartSection.jsx';
 
 // MainChartPage renders a loading screen
 // When state is ok, it renders ChartSection which displays various metrics charts
@@ -110,21 +110,21 @@ class MainChartPage extends Component {
     if (!this.state.ok) {
       return (
         <div>
-          <div className="LoadingPage">Loading!</div>
-          <p className="LoadingPageNotice">
+          <div className="loading-page">Loading!</div>
+          <p className="loading-page-notice">
             Content should appear shortly. If it does not, please refresh.
           </p>
         </div>
       );
     }
     return (
-      <div className="MainChartPageContainter">
+      <>
         <ChartSection
           data={this.state.charts}
           updateState={this.updateState}
           type={this.props.type}
         />
-      </div>
+      </>
     );
   }
 }
