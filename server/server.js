@@ -18,14 +18,14 @@ app.use((req, res, next) => {
   next();
 });
 
-// sends library documentation
+// send library documentation
 app.get('/docs/*', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../docs/', req.params[0]));
 });
 
 // ROUTES ACCESSED BY BROWSER
 
-// generates secure token, creates associated cookie and sends token back on request body
+// generate secure token, create associated cookie, and send token on request body
 app.get(
   '/token',
   cookieController.generateToken,
@@ -35,7 +35,7 @@ app.get(
   }
 );
 
-// verifies that token has been encrypted/added to Redis, returns boolean
+// verify that token has been encrypted/added to database
 // (request from authenticate button onClick)
 app.post(
   '/checktoken',
@@ -48,7 +48,7 @@ app.post(
   }
 );
 
-// returns all consumer data for consumer instances associated with token
+// access all consumer data for consumer instances associated with token
 app.post(
   '/getData',
   cookieController.checkForCookie,
@@ -61,7 +61,7 @@ app.post(
 
 // ROUTES ACCESSED BY KAFKJS CLIENT:
 
-// encrypts token and adds encrypted token to Redis
+// encrypt token and add encrypted token to database
 app.post(
   '/token',
   authController.encrypt,
@@ -71,7 +71,7 @@ app.post(
   }
 );
 
-// consumer data added to Redis after token verification (data sent at default setInterval 5000ms)
+// add consumer data to database after token verification (data sent at default setInterval 5000ms)
 app.post(
   '/data',
   authController.encrypt,
@@ -81,7 +81,7 @@ app.post(
   }
 );
 
-// adds consumer instance to Redis to be tracked
+// add consumer instance to database to be tracked
 app.post(
   '/track',
   authController.encrypt,

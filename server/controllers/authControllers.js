@@ -11,11 +11,11 @@ authController.encrypt = (req, res, next) => {
       '$2b$10$oP8KGMJEHQWQ64VN.Ge38e'
     );
     res.locals.bToken = hash;
-  } catch (error) {
+  } catch (err) {
     return next({
-      log: 'error in encrypt middleware',
+      log: 'error in encrypt middleware: ' + err,
       status: 500,
-      message: { err: error },
+      message: { err: 'internal server error' },
     });
   }
   return next();
