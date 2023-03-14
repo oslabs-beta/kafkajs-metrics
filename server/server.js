@@ -4,6 +4,7 @@ const path = require('path');
 const redisController = require('./controllers/redisControllers');
 const cookieController = require('./controllers/cookieControllers');
 const authController = require('./controllers/authControllers');
+// require('dotenv').config();
 
 const app = express();
 app.use(cookieParser());
