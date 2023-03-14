@@ -51,10 +51,21 @@ class MainTokenPage extends Component {
   }
 
   render() {
+    console.log('token', this.state.token);
     return this.state.authenticated ? <Main type = 'consumer' token = {this.state.token}/> : (
             <>
             <div className='AuthenticContainer'>
                 <div className='AuthenticContainerContents'>
+                <div className='Instructions' style={{ border: 'solid', borderColor: 'transparent', fontFamily: 'Roboto, sans-serif' }}>
+              <p className='InstructionsP'>
+                <h2>Instructions</h2>
+                Click generate token to get your access token.
+                Pass two extra arguments to the metricize function: true and your token.
+                Run your file and click authenticate.
+                Once authenticated, your token will last 24 hours.
+                When you refresh or leave the page, just hit the authentication button again to access your charts.
+              </p>
+            </div>
                     <button onClick={() => {
                       this.getToken();
                     }}>Generate Access Token</button>
@@ -68,7 +79,6 @@ class MainTokenPage extends Component {
                     <button onClick={() => {
                       this.checkToken();
                     }}>Authenticate</button>
-                    <div style={{ border: 'solid', borderColor: 'transparent', fontFamily: 'Roboto, sans-serif' }}>Instructions:</div>
                 </div>
             </div>
             </>

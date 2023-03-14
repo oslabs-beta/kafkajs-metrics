@@ -29,15 +29,10 @@ function LineChart(props) {
     }
   };
   console.log('this is data', props.data);
-  const dataArray = props.data.datasets.map((dataset) => ({
-    ...dataset, backgroundColor: '#ff6b6b', borderColor: '#ff6b6b', color: '#2dc293'
-  }));
-  const redData = props.data;
-  redData.datasets = dataArray;
   return (
          <div className='Chart'>
             <div className='chartTitle'>{props.name}</div>
-            <Line data = {redData} options={options} />
+            <Line data = {props.data} options={options} />
         </div>
   );
 }

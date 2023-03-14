@@ -282,6 +282,34 @@ nav {
   align-items: center;
   height: 90vh;
 }
+
+// .AuthenticContainerContents > .Instructions {
+//   margin-bottom: 5%;
+//   font-size: 1.5em;
+// }
+
+.AuthenticContainerContents > .Instructions  {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 20px 40px 40px 40px;
+  margin: 40px;
+  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  text-align: center;
+  flex: 1;
+  justify-content: center;
+  background-color: lighten($darkblue, 2%);
+  border-radius: 10px;
+  p {
+    font-weight: 900;
+    margin-bottom: 40px;
+  }
+  h2 {
+    color: $salmon;
+  }
+}
+
 .AuthenticContainerContents {
   display: flex;
   flex-direction: column;
@@ -296,22 +324,28 @@ nav {
   display: inline-block;
   cursor: pointer;
   padding: 10px 16px;
-  background-color: #0070d2;
+  background-color: lighten($darkblue, 2%);
+  // background-color: #0070d2;
   border-radius: 0.25rem;
   border: 1px solid #0070d2;
+  border: 1px solid darken($darkblue, 2%);
   color: #fff;
   font-size: 13px;
   font-weight: 400;
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
+
+  margin-left: 40%;
+  margin-right: 40%;
 }
 
 .AuthenticContainerContents > .CopyButton {
   display: inline-block;
   cursor: pointer;
   padding: 8px 12px;
-  background-color: #ff6b6b;
+  // background-color: #ff6b6b;
+  background-color: $salmon;
   border-radius: 0.25rem;
   font-size: 13px;
   font-weight: 400;
@@ -326,6 +360,12 @@ nav {
   font-size: 5em;
   height: 100%;
 }
+
+.LoadingPageNotice {
+  color: $salmon;
+  text-align: center;
+}
+
 
 // footer
 .footer {
