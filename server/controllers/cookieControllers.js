@@ -2,7 +2,7 @@ const crypto = require('crypto');
 
 const cookieController = {};
 
-// if token is not included on request body, token will be taken from req.cookies
+// if token is not included on request body, token will be accessed from req.cookies
 cookieController.checkForCookie = (req, res, next) => {
   if (!req.body.token && !req.cookies.token) {
     return next({
@@ -15,7 +15,7 @@ cookieController.checkForCookie = (req, res, next) => {
   return next();
 };
 
-// generate random number, save it to res.locals
+// generate cryptographically secure token
 cookieController.generateToken = (req, res, next) => {
   console.log('this is a test for generate token');
   const token = crypto.randomInt(0, 100000000);
@@ -24,7 +24,7 @@ cookieController.generateToken = (req, res, next) => {
   return next();
 };
 
-// create cookie based on res.locals saved number
+// create cookie from secure token value // cookie expires after 24hrs
 cookieController.createCookie = (req, res, next) => {
   if (!res.locals.token) {
     return next({
@@ -36,7 +36,7 @@ cookieController.createCookie = (req, res, next) => {
   res.cookie('token', res.locals.token, {
     httpOnly: true,
     expire: new Date() + 86400000,
-  }); // this expires after 24hrs
+  });
   return next();
 };
 
