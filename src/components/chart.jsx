@@ -13,7 +13,7 @@ function LineChart(props) {
       y:
         {
           ticks: {
-            color: 'white', // Change this value to the desired color for the x-axis labels
+            color: 'white', // Change this value to the desired color for the y-axis labels
           },
         },
     },
