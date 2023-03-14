@@ -19,7 +19,6 @@ function addMetrics(obj, client, type) {
    * const producerMetricsObject = producer.metrics;
    * const adminMetricsObject = admin.metrics;
    */
-
   obj.metrics = {
     // VARIABLES
     /**
@@ -137,7 +136,6 @@ function addMetrics(obj, client, type) {
      * consumer.requestPendingDurationLogOn()
      * // => prints log to the console; includes event payload apiName, pendingDuration
      */
-    // turns on logging pendingDuration for every request (off by default)
     requestPendingDurationLogOn() {
       obj.metrics.options.requestPendingDuration.logOn = true;
     },
@@ -146,7 +144,6 @@ function addMetrics(obj, client, type) {
      * @example
      * producer.requestPendingDurationLogOff()
      */
-    // turns off logging pendingDuration for every request
     requestPendingDurationLogOff() {
       obj.metrics.options.requestPendingDuration.logOn = false;
     },
@@ -158,7 +155,6 @@ function addMetrics(obj, client, type) {
      * // => prints log to the console when breakpoint is exceeded;
      * //includes event payload apiName, pendingDuration, ms breakpoint exceeded, current breakpoint
      */
-    // creates request pendingDuration breakpoint at specified interval (ms)
     requestPendingDurationSetBreakpoint(bp) {
       obj.metrics.options.requestPendingDuration.breakpoint = bp;
     },
@@ -167,7 +163,6 @@ function addMetrics(obj, client, type) {
      * @example
      * producer.requestPendingDurationCancelBreakpoint()
      */
-    // cancels existing request pendingDuration breakpoint
     requestPendingDurationCancelBreakpoint() {
       obj.metrics.options.requestPendingDuration.breakpoint = null;
     },
@@ -179,7 +174,6 @@ function addMetrics(obj, client, type) {
      * consumer.requestQueueSizeLogOn()
      * // => prints log to the console; includes event payload queueSize
      */
-    // turns on logging requestQueueSize for every request (off by default)
     requestQueueSizeLogOn() {
       obj.metrics.options.requestQueueSize.logOn = true;
     },
@@ -188,7 +182,6 @@ function addMetrics(obj, client, type) {
      * @example
      * consumer.requestQueueSizeLogOff()
      */
-    // turns off logging requestQueueSize for every request
     requestQueueSizeLogOff() {
       obj.metrics.options.requestQueueSize.logOn = false;
     },
@@ -200,7 +193,6 @@ function addMetrics(obj, client, type) {
      * // => prints log to the console when breakpoint is exceeded;
      * // includes event payload queueSize, amount breakpoint exceeded, current breakpoint
      */
-    // creates request queueSize breakpoint at specified size
     requestQueueSizeSetBreakpoint(bp) {
       obj.metrics.options.requestQueueSize.breakpoint = bp;
     },
@@ -209,7 +201,6 @@ function addMetrics(obj, client, type) {
      * @example
      * producer.requestQueueSizeCancelBreakpoint()
      */
-    // cancels existing requestQueueSize breakpoint
     requestQueueSizeCancelBreakpoint() {
       obj.metrics.options.requestQueueSize.breakpoint = null;
     },
@@ -221,7 +212,6 @@ function addMetrics(obj, client, type) {
      * @example
      * producer.setRateFrequency(300);
      */
-    // updates frequency (ms) at which rate metrics should be calculated
     setRateFrequency(t) {
       obj.metrics.options.rate.frequency = t;
     },
@@ -231,7 +221,6 @@ function addMetrics(obj, client, type) {
      * @example
      * producer.setRatePeriod(3000);
      */
-    // updates period (ms) that rate metrics should use to calculate averages
     setRatePeriod(t) {
       obj.metrics.options.rate.period = t;
     },
@@ -349,7 +338,6 @@ function addMetrics(obj, client, type) {
        * consumer.heartbeatLogOn()
        * // => prints log to the console; includes heartbeat event timestamp
        */
-      // turns on logging every heartbeat (off by default)
       heartbeatLogOn() {
         obj.metrics.options.heartbeat.logOn = true;
       },
@@ -358,7 +346,6 @@ function addMetrics(obj, client, type) {
        * @example
        * consumer.heartbeatLogOff()
        */
-      // turns off logging every heartbeat
       heartbeatLogOff() {
         obj.metrics.options.heartbeat.logOn = false;
       },
@@ -370,7 +357,6 @@ function addMetrics(obj, client, type) {
        * // => prints log to the console when breakpoint is exceeded;
        * // includes ms breakpoint exceeded, heartbeat event payload timestamp, current breakpoint
        */
-      // creates heartbeat breakpoint at specified interval (ms)
       heartbeatSetBreakpoint(bp) {
         obj.metrics.options.heartbeat.breakpoint = bp;
       },
@@ -379,7 +365,6 @@ function addMetrics(obj, client, type) {
        * @example
        * consumer.heartbeatCancelBreakpoint()
        */
-      // cancels existing heartbeat breakpoint
       heartbeatCancelBreakpoint() {
         obj.metrics.options.heartbeat.breakpoint = null;
       },
@@ -393,7 +378,6 @@ function addMetrics(obj, client, type) {
        * // => prints log to the console when breakpoint is exceeded;
        * // includes event payload offsetLag, amount breakpoint exceeded, current breakpoint
        */
-      // creates offsetLag breakpoint at specified integer
       offsetLagSetBreakpoint(bp) {
         obj.metrics.options.offsetLag.breakpoint = bp;
       },
@@ -402,7 +386,6 @@ function addMetrics(obj, client, type) {
        * @example
        * consumer.offsetLagCancelBreakpoint()
        */
-      // cancels existing offsetLag breakpoint
       offsetLagCancelBreakpoint() {
         obj.metrics.options.offsetLag.breakpoint = null;
       },
