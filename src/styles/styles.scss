@@ -27,9 +27,6 @@ h1 {
   padding: 20px;
   text-align: center;
 }
-h1:hover{
-  color: $marigold
-}
 
 /* nav bar */
 nav {
@@ -58,7 +55,7 @@ nav {
       padding-left: 2vw;
       display: inline-block;
       text-decoration: none;
-    }
+    } 
     a:hover{
       color: $marigold
     }
@@ -75,9 +72,6 @@ nav {
   align-self: flex-start;
 }
 
-.sidebarContainer a:hover {
-  color: $salmon;
-}
 
 .main {
   margin-left: 40px; /* Same width as the sidebar + left position in px */
