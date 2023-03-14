@@ -43,7 +43,6 @@ app.post(
   authController.encrypt,
   redisController.checkToken,
   (req, res) => {
-    console.log('res.locals.check', res.locals.check);
     res.status(200).json({ token: res.locals.check });
   }
 );
