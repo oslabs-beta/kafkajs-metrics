@@ -1,8 +1,8 @@
-const connect = require('./eventMetrics/connect');
-const disconnect = require('./eventMetrics/disconnect');
+const { connect } = require('./eventMetrics/connect');
+const { disconnect } = require('./eventMetrics/disconnect');
 const endBatchProcess = require('./eventMetrics/endBatchProcess');
-const groupJoin = require('./eventMetrics/groupJoin');
-const heartbeat = require('./eventMetrics/heartbeat');
+const { groupJoin } = require('./eventMetrics/groupJoin');
+const { heartbeatOn } = require('./eventMetrics/heartbeat');
 const request = require('./eventMetrics/request');
 const requestQueueSize = require('./eventMetrics/requestQueueSize');
 const requestTimeout = require('./eventMetrics/requestTimeout');
@@ -427,7 +427,7 @@ function addMetrics(obj, client, type) {
     // run consumer-specific instrumentation event generators
     endBatchProcess(obj);
     groupJoin(obj);
-    heartbeat(obj);
+    heartbeatOn(obj);
   }
 
   // begin calculating rate variables
