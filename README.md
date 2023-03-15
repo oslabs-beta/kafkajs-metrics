@@ -1,4 +1,4 @@
-<p align="center"><img src="website/assets/logos/KJSM.png" width='200' style="margin-top: 10px; margin-bottom: -10px;"></p>
+<p align="center"><img src="website/assets/logos/KJSM.png" width='200' style="margin-top: 10px; margin-bottom: 10px;"></p>
 
 # **KafkaJSMetrics**
 
@@ -48,7 +48,7 @@ Below are highlighted key features from KafkaJSMetrics. For full explanation of 
 
 # **Getting Started**
 
-KafkaJSMetrics works with your KafkaJS client. For information on setting up your KafkaJS client, visit [KafkaJS](kafka.js.org).
+KafkaJSMetrics works with your KafkaJS client. For information on setting up your KafkaJS client, visit [KafkaJS](https://kafka.js.org/).
 
 - [Installation](#installation) and [Usage](#usage) walk through setting up the KafkaJSMetrics library for use within your KafkaJS Client code
 
@@ -68,18 +68,16 @@ npm install kafkajs-metrics-visualizer
 
 ## **Usage**
 
-KafkaJSMetrics works with your existing KafkaJS client. More information about KafkaJS at [kafka.js.org](kafka.js.org).
+KafkaJSMetrics works with your existing KafkaJS client. More information about KafkaJS at [kafka.js.org](https://kafka.js.org/).
 
 1. Require kafkaJSMetrics in your KafkaJS Client file to access metricize
-<p align="left"><img src="assets/requireInKafkaJSMetrics.png" width='400' style="margin-top: 10px; margin-bottom: -10px;"></p>
+<p align="left"><img src="assets/requireInKafkaJSMetrics.png" width='400' style="margin-top: 10px; margin-bottom: 10px;"></p>
 
 2. Pass your KafkaJS Client instance into the metricize function (sample KafkaJS Client provided)
 
    - All consumer, producer, and admin instances created from this client will now have metrics and metrics-associated functionality
 
-<p align="left"><img src="assets/kafkaClientInstanceWithMetricize.png" width='400' style="margin-top: 10px; margin-bottom: -10px;"></p>
-
-All consumer, producer, and admin instances created from this client will now have metrics and metrics-associated functionality
+<p align="left"><img src="assets/kafkaClientInstanceWithMetricize.png" width='400' style="margin-top: 10px; margin-bottom: 10px;"></p>
 
 3. Run your KafkaJS Client file
 
@@ -93,21 +91,21 @@ Visit the [docs](https://www.kafkajsmetrics.com/docs/index.html) for a full list
 
 Example:
 
-<p align="left"><img src="assets/heartbeatLogOn.png" height='35' style="margin-top: 10px; margin-bottom: -10px;"></p>
+<p align="left"><img src="assets/heartbeatLogOn.png" height='35' style="margin-top: 10px; margin-bottom: 10px;"></p>
 
 Prints to console:
 
-<p align="left"><img src="assets/heartbeatConsolelog.png" height='30' style="margin-top: 10px; margin-bottom: -10px;"></p>
+<p align="left"><img src="assets/heartbeatConsolelog.png" height='30' style="margin-top: 10px; margin-bottom: 10px;"></p>
 
 ### **Turn on breakpoint alerts**
 
 Example:
 
-<p align="left"><img src="assets/heartbeatLogOn.png" height='35' style="margin-top: 10px; margin-bottom: -10px;"></p>
+<p align="left"><img src="assets/heartbeatLogOn.png" height='35' style="margin-top: 10px; margin-bottom: 10px;"></p>
 
 Prints to console:
 
-<p align="left"><img src="assets/heartbeatConsoleBreakpointAlert.png" height='30' style="margin-top: 10px; margin-bottom: -10px;"></p>
+<p align="left"><img src="assets/heartbeatConsoleBreakpointAlert.png" height='30' style="margin-top: 10px; margin-bottom: 10px;"></p>
 
 ---
 
@@ -117,24 +115,24 @@ The following steps will allow you to access the web browser visualizer to displ
 
 1. Open the [KafkaJSMetrics webpage](https://www.kafkajsmetrics.com). Click on the [visualizer tab](https://www.kafkajsmetrics.com/#/visualizer) and generate a new token
 
-\*\*\*insert gif here - start at home page, click on visualizer tab, click generate and then copy
+<p align="center"><img src=" assets/Clip1.gif" width='600' style="margin-top: 10px; margin-bottom: 10px;"></p>
 
 2. Copy the token and head back to to your KafkaJS client file. Inside the metricize function, add two additional arguments:
 
    - first argument is the boolean value true
    - second argument is your copied token
 
-<p align="left"><img src=" assets/metricizeVisualizerFunction.png" height='30' style="margin-top: 10px; margin-bottom: -10px;"></p>
- 
- 3. Back in the browser, click authenticate to access your web browser metrics display
- 
- ***insert gif here - clicking authenticate and being taken to the chart page, plus a few seconds on chart page to show charts updating dynamically
+<p align="left"><img src=" assets/metricizeVisualizerFunction.png" height='30' style="margin-top: 10px; margin-bottom: 10px;"></p>
+
+3.  Back in the browser, click authenticate to access your web browser metrics display
+
+<p align="center"><img src=" assets/Clip2.gif" width='600' style="margin-top: 10px; margin-bottom: 10px;"></p>
 
 ---
 
 # **Contributing**
 
-As growing developers, we welcome and encourage feedback! We are also always trying to improve our code so we actively welcome all contributions! If you would like to be a part of this product please follow the steps below.
+As KafkaJSMetrics continues to grow, we welcome and encourage feedback! We are also always trying to improve our code so we actively welcome all contributions! If you would like to be a part of this product please follow the steps below.
 
 1. Fork this repo of KafkaJSMetrics and then clone it to your machine
 2. Make sure to check out into the branch that you want to make contributions in
