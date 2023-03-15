@@ -1395,7 +1395,7 @@ returns null if consumer/producer/admin never connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-title function_">ageSinceInitialConnection</span>() <span class="hljs-comment">// =&gt; 87203</span></pre>
+      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">ageSinceInitialConnection</span>() <span class="hljs-comment">// =&gt; 87203</span></pre>
     
   
 
@@ -1458,7 +1458,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-title function_">ageSinceLastConnection</span>() <span class="hljs-comment">// =&gt; 843</span></pre>
+      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">ageSinceLastConnection</span>() <span class="hljs-comment">// =&gt; 843</span></pre>
     
   
 
@@ -1513,7 +1513,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-title function_">requestPendingDurationLogOn</span>()
+      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">requestPendingDurationLogOn</span>()
 <span class="hljs-comment">// =&gt; prints log to the console; includes event payload apiName, pendingDuration</span></pre>
     
   
@@ -1569,7 +1569,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-title function_">requestPendingDurationLogOff</span>()</pre>
+      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">requestPendingDurationLogOff</span>()</pre>
     
   
 
@@ -1638,7 +1638,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-title function_">requestPendingDurationSetBreakpoint</span>(<span class="hljs-number">20</span>)
+      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">requestPendingDurationSetBreakpoint</span>(<span class="hljs-number">20</span>)
 <span class="hljs-comment">// =&gt; prints log to the console when breakpoint is exceeded;</span>
 <span class="hljs-comment">//includes event payload apiName, pendingDuration, ms breakpoint exceeded, current breakpoint</span></pre>
     
@@ -1695,7 +1695,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-title function_">requestPendingDurationCancelBreakpoint</span>()</pre>
+      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">requestPendingDurationCancelBreakpoint</span>()</pre>
     
   
 
@@ -1750,7 +1750,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-title function_">requestQueueSizeLogOn</span>()
+      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">requestQueueSizeLogOn</span>()
 <span class="hljs-comment">// =&gt; prints log to the console; includes event payload queueSize</span></pre>
     
   
@@ -1806,7 +1806,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-title function_">requestQueueSizeLogOff</span>()</pre>
+      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">requestQueueSizeLogOff</span>()</pre>
     
   
 
@@ -1875,7 +1875,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-title function_">requestQueueSizeSetBreakpoint</span>(<span class="hljs-number">3</span>)
+      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">requestQueueSizeSetBreakpoint</span>(<span class="hljs-number">3</span>)
 <span class="hljs-comment">// =&gt; prints log to the console when breakpoint is exceeded;</span>
 <span class="hljs-comment">// includes event payload queueSize, amount breakpoint exceeded, current breakpoint</span></pre>
     
@@ -1932,7 +1932,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-title function_">requestQueueSizeCancelBreakpoint</span>()</pre>
+      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">requestQueueSizeCancelBreakpoint</span>()</pre>
     
   
 
@@ -2001,7 +2001,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-title function_">setRateFrequency</span>(<span class="hljs-number">300</span>);</pre>
+      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">setRateFrequency</span>(<span class="hljs-number">300</span>);</pre>
     
   
 
@@ -2070,7 +2070,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-title function_">setRatePeriod</span>(<span class="hljs-number">3000</span>);</pre>
+      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">setRatePeriod</span>(<span class="hljs-number">3000</span>);</pre>
     
   
 
@@ -2741,7 +2741,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-title function_">heartbeatLogOn</span>()
+      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">heartbeatLogOn</span>()
 <span class="hljs-comment">// =&gt; prints log to the console; includes heartbeat event timestamp</span></pre>
     
   
@@ -2797,7 +2797,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-title function_">heartbeatLogOff</span>()</pre>
+      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">heartbeatLogOff</span>()</pre>
     
   
 
@@ -2866,7 +2866,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-title function_">heartbeatSetBreakpoint</span>(<span class="hljs-number">1000</span>)
+      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">heartbeatSetBreakpoint</span>(<span class="hljs-number">1000</span>)
 <span class="hljs-comment">// =&gt; prints log to the console when breakpoint is exceeded;</span>
 <span class="hljs-comment">// includes ms breakpoint exceeded, heartbeat event payload timestamp, current breakpoint</span></pre>
     
@@ -2923,7 +2923,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-title function_">heartbeatCancelBreakpoint</span>()</pre>
+      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">heartbeatCancelBreakpoint</span>()</pre>
     
   
 
@@ -2992,7 +2992,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-title function_">offsetLagSetBreakpoint</span>(<span class="hljs-number">4</span>)
+      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">offsetLagSetBreakpoint</span>(<span class="hljs-number">4</span>)
 <span class="hljs-comment">// =&gt; prints log to the console when breakpoint is exceeded;</span>
 <span class="hljs-comment">// includes event payload offsetLag, amount breakpoint exceeded, current breakpoint</span></pre>
     
@@ -3049,7 +3049,7 @@ returns null if consumer/producer/admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-title function_">offsetLagCancelBreakpoint</span>()</pre>
+      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-property">metrics</span>.<span class="hljs-title function_">offsetLagCancelBreakpoint</span>()</pre>
     
   
 
