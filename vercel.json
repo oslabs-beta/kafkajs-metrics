@@ -1,5 +1,7 @@
 {
+    "cleanrUrls": true,
+    "trailingSlash": false,
     "rewrites":  [
-      {"source": "/(.*)", "destination": "/"}
+      {"source": "/(.*)", "destination": "/docs/index.html"}
     ]
 }
