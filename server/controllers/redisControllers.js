@@ -1,8 +1,8 @@
 const Redis = require('redis');
+require('dotenv').config();
 
 const client = Redis.createClient({
-  // url: process.env.CLIENT_URL,
-  // test.js
+  url: process.env.CLIENT_URL,
 });
 
 client.on('error', (err) => {
