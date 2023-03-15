@@ -36,9 +36,6 @@ function getData(promise, obj, client, type) {
       body: JSON.stringify({ name: clientName, token }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log('data', data);
-      })
       .catch((err) => {
         console.log('error in post request to /track: ', err);
       });
@@ -67,9 +64,6 @@ function getData(promise, obj, client, type) {
         body: JSON.stringify({ data: bodyObj, name: clientName, token }),
       })
         .then((res) => res.json())
-        .then((data) => {
-          console.log('data', data);
-        })
         .catch((err) => {
           console.log('error in post request to /data: ', err);
         });
