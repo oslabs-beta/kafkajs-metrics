@@ -28,7 +28,7 @@ function getData(promise, obj, client, type) {
     }
 
     // send the name and token to route /track to be set into database
-    fetch('http://localhost:3000/track', {
+    fetch('https://www.kafkajsmetrics.com/track', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -36,9 +36,6 @@ function getData(promise, obj, client, type) {
       body: JSON.stringify({ name: clientName, token }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log('data', data);
-      })
       .catch((err) => {
         console.log('error in post request to /track: ', err);
       });
@@ -47,7 +44,7 @@ function getData(promise, obj, client, type) {
     setInterval(() => {
       const dataObj = {
         messagesConsumed: obj.metrics.messagesConsumed,
-        lastHeartbeat: obj.metrics.lastHeartbeat,
+        lastHeartbeatDuration: obj.metrics.lastHeartbeatDuration,
         totalRequests: obj.metrics.totalRequests,
         requestRate: obj.metrics.requestRate,
         messageConsumptionRate: obj.metrics.messageConsumptionRate,
@@ -59,7 +56,7 @@ function getData(promise, obj, client, type) {
       bodyObj.name = token;
       bodyObj.data = dataObj;
 
-      fetch('http://localhost:3000/data', {
+      fetch('https://www.kafkajsmetrics.com/data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,9 +64,6 @@ function getData(promise, obj, client, type) {
         body: JSON.stringify({ data: bodyObj, name: clientName, token }),
       })
         .then((res) => res.json())
-        .then((data) => {
-          console.log('data', data);
-        })
         .catch((err) => {
           console.log('error in post request to /data: ', err);
         });
