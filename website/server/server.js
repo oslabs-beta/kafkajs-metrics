@@ -4,20 +4,12 @@ const path = require('path');
 const redisController = require('./controllers/redisControllers');
 const cookieController = require('./controllers/cookieControllers');
 const authController = require('./controllers/authControllers');
-// require('dotenv').config();
 
 const app = express();
 app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, '../../assets')));
-
-// app.use((req, res, next) => {
-//   res.append('Access-Control-Allow-Origin', ['*']);
-//   res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-//   res.append('Access-Control-Allow-Headers', 'Content-Type');
-//   next();
-// });
 
 // send library documentation
 app.get('/docs/*', (req, res) => {

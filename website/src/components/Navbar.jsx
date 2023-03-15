@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import kjsmLogo from '../../assets/logos/KJSM.png';
 
+// Navbar is called by App outside of React Router and thus appears on top of all 4 React pages
 export default function Navbar() {
   return (
     <nav>

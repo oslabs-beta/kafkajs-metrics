@@ -1,5 +1,6 @@
 import React from 'react';
 
+// card with image – used in Key Features section of HomePage
 export default function ImageCard(props) {
   return (
     <div className="card">

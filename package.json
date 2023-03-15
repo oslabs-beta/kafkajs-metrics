@@ -4,9 +4,10 @@
   "description": "Metrics package for KafkaJS",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --open",
+    "start": "NODE_ENV=development webpack-dev-server --open",
     "test": "jest --verbose",
-    "dev": "webpack serve --open & nodemon server/server.js"
+    "dev": "NODE_ENV=development webpack serve --open & nodemon server/server.js",
+    "build": "NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
