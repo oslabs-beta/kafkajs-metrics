@@ -28,7 +28,7 @@ function getData(promise, obj, client, type) {
     }
 
     // send the name and token to route /track to be set into database
-    fetch('http://localhost:3000/track', {
+    fetch('https://kafkajsmetrics.onrender.com/track', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ function getData(promise, obj, client, type) {
       bodyObj.name = token;
       bodyObj.data = dataObj;
 
-      fetch('http://localhost:3000/data', {
+      fetch('https://kafkajsmetrics.onrender.com/data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
