@@ -3,7 +3,8 @@
     "commonjs": true,
     "es2021": true,
     "node": true,
-    "jest": true
+    "jest": true,
+    "browser": true
   },
   "extends": ["airbnb-base", "plugin:react/recommended"],
   "overrides": [],
@@ -21,7 +22,9 @@
     "no-console": 0,
     "prefer-template": 0,
     "comma-dangle": 0,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "object-curly-newline": 0,
+    "no-alert": 0
   },
   "ignorePatterns": ["docs/**"]
 }
