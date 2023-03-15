@@ -24,7 +24,7 @@ function trackDisconnects(obj, client, type) {
         break;
       default:
         console.error(
-          'ERROR: switch statement reached default case in addMetrics/disconnect.js'
+          'ERROR: switch statement reached default case in src/disconnect.js'
         );
     }
     obj.metrics.isConnected = false;
