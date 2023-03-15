@@ -1,0 +1,30 @@
+{
+  "env": {
+    "commonjs": true,
+    "es2021": true,
+    "node": true,
+    "jest": true,
+    "browser": true
+  },
+  "extends": ["airbnb-base", "plugin:react/recommended"],
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "no-param-reassign": 0,
+    "prefer-rest-params": 0,
+    "operator-linebreak": 0,
+    "no-use-before-define": 0,
+    "no-console": 0,
+    "prefer-template": 0,
+    "comma-dangle": 0,
+    "react/prop-types": 0,
+    "object-curly-newline": 0,
+    "no-alert": 0
+  },
+  "ignorePatterns": ["docs/**"]
+}
