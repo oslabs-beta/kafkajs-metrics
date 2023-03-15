@@ -16,7 +16,7 @@ export default function Footer() {
       <div className="links">
         <Link to="/visualizer">Visualizer</Link>
         <a href="/docs/index.html">Docs</a>
-        <a href="https://github.com/oslabs-beta/kafkaMetrics.git">GitHub</a>
+        <a href="https://github.com/oslabs-beta/kafkajs-metrics.git">GitHub</a>
         <Link to="/team">Team</Link>
       </div>
     </nav>

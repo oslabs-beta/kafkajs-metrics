@@ -1,4 +1,4 @@
-import { trackDisconnects } from '../../addMetrics/eventMetrics/disconnect';
+import { trackDisconnects } from '../../src/eventMetrics/disconnect';
 
 describe('trackDisconnects function', () => {
   let kafkaInstance;
@@ -7,7 +7,7 @@ describe('trackDisconnects function', () => {
   beforeEach(() => {
     kafkaInstance = {
       metrics: {
-        isConnected: true
+        isConnected: true,
       },
     };
     client = {

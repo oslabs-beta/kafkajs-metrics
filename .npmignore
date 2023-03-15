@@ -3,7 +3,6 @@
 .eslintrc
 .gitignore
 .prettierrc
-vercel.json
 webpack.config
 website/
 __tests__/

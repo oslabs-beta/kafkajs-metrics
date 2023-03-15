@@ -1,4 +1,4 @@
-import { trackConnects } from '../../addMetrics/eventMetrics/connect';
+import { trackConnects } from '../../src/eventMetrics/connect';
 
 describe('trackConnects function', () => {
   let kafkaInstance;
@@ -7,7 +7,7 @@ describe('trackConnects function', () => {
   beforeEach(() => {
     kafkaInstance = {
       metrics: {
-        isConnected: false
+        isConnected: false,
       },
     };
     client = {
@@ -55,7 +55,11 @@ describe('trackConnects function', () => {
       kafkaInstance.metrics.isConnected = true;
       trackConnects(kafkaInstance, client, 'producer');
       expect(kafkaInstance.metrics).toEqual({ isConnected: true });
-      expect(client.metrics).toEqual({ totalConsumers: 0, totalProducers: 0, totalAdmins: 0 });
+      expect(client.metrics).toEqual({
+        totalConsumers: 0,
+        totalProducers: 0,
+        totalAdmins: 0,
+      });
     });
   });
 });
