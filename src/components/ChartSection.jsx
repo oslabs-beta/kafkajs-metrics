@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import LineChart from './LineChart.jsx';
+// eslint-disable-next-line no-unused-vars
 import { Chart as ChartJS } from 'chart.js/auto';
+import LineChart from './LineChart.jsx';
 
 // ChartSection renders 6 line charts for a KafkaJS client's consumers, updating every 5 seconds
 class ChartSection extends Component {

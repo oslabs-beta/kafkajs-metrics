@@ -109,11 +109,9 @@ class VisualizerPage extends Component {
   render() {
     if (!this.state.ok) {
       return (
-        <div>
-          <div className="loading-page">Loading!</div>
-          <p className="loading-page-notice">
-            Content should appear shortly. If it does not, please refresh.
-          </p>
+        <div className="loading-page">
+          <h2>Loading!</h2>
+          <p>Content should appear shortly. If it does not, please refresh.</p>
         </div>
       );
     }
