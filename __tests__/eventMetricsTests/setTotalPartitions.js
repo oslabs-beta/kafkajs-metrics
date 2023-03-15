@@ -1,4 +1,4 @@
-const { setTotalPartitions } = require('../../addMetrics/eventMetrics/groupJoin');
+const { setTotalPartitions } = require('../../src/eventMetrics/groupJoin');
 
 describe('setTotalPartitions function', () => {
   let consumer;
@@ -8,15 +8,15 @@ describe('setTotalPartitions function', () => {
     consumer = {
       metrics: {
         totalPartitions: 0,
-      }
+      },
     };
 
     event = {
       payload: {
         memberAssignment: {
           topic1: [1, 3, 5],
-        }
-      }
+        },
+      },
     };
   });
 

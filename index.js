@@ -1,5 +1,5 @@
 // require in producer/consumer/admin folders
-const addMetrics = require('./addMetrics');
+const addMetrics = require('./src');
 
 // Metrics will be added to any consumer/producer/admin instance from this client
 function metricize(client, visualize = false, token = false) {
@@ -21,15 +21,15 @@ function metricize(client, visualize = false, token = false) {
   // create client.metrics object for client metrics
   client.metrics = {
     // total number of connected consumers
-    totalConsumers: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
+    totalConsumers: 0, // modified in src/connect.js and src/disconnect.js
     // total number of connected producers
-    totalProducers: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
+    totalProducers: 0, // modified in src/connect.js and src/disconnect.js
     // total number of connected admins
-    totalAdmins: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
+    totalAdmins: 0, // modified in src/connect.js and src/disconnect.js
     options: {
       visualize,
       token,
-      consumerNum: 0, // modified in addMetrics/index.js
+      consumerNum: 0, // modified in src/index.js
     },
   };
 
