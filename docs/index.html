@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>kafkametrics 1.0.0 | Documentation</title>
+  <title>KafkaJSMetrics 1.0.0 | Documentation</title>
   <meta name='description' content='Metrics package for KafkaJS'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -14,7 +14,7 @@
     <div class='flex'>
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
-          <h3 class='mb0 no-anchor'>kafkametrics</h3>
+          <h3 class='mb0 no-anchor'>KafkaJSMetrics</h3>
           <div class='mb1'><code>1.0.0</code></div>
           <input
             placeholder='Filter'
@@ -41,14 +41,14 @@
                 <li><a
                   href='#metrics'
                   class=" toggle-sibling">
-                  metrics
+                  metrics: client
                   <span class='icon'>▸</span>
                 </a>
                 
                 <div class='toggle-target display-none'>
                   
                   <ul class='list-reset py1-ul pl1'>
-                    <li class='h5'><span>Static members</span></li>
+                    <li class='h5'><span>Metrics Properties and Methods</span></li>
                     
                       <li><a
                         href='#metricstotalconsumers'
@@ -81,14 +81,14 @@
                 <li><a
                   href='#metrics'
                   class=" toggle-sibling">
-                  metrics
+                  metrics: consumer/producer/admin
                   <span class='icon'>▸</span>
                 </a>
                 
                 <div class='toggle-target display-none'>
                   
                   <ul class='list-reset py1-ul pl1'>
-                    <li class='h5'><span>Static members</span></li>
+                    <li class='h5'><span>Metrics Properties and Methods</span></li>
                     
                       <li><a
                         href='#metricsname'
@@ -235,14 +235,14 @@
                 <li><a
                   href='#consumermetrics'
                   class=" toggle-sibling">
-                  consumerMetrics
+                  metrics: additional consumer
                   <span class='icon'>▸</span>
                 </a>
                 
                 <div class='toggle-target display-none'>
                   
                   <ul class='list-reset py1-ul pl1'>
-                    <li class='h5'><span>Static members</span></li>
+                    <li class='h5'><span>Metrics Properties and Methods</span></li>
                     
                       <li><a
                         href='#consumermetricsmemberid'
@@ -367,7 +367,7 @@
   
 
   <p>Metricize Kafka Client:</p>
-<p>Metrics will be added to any consumer/producer/admin instance from this client</p>
+<p>Metrics added to any consumer/producer/admin instance from this client</p>
 
     <div class='pre p1 fill-light mt0'>metricize(client: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
   
@@ -438,15 +438,15 @@
   <div class='clearfix'>
     
     <h3 class='fl m0' id='metrics'>
-      metrics
+      metrics: client
     </h3>
     
     
   </div>
   
 
-  <p>Global Metrics Object:</p>
-<p>Includes most recently calculated global metrics on kafkaJS client</p>
+  <p>Client Metrics Object:</p>
+<p>Includes most recently calculated client metrics on KafkaJS client</p>
 
     <div class='pre p1 fill-light mt0'>metrics</div>
   
@@ -478,12 +478,12 @@
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> globalMetricsObject = client.<span class="hljs-property">metrics</span>;</pre>
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> clientMetricsObject = client.<span class="hljs-property">metrics</span>;</pre>
     
   
 
   
-    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class='py1 quiet mt1 prose-big'>Metrics Properties and Methods</div>
     <div class="clearfix">
   
     <div class='border-bottom' id='metricstotalconsumers'>
@@ -689,15 +689,15 @@
   <div class='clearfix'>
     
     <h3 class='fl m0' id='metrics'>
-      metrics
+      metrics: consumer/producer/admin
     </h3>
     
     
   </div>
   
 
-  <p>Metrics Object:</p>
-<p>Includes most recently calculated metrics and methods for Consumer/Producer/Admin instances</p>
+  <p>Consumer/Producer/Admin Metrics Object:</p>
+<p>Includes most recently calculated metrics and methods for consumer/producer/admin instances</p>
 
     <div class='pre p1 fill-light mt0'>metrics</div>
   
@@ -729,14 +729,14 @@
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> consumerMetrics = consumer.<span class="hljs-property">metrics</span>;
-<span class="hljs-keyword">const</span> producerMetrics = producer.<span class="hljs-property">metrics</span>;
-<span class="hljs-keyword">const</span> adminMetrics = admin.<span class="hljs-property">metrics</span>;</pre>
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> consumerMetricsObject = consumer.<span class="hljs-property">metrics</span>;
+<span class="hljs-keyword">const</span> producerMetricsObject = producer.<span class="hljs-property">metrics</span>;
+<span class="hljs-keyword">const</span> adminMetricsObject = admin.<span class="hljs-property">metrics</span>;</pre>
     
   
 
   
-    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class='py1 quiet mt1 prose-big'>Metrics Properties and Methods</div>
     <div class="clearfix">
   
     <div class='border-bottom' id='metricsname'>
@@ -751,7 +751,7 @@
 
   
 
-  <p>Optional name for Consumer/Producer/Admin, set by user</p>
+  <p>Optional name for consumer/producer/admin, set by user</p>
 
     <div class='pre p1 fill-light mt0'>name</div>
   
@@ -811,7 +811,7 @@
 
   
 
-  <p>Boolean value to indicate if Consumer/Producer/Admin is connected</p>
+  <p>Boolean value to indicate if consumer/producer/admin is connected</p>
 
     <div class='pre p1 fill-light mt0'>isConnected</div>
   
@@ -843,7 +843,7 @@
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(consumer.<span class="hljs-property">metrics</span>.<span class="hljs-property">isConnected</span>);
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(producer.<span class="hljs-property">metrics</span>.<span class="hljs-property">isConnected</span>);
 <span class="hljs-comment">// =&gt; prints to the console: false</span></pre>
     
   
@@ -872,7 +872,7 @@
 
   
 
-  <p>Timestamp value (ms) to indicate when Consumer/Producer/Admin initally connected</p>
+  <p>Timestamp value (ms) indicating initial consumer/producer/admin connection</p>
 
     <div class='pre p1 fill-light mt0'>initialConnectionTimestamp</div>
   
@@ -933,7 +933,7 @@
 
   
 
-  <p>Timestamp value (ms) to indicate when Consumer/Producer/Admin most recently connected</p>
+  <p>Timestamp value (ms) to indicating most recent consumer/producer/admin connection</p>
 
     <div class='pre p1 fill-light mt0'>currentConnectionTimestamp</div>
   
@@ -965,7 +965,7 @@
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(consumer.<span class="hljs-property">metrics</span>.<span class="hljs-property">currentConnectionTimestamp</span>);
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(admin.<span class="hljs-property">metrics</span>.<span class="hljs-property">currentConnectionTimestamp</span>);
 <span class="hljs-comment">// =&gt; prints to the console: 3957103429678</span></pre>
     
   
@@ -1026,7 +1026,7 @@
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(consumer.<span class="hljs-property">metrics</span>.<span class="hljs-property">totalRequests</span>);
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(producer.<span class="hljs-property">metrics</span>.<span class="hljs-property">totalRequests</span>);
 <span class="hljs-comment">// =&gt; prints to the console: 78</span></pre>
     
   
@@ -1177,7 +1177,7 @@
 
   
 
-  <p>Request rate over Consumer/Producer/Admin lifetime (calculated since initial connection)</p>
+  <p>Request rate over consumer/producer/admin lifetime (calculated since initial connection)</p>
 
     <div class='pre p1 fill-light mt0'>requestRateLifetime</div>
   
@@ -1270,7 +1270,7 @@
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(consumer.<span class="hljs-property">metrics</span>.<span class="hljs-property">timeoutRate</span>);
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(producer.<span class="hljs-property">metrics</span>.<span class="hljs-property">timeoutRate</span>);
 <span class="hljs-comment">// =&gt; prints to the console: 2</span></pre>
     
   
@@ -1299,7 +1299,7 @@
 
   
 
-  <p>Timeout rate over Consumer/Producer/Admin lifetime (calculated since initial connection)</p>
+  <p>Timeout rate over consumer/producer/admin lifetime (calculated since initial connection)</p>
 
     <div class='pre p1 fill-light mt0'>timeoutRateLifetime</div>
   
@@ -1331,7 +1331,7 @@
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(consumer.<span class="hljs-property">metrics</span>.<span class="hljs-property">timeoutRateLifetime</span>);
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(admin.<span class="hljs-property">metrics</span>.<span class="hljs-property">timeoutRateLifetime</span>);
 <span class="hljs-comment">// =&gt; prints to the console: 4</span></pre>
     
   
@@ -1361,7 +1361,7 @@
   
 
   <p>Returns time in ms since initial connection;
-returns null if Consumer/Producer/Admin never connected</p>
+returns null if consumer/producer/admin never connected</p>
 
     <div class='pre p1 fill-light mt0'>ageSinceInitialConnection(): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | null)</div>
   
@@ -1424,7 +1424,7 @@ returns null if Consumer/Producer/Admin never connected</p>
   
 
   <p>Returns time in ms since current connection;
-returns null if Consumer/Producer/Admin is not currently connected</p>
+returns null if consumer/producer/admin is not currently connected</p>
 
     <div class='pre p1 fill-light mt0'>ageSinceLastConnection(): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | null)</div>
   
@@ -1458,7 +1458,7 @@ returns null if Consumer/Producer/Admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-title function_">ageSinceLastConnection</span>() <span class="hljs-comment">// =&gt; 843</span></pre>
+      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-title function_">ageSinceLastConnection</span>() <span class="hljs-comment">// =&gt; 843</span></pre>
     
   
 
@@ -1569,7 +1569,7 @@ returns null if Consumer/Producer/Admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>consumer.<span class="hljs-title function_">requestPendingDurationLogOff</span>()</pre>
+      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-title function_">requestPendingDurationLogOff</span>()</pre>
     
   
 
@@ -1875,7 +1875,7 @@ returns null if Consumer/Producer/Admin is not currently connected</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-title function_">requestPendingDurationSetBreakpoint</span>(<span class="hljs-number">3</span>)
+      <pre class='p1 overflow-auto round fill-light'>producer.<span class="hljs-title function_">requestQueueSizeSetBreakpoint</span>(<span class="hljs-number">3</span>)
 <span class="hljs-comment">// =&gt; prints log to the console when breakpoint is exceeded;</span>
 <span class="hljs-comment">// includes event payload queueSize, amount breakpoint exceeded, current breakpoint</span></pre>
     
@@ -2106,7 +2106,7 @@ returns null if Consumer/Producer/Admin is not currently connected</p>
   <div class='clearfix'>
     
     <h3 class='fl m0' id='consumermetrics'>
-      consumerMetrics
+      metrics: additional consumer
     </h3>
     
     
@@ -2150,7 +2150,7 @@ returns null if Consumer/Producer/Admin is not currently connected</p>
   
 
   
-    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class='py1 quiet mt1 prose-big'>Metrics Properties and Methods</div>
     <div class="clearfix">
   
     <div class='border-bottom' id='consumermetricsmemberid'>
@@ -2259,7 +2259,7 @@ returns null if Consumer/Producer/Admin is not currently connected</p>
     
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(consumer.<span class="hljs-property">metrics</span>.<span class="hljs-property">totalPartitions</span>);
-<span class="hljs-comment">// =&gt; prints to the console: 4</span></pre>
+<span class="hljs-comment">// =&gt; prints to the console: 3</span></pre>
     
   
 
@@ -2348,7 +2348,7 @@ returns null if Consumer/Producer/Admin is not currently connected</p>
 
   
 
-  <p>Last heartbeat duration in ms (time between last heartbeat and most recent heartbeat)</p>
+  <p>Last heartbeat duration in ms (time between last heartbeat and current heartbeat)</p>
 
     <div class='pre p1 fill-light mt0'>lastHeartbeatDuration</div>
   
@@ -2531,7 +2531,7 @@ returns null if Consumer/Producer/Admin is not currently connected</p>
 
   
 
-  <p>Most recent end batch process event payload offsetLag</p>
+  <p>Most recent end batch process offsetLag</p>
 
     <div class='pre p1 fill-light mt0'>offsetLag</div>
   
