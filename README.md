@@ -113,7 +113,7 @@ Prints to console:
 
 ## **Visualization**
 
-The following steps will allow you to access the web browser visualizer to display metrics. This is visualizer is an optional feature and will not affect the library performance
+The following steps will allow you to access the web browser visualizer to display metrics. This is visualizer is an optional feature and will not affect the library performance.
 
 1. Open the [KafkaJSMetrics webpage](https://www.kafkajsmetrics.com). Click on the [visualizer tab](https://www.kafkajsmetrics.com/#/visualizer) and generate a new token
 
@@ -134,26 +134,21 @@ The following steps will allow you to access the web browser visualizer to displ
 
 # **Contributing**
 
-instructions on running application in dev mode
-instructions on running tests
-contribution guidelines (preferred workflow for contributions, forking, feature branch, pull request)
-List of planned/desired features (nice formatting available on miro link)
-
 As growing developers, we welcome and encourage feedback! We are also always trying to improve our code so we actively welcome all contributions! If you would like to be a part of this product please follow the steps below.
 
 1. Fork this repo of KafkaJSMetrics and then clone it to your machine
-2. Pull down the specific area you are making changes to
+2. Make sure to check out into the branch that you want to make contributions in
 
    1. Contributions to the website as well as the visualizer:
 
       ```bash
-      git pull origin visualizer
+      git checkout visualizer
       ```
 
    2. Contributions to the library:
 
       ```bash
-      git pull origin dev
+      git checkout dev
       ```
 
 3. Create a feature branch
@@ -201,13 +196,19 @@ git merge visualizer [OR] dev
 ```
 
 8. Resolve any merge conflicts
-9. Push up your branch with the command
+9. Run unit tests and make sure all tests pass
+
+```bash
+npm test
+```
+
+10. Push up your branch with the command
 
 ```bash
 git push origin [feature/AmazingFeature]
 ```
 
-10. Finally, open a pull request for us to review!
+11. Finally, open a pull request for us to review!
 
 ---
 
