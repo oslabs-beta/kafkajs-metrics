@@ -13,11 +13,11 @@
   },
   "license": "MPL-2.0",
   "contributors": [
-    "Rebecca Anderson <email> (url)",
+    "Rebecca Anderson (https://github.com/Randers9)",
     "Paul Davey <118549898+pauldavey1@users.noreply.github.com> (https://pauldavey.dev)",
-    "Ranan Hui",
-    "Amanda Smith",
-    "Josh Tesoro"
+    "Ranan Hui (https://github.com/rananhui)",
+    "Amanda Smith (https://github.com/amsmithf)",
+    "Josh Tesoro (https://github.com/jshwatsoro)"
   ],
   "main": "index.js",
   "repository": {
