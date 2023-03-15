@@ -10,6 +10,7 @@ app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, '../../assets')));
+app.use(express.static('./dist'));
 
 // send library documentation
 app.get('/docs/*', (req, res) => {

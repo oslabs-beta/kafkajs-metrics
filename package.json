@@ -55,6 +55,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.2",
-    "redis": "^4.6.5"
+    "redis": "^4.6.5",
+    "webpack-cli": "^5.0.1"
   }
 }
