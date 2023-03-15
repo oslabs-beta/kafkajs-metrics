@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import ImageCard from './ImageCard.jsx';
-import Footer from './footer.jsx';
+import Footer from './Footer.jsx';
 import CodeCard from './CodeCard.jsx';
 import code01 from '../../assets/code-snippets/code01.jpeg';
 import code02 from '../../assets/code-snippets/code02.jpeg';
@@ -10,7 +10,12 @@ import chartsImg from '../../assets/code-snippets/charts.png';
 import snapImg from '../../assets/code-snippets/snap.png';
 import jsImg from '../../assets/code-snippets/js.png';
 
-export default function Home() {
+// HomePage includes 4 main sections:
+// Intro introduces the product
+// Key Features demonstrates features with ImageCard components
+// Get Started tells developers how to use the library with CodeCard components
+// Footer includes legal disclaimer and links (same links as navbar)
+export default function HomePage() {
   return (
     <>
       <div className="intro">
@@ -39,9 +44,9 @@ export default function Home() {
           </code>
         </div>
       </div>
-      <div className="homepageSection">
+      <div className="homepage-section">
         <h1>Key Features</h1>
-        <div className="cardGrid">
+        <div className="card-grid">
           <ImageCard
             img={code01}
             name="Event-Based Metrics"
@@ -74,9 +79,9 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="homepageSection">
+      <div className="homepage-section">
         <h1>Get Started</h1>
-        <div className="cardArea">
+        <div className="card-area">
           <CodeCard
             name="Easy as 1-2-3"
             code={[
