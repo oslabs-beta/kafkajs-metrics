@@ -15,7 +15,7 @@ class AuthPage extends Component {
   }
 
   checkToken() {
-    fetch('https://kafkajsmetrics.onrender.com/checktoken', {
+    fetch('https://www.kafkajsmetrics.com/checktoken', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

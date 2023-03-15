@@ -19,7 +19,7 @@ class VisualizerPage extends Component {
 
   componentDidMount() {
     setTimeout(() => {
-      fetch('https://kafkajsmetrics.onrender.com/getData', {
+      fetch('https://www.kafkajsmetrics.com/getData', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ class VisualizerPage extends Component {
   }
 
   updateState() {
-    fetch('https://kafkajsmetrics.onrender.com/getData', {
+    fetch('https://www.kafkajsmetrics.com/getData', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
