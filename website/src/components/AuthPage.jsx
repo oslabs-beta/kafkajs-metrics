@@ -33,7 +33,7 @@ class AuthPage extends Component {
         }
       })
       .catch((err) => {
-        console.log('error in main token page /checktoken: ', err);
+        console.log('error in auth page /checktoken: ', err);
       });
   }
 
@@ -45,7 +45,7 @@ class AuthPage extends Component {
         this.setState({ ...clone, token: data.token, tokenGenerated: true });
       })
       .catch((err) => {
-        console.log('error in getToken main token page: ', err);
+        console.log('error in getToken auth page: ', err);
       });
   }
 
