@@ -7,7 +7,7 @@
     "start": "NODE_ENV=development webpack-dev-server --open",
     "test": "jest --verbose",
     "dev": "NODE_ENV=development webpack serve --open & nodemon website/server/server.js",
-    "build": "webpack --mode production"
+    "build": "NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
