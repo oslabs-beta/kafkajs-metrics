@@ -13,9 +13,6 @@ function metricize(client, visualize = false, token = false) {
       body: JSON.stringify({ token }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log('data', data);
-      })
       .catch((err) => {
         console.log('error in initial redis token: ', err);
       });
