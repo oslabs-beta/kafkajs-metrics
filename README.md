@@ -24,7 +24,7 @@ KafkaJSMetrics is a continuously-growing open source product that is designed to
 
 ## **Features**
 
-Below are highlighted key features from KafkaJSMetrics. For full explanation of library functionality, visit our [docs](http://kafkajsmetrics.com/docs)
+Below are highlighted key features from KafkaJSMetrics. For full explanation of library functionality, visit our [docs](https://www.kafkajsmetrics.com/docs/index.html)
 
 **Key features include**
 
@@ -34,13 +34,13 @@ Below are highlighted key features from KafkaJSMetrics. For full explanation of 
   - total number of consumer/producer/admins currently connected
   - heartbeat
   - partition assignment
-  - see [docs](http://kafkajsmetrics.com/docs) for complete metrics
+  - see [docs](https://www.kafkajsmetrics.com/docs/index.html) for complete metrics
 - Custom Breakpoint Alerts and On/Off metrics logging options, including
   - heartbeat monitor
   - request queue size monitor
   - request pending duration monitor
   - offset lag monitor
-  - see [docs](http://kafkajsmetrics.com/docs) for complete Breakpoint Alert and metrics logging options
+  - see [docs](https://www.kafkajsmetrics.com/docs/index.html) for complete Breakpoint Alert and metrics logging options
 - Web-browser visualizer that displays consumer metrics in real-time
   - Secure token access and developer-friendly interface
 
@@ -89,7 +89,7 @@ node client.js
 
 ### **Turn on logging methods**
 
-Visit the [docs](http://kafkajsmetrics.com/docs) for a full list of available logging methods
+Visit the [docs](https://www.kafkajsmetrics.com/docs/index.html) for a full list of available logging methods
 
 Example:
 
@@ -115,14 +115,20 @@ Prints to console:
 
 The following steps will allow you to access the web browser visualizer to display metrics. This is visualizer is an optional feature and will not affect the library performance
 
-1. Navigate to visualizer page
-   walk through everything relating to visualizer set up
-   generate token
-   add token to metricize function
-   run client file
-   click authenticate
-   view charts
-   highlight cookie session
+1. Open the [KafkaJSMetrics webpage](https://www.kafkajsmetrics.com). Click on the [visualizer tab](https://www.kafkajsmetrics.com/#/visualizer) and generate a new token
+
+\*\*\*insert gif here - start at home page, click on visualizer tab, click generate and then copy
+
+2. Copy the token and head back to to your KafkaJS client file. Inside the metricize function, add two additional arguments:
+
+   - first argument is the boolean value true
+   - second argument is your copied token
+
+<p align="left"><img src=" assets/metricizeVisualizerFunction.png" height='30' style="margin-top: 10px; margin-bottom: -10px;"></p>
+ 
+ 3. Back in the browser, click authenticate to access your web browser metrics display
+ 
+ ***insert gif here - clicking authenticate and being taken to the chart page, plus a few seconds on chart page to show charts updating dynamically
 
 ---
 
@@ -136,7 +142,72 @@ List of planned/desired features (nice formatting available on miro link)
 As growing developers, we welcome and encourage feedback! We are also always trying to improve our code so we actively welcome all contributions! If you would like to be a part of this product please follow the steps below.
 
 1. Fork this repo of KafkaJSMetrics and then clone it to your machine
-2. If you are making contributions to the website as well as the visualizer you will want enter this command:
+2. Pull down the specific area you are making changes to
+
+   1. Contributions to the website as well as the visualizer:
+
+      ```bash
+      git pull origin visualizer
+      ```
+
+   2. Contributions to the library:
+
+      ```bash
+      git pull origin dev
+      ```
+
+3. Create a feature branch
+
+```bash
+git checkout -b [feature/AmazingFeature]
+```
+
+4. Add all your changes with the add command
+
+```bash
+git add [all your changes]
+```
+
+5. Commit all your changes
+
+```bash
+git commit -m '<your comment>'
+```
+
+6. Make sure the visualizer OR dev branch is up to date
+
+   1. Check back out to the visualizer OR dev branch
+
+   ```bash
+   git checkout visualizer [OR] dev
+   ```
+
+   2. Pull down the latest version
+
+   ```bash
+   git pull origin visualizer [OR] dev
+   ```
+
+   3. Check back out to your feature branch
+
+   ```bash
+   git checkout [feature/AmazingFeature]
+   ```
+
+7. Merge your branch with visualizer OR dev
+
+```bash
+git merge visualizer [OR] dev
+```
+
+8. Resolve any merge conflicts
+9. Push up your branch with the command
+
+```bash
+git push origin [feature/AmazingFeature]
+```
+
+10. Finally, open a pull request for us to review!
 
 ---
 
@@ -154,8 +225,8 @@ As growing developers, we welcome and encourage feedback! We are also always try
 
 Important links:
 
-- [Full Documentation](http://kafkajsmetrics.com/docs)
-- [Website and Visualizer](http://kafkajsmetrics.com)
+- [Full Documentation](https://www.kafkajsmetrics.com/docs/index.html)
+- [Website](https://www.kafkajsmetrics.com/#/visualizer) and [Visualizer](https://www.kafkajsmetrics.com)
 - Check out our latest [Medium article](mediumArticle.com)
 
 _KafkaJSMetrics and KafkaJSMetrics Visualizer are licensed under the Mozilla Public License version 2.0 and are available for free. We have no affiliation with and are not endorsed by either The Apache Software Foundation or the developers of KafkaJS._
