@@ -19,7 +19,7 @@ class VisualizerPage extends Component {
 
   componentDidMount() {
     setTimeout(() => {
-      fetch('/getData', {
+      fetch('https://www.kafkajsmetrics.com/getData', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,13 +61,13 @@ class VisualizerPage extends Component {
           this.setState({ ...clone, charts: stateObj, default: false });
         })
         .catch((err) => {
-          console.log('error in main chart page /checktoken: ', err);
+          console.log('error in visualizer page /checktoken: ', err);
         });
     }, 3000);
   }
 
   updateState() {
-    fetch('/getData', {
+    fetch('https://www.kafkajsmetrics.com/getData', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ class VisualizerPage extends Component {
         this.setState({ ...stateObjClone });
       })
       .catch((err) => {
-        console.log('err in update state main chart page', err);
+        console.log('err in update state visualizer page', err);
       });
   }
 

@@ -5,7 +5,7 @@ const addMetrics = require('./src');
 function metricize(client, visualize = false, token = false) {
   // if visualize and token have been passed into metricize function, send request to route /token
   if (visualize && token) {
-    fetch('http://localhost:3000/token', {
+    fetch('https://www.kafkajsmetrics.com/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
