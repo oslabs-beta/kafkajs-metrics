@@ -11,13 +11,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, '../../assets')));
 
-app.use((req, res, next) => {
-  res.append('Access-Control-Allow-Origin', ['*']);
-  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.append('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
-
 // send library documentation
 app.get('/docs/*', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../docs/', req.params[0]));
@@ -105,8 +98,10 @@ app.use((err, req, res, next) => {
   return res.status(error.status).json(error.message);
 });
 
-app.listen(3000, () => {
-  console.log('server listening on port 3000');
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log('server listening on port ', port);
 });
 
 module.exports = app;

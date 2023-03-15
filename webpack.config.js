@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   entry: './website/src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -65,6 +65,7 @@ module.exports = {
       '/docs/**': {
         target: 'http://localhost:3000/',
         secure: false,
+        changeOrigin: true,
       },
     },
   },

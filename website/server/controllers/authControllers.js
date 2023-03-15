@@ -8,7 +8,7 @@ authController.encrypt = (req, res, next) => {
   try {
     const hash = bcrypt.hashSync(
       myToken.toString(),
-      '$2b$10$oP8KGMJEHQWQ64VN.Ge38e'
+      process.env.SALT
     );
     res.locals.bToken = hash;
   } catch (err) {
