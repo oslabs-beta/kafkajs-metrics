@@ -107,7 +107,7 @@ function addMetrics(obj, client, type) {
      *  returns null if consumer/producer/admin never connected
      * @returns {(number|null)}
      * @example
-     * consumer.ageSinceInitialConnection() // => 87203
+     * consumer.metrics.ageSinceInitialConnection() // => 87203
      */
 
     ageSinceInitialConnection() {
@@ -120,7 +120,7 @@ function addMetrics(obj, client, type) {
      *  returns null if consumer/producer/admin is not currently connected
      * @returns {(number|null)}
      * @example
-     * producer.ageSinceLastConnection() // => 843
+     * producer.metrics.ageSinceLastConnection() // => 843
      */
 
     ageSinceLastConnection() {
@@ -133,7 +133,7 @@ function addMetrics(obj, client, type) {
     /**
      * Turns on logging pendingDuration for every request (off by default)
      * @example
-     * consumer.requestPendingDurationLogOn()
+     * consumer.metrics.requestPendingDurationLogOn()
      * // => prints log to the console; includes event payload apiName, pendingDuration
      */
     requestPendingDurationLogOn() {
@@ -142,7 +142,7 @@ function addMetrics(obj, client, type) {
     /**
      * Turns off logging pendingDuration for every request
      * @example
-     * producer.requestPendingDurationLogOff()
+     * producer.metrics.requestPendingDurationLogOff()
      */
     requestPendingDurationLogOff() {
       obj.metrics.options.requestPendingDuration.logOn = false;
@@ -151,7 +151,7 @@ function addMetrics(obj, client, type) {
      * Creates request pendingDuration breakpoint at specified interval (ms)
      * @param {number} bp - breakpoint in milliseconds
      * @example
-     * producer.requestPendingDurationSetBreakpoint(20)
+     * producer.metrics.requestPendingDurationSetBreakpoint(20)
      * // => prints log to the console when breakpoint is exceeded;
      * //includes event payload apiName, pendingDuration, ms breakpoint exceeded, current breakpoint
      */
@@ -161,7 +161,7 @@ function addMetrics(obj, client, type) {
     /**
      * Cancels existing request pendingDuration breakpoint
      * @example
-     * producer.requestPendingDurationCancelBreakpoint()
+     * producer.metrics.requestPendingDurationCancelBreakpoint()
      */
     requestPendingDurationCancelBreakpoint() {
       obj.metrics.options.requestPendingDuration.breakpoint = null;
@@ -171,7 +171,7 @@ function addMetrics(obj, client, type) {
     /**
      * Turns on logging requestQueueSize for every request (off by default)
      * @example
-     * consumer.requestQueueSizeLogOn()
+     * consumer.metrics.requestQueueSizeLogOn()
      * // => prints log to the console; includes event payload queueSize
      */
     requestQueueSizeLogOn() {
@@ -180,7 +180,7 @@ function addMetrics(obj, client, type) {
     /**
      * Turns off logging requestQueueSize for every request
      * @example
-     * consumer.requestQueueSizeLogOff()
+     * consumer.metrics.requestQueueSizeLogOff()
      */
     requestQueueSizeLogOff() {
       obj.metrics.options.requestQueueSize.logOn = false;
@@ -189,7 +189,7 @@ function addMetrics(obj, client, type) {
      * Creates request queueSize breakpoint at specified size
      * @param {number} bp - breakpoint (queueSize number)
      * @example
-     * producer.requestQueueSizeSetBreakpoint(3)
+     * producer.metrics.requestQueueSizeSetBreakpoint(3)
      * // => prints log to the console when breakpoint is exceeded;
      * // includes event payload queueSize, amount breakpoint exceeded, current breakpoint
      */
@@ -199,7 +199,7 @@ function addMetrics(obj, client, type) {
     /**
      * Cancels existing request queueSize breakpoint
      * @example
-     * producer.requestQueueSizeCancelBreakpoint()
+     * producer.metrics.requestQueueSizeCancelBreakpoint()
      */
     requestQueueSizeCancelBreakpoint() {
       obj.metrics.options.requestQueueSize.breakpoint = null;
@@ -210,7 +210,7 @@ function addMetrics(obj, client, type) {
      * Updates frequency (ms) at which rate metrics should be calculated (default is 1000ms)
      * @param {number} t - frequency in ms
      * @example
-     * producer.setRateFrequency(300);
+     * producer.metrics.setRateFrequency(300);
      */
     setRateFrequency(t) {
       obj.metrics.options.rate.frequency = t;
@@ -219,7 +219,7 @@ function addMetrics(obj, client, type) {
      * Updates period (ms) that rate metrics should use to calculate averages (default is 5000ms)
      * @param {number} t - period in ms
      * @example
-     * producer.setRatePeriod(3000);
+     * producer.metrics.setRatePeriod(3000);
      */
     setRatePeriod(t) {
       obj.metrics.options.rate.period = t;
@@ -335,7 +335,7 @@ function addMetrics(obj, client, type) {
       /**
        * Turns on logging every heartbeat (off by default)
        * @example
-       * consumer.heartbeatLogOn()
+       * consumer.metrics.heartbeatLogOn()
        * // => prints log to the console; includes heartbeat event timestamp
        */
       heartbeatLogOn() {
@@ -344,7 +344,7 @@ function addMetrics(obj, client, type) {
       /**
        * Turns off logging every heartbeat
        * @example
-       * consumer.heartbeatLogOff()
+       * consumer.metrics.heartbeatLogOff()
        */
       heartbeatLogOff() {
         obj.metrics.options.heartbeat.logOn = false;
@@ -353,7 +353,7 @@ function addMetrics(obj, client, type) {
        * Creates heartbeat breakpoint at specified interval (ms)
        * @param {number} bp - breakpoint in milliseconds
        * @example
-       * consumer.heartbeatSetBreakpoint(1000)
+       * consumer.metrics.heartbeatSetBreakpoint(1000)
        * // => prints log to the console when breakpoint is exceeded;
        * // includes ms breakpoint exceeded, heartbeat event payload timestamp, current breakpoint
        */
@@ -363,7 +363,7 @@ function addMetrics(obj, client, type) {
       /**
        * Cancels existing heartbeat breakpoint
        * @example
-       * consumer.heartbeatCancelBreakpoint()
+       * consumer.metrics.heartbeatCancelBreakpoint()
        */
       heartbeatCancelBreakpoint() {
         obj.metrics.options.heartbeat.breakpoint = null;
@@ -374,7 +374,7 @@ function addMetrics(obj, client, type) {
        * Creates offsetLag breakpoint at specified integer
        * @param {number} bp - breakpoint number
        * @example
-       * consumer.offsetLagSetBreakpoint(4)
+       * consumer.metrics.offsetLagSetBreakpoint(4)
        * // => prints log to the console when breakpoint is exceeded;
        * // includes event payload offsetLag, amount breakpoint exceeded, current breakpoint
        */
@@ -384,7 +384,7 @@ function addMetrics(obj, client, type) {
       /**
        * Cancels existing offsetLag breakpoint
        * @example
-       * consumer.offsetLagCancelBreakpoint()
+       * consumer.metrics.offsetLagCancelBreakpoint()
        */
       offsetLagCancelBreakpoint() {
         obj.metrics.options.offsetLag.breakpoint = null;
