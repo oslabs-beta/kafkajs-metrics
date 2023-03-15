@@ -18,13 +18,9 @@ A lightweight KafkaJS library that provides simple access to key metrics within 
 
 # **Introduction**
 
-Problem we are addressing
+Apache Kafka is a distributed event streaming platform that is designed to handle high performance data pipelines in real-time. KafkaJS is a lightweight and user friendly Apache Kafka client library that runs on Node.js, providing a simple and reliable way to produce and consume messages from Kafka clusters. Event emitters called Instrumentation Events are built into KafkaJS that provide information about the performance and behavior of a user's Kafka producers and consumers. These events are designed to help developers monitor and troubleshoot thier Kafka applications, but incorporating instrumentation events into code can be tedious and boilerplate heavy.
 
-Solution we have implemented
-
-Apache Kafka is a distributed event streaming platform that is designed to handle high performance data pipelines in real-time. KafkaJS is a lightweight and user friendly Apache Kafka client library that runs on Node.js that provides a simple and reliable way to produce and consume messages from Kafka clusters. Instrumentation events are event eimitters built into KafkaJS that provide information about the performance and behavior of a user's Kafka producers and consumers. These events are designed to help developers monitor and troubleshoot thier Kafka applications but incorporating instrumentation events into code can be tedious and boilerplate heavy.
-
-KafkaJSMetrics is a continuously growing open source product that is designed to simplify and shorten the metric exposing processes. By being 100% javascript and working along side KafkaJS, the library leverages the already built-in instrumentation events without relying on other third-party applications or requiring any additional installations. The library gives developers access to multiple important metrics required to monitor the health of a Kafka instance without the cumbersome boilerplate heavy proccesses.
+KafkaJSMetrics is a continuously-growing open source product that is designed to simplify and shorten the metric exposing processes. By being 100% javascript and working alongside KafkaJS, the library leverages the already built-in instrumentation events without relying on other third-party applications or requiring any additional installations. The library gives developers simple access to key metrics required to monitor the health of a Kafka instance.
 
 ## **Features**
 
@@ -38,13 +34,13 @@ Below are highlighted key features from KafkaJSMetrics. For full explanation of 
   - total number of consumer/producer/admins currently connected
   - heartbeat
   - partition assignment
-  - and many others!
+  - see [docs](http://kafkajsmetrics.com/docs) for complete metrics
 - Custom Breakpoint Alerts and On/Off metrics logging options, including
   - heartbeat monitor
   - request queue size monitor
   - request pending duration monitor
   - offset lag monitor
-  - and many others
+  - see [docs](http://kafkajsmetrics.com/docs) for complete Breakpoint Alert and metrics logging options
 - Web-browser visualizer that displays consumer metrics in real-time
   - Secure token access and developer-friendly interface
 
@@ -62,10 +58,10 @@ KafkaJSMetrics works with your KafkaJS client. For information on setting up you
 
 ---
 
-Install the [kafkametricsjs-visualizer](npmlink.com) package from npm
+Install the kafkajs-metrics-visualizer package from [npm](https://www.npmjs.com/)
 
 ```bash
-npm install kafkajsmetrics-visualizer
+npm install kafkajs-metrics-visualizer
 ```
 
 ---
@@ -74,29 +70,59 @@ npm install kafkajsmetrics-visualizer
 
 KafkaJSMetrics works with your existing KafkaJS client. More information about KafkaJS at [kafka.js.org](kafka.js.org).
 
-1. Require in kafkaJSMetrics
+1. Require kafkaJSMetrics in your KafkaJS Client file to access metricize
+<p align="left"><img src="assets/requireInKafkaJSMetrics.png" width='400' style="margin-top: 10px; margin-bottom: -10px;"></p>
 
-<p align="center"><img src="assets/kafkaClientInstanceWithMetricize.png" width='400' style="margin-top: 10px; margin-bottom: -10px;"></p>
-- run code (bash)
-- Turn on any logging methods (screen shot of turning on and log)
-- create breakpoint alerts (screen shot of creating breakpoint alert and log)
-- link to docs for full list of logging and breakpoint alert options
+2. Pass your KafkaJS Client instance into the metricize function (sample KafkaJS Client provided)
 
-demo of setting logs and breakpoint alerts within code
-link to docs for full list of functionality and metrics avilable
-show example console logs for logging and breakpoint alerts?
+   - All consumer, producer, and admin instances created from this client will now have metrics and metrics-associated functionality
+
+<p align="left"><img src="assets/kafkaClientInstanceWithMetricize.png" width='400' style="margin-top: 10px; margin-bottom: -10px;"></p>
+
+All consumer, producer, and admin instances created from this client will now have metrics and metrics-associated functionality
+
+3. Run your KafkaJS Client file
+
+```bash
+node client.js
+```
+
+### **Turn on logging methods**
+
+Visit the [docs](http://kafkajsmetrics.com/docs) for a full list of available logging methods
+
+Example:
+
+<p align="left"><img src="assets/heartbeatLogOn.png" height='35' style="margin-top: 10px; margin-bottom: -10px;"></p>
+
+Prints to console:
+
+<p align="left"><img src="assets/heartbeatConsolelog.png" height='30' style="margin-top: 10px; margin-bottom: -10px;"></p>
+
+### **Turn on breakpoint alerts**
+
+Example:
+
+<p align="left"><img src="assets/heartbeatLogOn.png" height='35' style="margin-top: 10px; margin-bottom: -10px;"></p>
+
+Prints to console:
+
+<p align="left"><img src="assets/heartbeatConsoleBreakpointAlert.png" height='30' style="margin-top: 10px; margin-bottom: -10px;"></p>
 
 ---
 
 ## **Visualization**
 
-walk through everything relating to visualizer set up
-generate token
-add token to metricize function
-run client file
-click authenticate
-view charts
-highlight cookie session
+The following steps will allow you to access the web browser visualizer to display metrics. This is visualizer is an optional feature and will not affect the library performance
+
+1. Navigate to visualizer page
+   walk through everything relating to visualizer set up
+   generate token
+   add token to metricize function
+   run client file
+   click authenticate
+   view charts
+   highlight cookie session
 
 ---
 
@@ -107,9 +133,20 @@ instructions on running tests
 contribution guidelines (preferred workflow for contributions, forking, feature branch, pull request)
 List of planned/desired features (nice formatting available on miro link)
 
+As growing developers, we welcome and encourage feedback! We are also always trying to improve our code so we actively welcome all contributions! If you would like to be a part of this product please follow the steps below.
+
+1. Fork this repo of KafkaJSMetrics and then clone it to your machine
+2. If you are making contributions to the website as well as the visualizer you will want enter this command:
+
 ---
 
 # **Contributors**
+
+- Paul Davey - [GitHub](https://github.com/pauldavey1) | [LinkedIn](https://www.linkedin.com/in/paulcdavey/)
+- Amanda Smith - [GitHub](https://github.com/amsmithf) | [LinkedIn](https://www.linkedin.com/in/amanda-margaret-smith/)
+- Josh Tesoro - [GitHub](https://github.com/jshwatsoro) | [LinkedIn](https://www.linkedin.com/in/joshwa-tesoro/)
+- Rebecca Anderson - [GitHub](https://github.com/Randers9) | [LinkedIn](https://www.linkedin.com/in/rebecca--anderson/)
+- Ranan Hui - [GitHub](https://github.com/rananhui) | [LinkedIn](https://www.linkedin.com/in/rananhui/)
 
 ---
 
