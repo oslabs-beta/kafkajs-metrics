@@ -1,4 +1,4 @@
-const { trackConnects } = require('../../addMetrics/eventMetrics/connect');
+const { trackConnects } = require('../../src/eventMetrics/connect');
 
 describe('trackConnects function', () => {
   let kafkaInstance;

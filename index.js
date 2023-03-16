@@ -1,5 +1,5 @@
 // require in producer/consumer/admin folders
-const addMetrics = require('./addMetrics');
+const addMetrics = require('./src');
 
 /**
  * Metricize Kafka Client:
@@ -29,7 +29,7 @@ function metricize(client) {
      * console.log(client.metrics.totalConsumers);
      * // => prints to the console: 25
      */
-    totalConsumers: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
+    totalConsumers: 0, // modified in src/connect.js and src/disconnect.js
     /**
      * Number of total producers
      * @type {string} - number of total connected producers
@@ -37,7 +37,7 @@ function metricize(client) {
      * console.log(client.metrics.totalProducers);
      * // => prints to the console: 30
      */
-    totalProducers: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
+    totalProducers: 0, // modified in src/connect.js and src/disconnect.js
     /**
      * Number of total admin
      * @type {string} - number of total connected admins
@@ -45,7 +45,7 @@ function metricize(client) {
      * console.log(client.metrics.totalAdmins);
      * // => prints to the console: 5
      */
-    totalAdmins: 0, // modified in addMetrics/connect.js and addMetrics/disconnect.js
+    totalAdmins: 0, // modified in src/connect.js and src/disconnect.js
   };
 
   // add metrics to consumer constructor

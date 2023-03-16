@@ -1,4 +1,4 @@
-const { trackDisconnects } = require('../../addMetrics/eventMetrics/disconnect');
+const { trackDisconnects } = require('../../src/eventMetrics/disconnect');
 
 describe('trackDisconnects function', () => {
   let kafkaInstance;

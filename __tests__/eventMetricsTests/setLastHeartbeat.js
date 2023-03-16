@@ -1,4 +1,4 @@
-const { setLastHeartbeat } = require('../../addMetrics/eventMetrics/heartbeat');
+const { setLastHeartbeat } = require('../../src/eventMetrics/heartbeat');
 
 describe('setLastHeartbeat function', () => {
   let consumer;
