@@ -233,7 +233,7 @@ git push origin [feature/AmazingFeature]
 Important links:
 
 - [Full Documentation](https://www.kafkajsmetrics.com/docs/index.html)
-- [Website](https://www.kafkajsmetrics.com/#/visualizer) and [Visualizer](https://www.kafkajsmetrics.com)
+- [Website](https://www.kafkajsmetrics.com) and [Visualizer](https://www.kafkajsmetrics.com/#/visualizer)
 - Check out our latest [Medium article](https://medium.com/@ranan.n.hui/introducing-kafkajsmetrics-a-revolutionary-way-to-expose-metrics-in-kafkajs-ae62678bd3b0)
 
 _KafkaJSMetrics and KafkaJSMetrics Visualizer are licensed under the Mozilla Public License version 2.0 and are available for free. We have no affiliation with and are not endorsed by either The Apache Software Foundation or the developers of KafkaJS._
