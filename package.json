@@ -1,7 +1,7 @@
 {
-  "name": "kafkajs-metrics",
+  "name": "kafkajs-metrics-visualize",
   "version": "1.0.0",
-  "description": "Metrics package for KafkaJS",
+  "description": "Metrics package for KafkaJS with visualizer",
   "keywords": [
     "kafkajs",
     "kafka",
