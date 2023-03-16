@@ -11,7 +11,7 @@ function sendHeartbeatLog(consumer, e) {
   // check if logOn is true
   if (consumer.metrics.options.heartbeat.logOn) {
     console.log(
-      `heartbeat emitted at ${e.timestamp} for consumer ${consumer.metrics.name} member id: ${consumer.metrics.memberId})`
+      `heartbeat emitted at ${e.timestamp} for consumer ${consumer.metrics.name} (member id: ${consumer.metrics.memberId})`
     );
   }
 }
@@ -41,7 +41,7 @@ function setLastHeartbeat(consumer, e) {
   if (consumer.metrics.lastHeartbeat === 0) {
     consumer.metrics.lastHeartbeat = e.timestamp;
   } else {
-    // calculates and updates lastHeartbeatDuration (and longestHeartBeatDuration, if appropriate)
+    // calculates and updates lastHeartbeatDuration (and longestHeartbeatDuration, if appropriate)
     const lastDuration = e.timestamp - consumer.metrics.lastHeartbeat;
     consumer.metrics.lastHeartbeatDuration = lastDuration;
     if (lastDuration > consumer.metrics.longestHeartbeatDuration) {
