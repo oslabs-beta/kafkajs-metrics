@@ -1,6 +1,8 @@
 .DS_Store
-.eslintrc
+.eslintrc.json
 .gitignore
-.prettierrc
+.prettierrc.json
 __tests__/
+assets/
+docs/
 node_modules/
