@@ -114,10 +114,10 @@ export default function HomePage() {
                 <li key="1">npm install</li>
                 <li key="2">require</li> <li key="3">metricize</li>
               </ol>,
-              'For more detailed instructions on getting started, ',
+              'For more detailed instructions on getting started with the library, ',
               <a
                 key="readme"
-                href="https://github.com/oslabs-beta/kafkajs-metrics/blob/main/README.md"
+                href="https://github.com/oslabs-beta/kafkajs-metrics/blob/library/README.md"
               >
                 check out the readme
               </a>,
@@ -164,7 +164,7 @@ export default function HomePage() {
                 key="readme"
                 href="https://github.com/oslabs-beta/kafkajs-metrics/blob/main/README.md"
               >
-                our readme
+                our visualizer readme
               </a>,
               '.',
             ]}
