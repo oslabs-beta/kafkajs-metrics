@@ -1,9 +1,11 @@
 .DS_Store
 .babelrc
-.eslintrc
+.env-sample
+.eslintrc.json
 .gitignore
-.prettierrc
-webpack.config
+.prettierrc.json
+webpack.config.js
 website/
 __tests__/
 node_modules/
+assets/
