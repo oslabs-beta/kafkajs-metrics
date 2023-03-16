@@ -16,7 +16,7 @@ class ChartSection extends Component {
           data={this.props.data.messageConsumptionRate}
           name="messageConsumptionRate"
         />
-        <LineChart data={this.props.data.lastHeartbeat} name="lastHeartbeat" />
+        <LineChart data={this.props.data.lastHeartbeatDuration} name="lastHeartbeatDuration" />
         <LineChart data={this.props.data.totalRequests} name="totalRequests" />
         <LineChart data={this.props.data.requestRate} name="requestRate" />
         <LineChart

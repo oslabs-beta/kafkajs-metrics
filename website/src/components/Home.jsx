@@ -117,7 +117,7 @@ export default function HomePage() {
               'For more detailed instructions on getting started, ',
               <a
                 key="readme"
-                href="https://github.com/oslabs-beta/kafkaMetrics/blob/main/README.md"
+                href="https://github.com/oslabs-beta/kafkajs-metrics/blob/main/README.md"
               >
                 check out the readme
               </a>,
@@ -162,7 +162,7 @@ export default function HomePage() {
               ' monitors the health of your consumers with a variety of charts. To use the visualizer, install the visualization-enabled version of the library and pass your secret key into the metricize function. More information on using the visualizer is available in ',
               <a
                 key="readme"
-                href="https://github.com/oslabs-beta/kafkaMetrics/blob/main/README.md"
+                href="https://github.com/oslabs-beta/kafkajs-metrics/blob/main/README.md"
               >
                 our readme
               </a>,
