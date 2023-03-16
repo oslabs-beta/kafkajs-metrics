@@ -58,10 +58,10 @@ KafkaJSMetrics works with your KafkaJS client. For information on setting up you
 
 ---
 
-Install the kafkajs-metrics-visualizer package from [npm](https://www.npmjs.com/)
+Install the kafkajs-metrics-visualize package from [npm](https://www.npmjs.com/)
 
 ```bash
-npm install kafkajs-metrics-visualizer
+npm install kafkajs-metrics-visualize
 ```
 
 ---
