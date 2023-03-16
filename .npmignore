@@ -1,0 +1,6 @@
+.DS_Store
+.eslintrc
+.gitignore
+.prettierrc
+__tests__/
+node_modules/

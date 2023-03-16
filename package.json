@@ -1,21 +1,32 @@
 {
-  "name": "kafkametrics",
+  "name": "kafkajs-metrics",
   "version": "1.0.0",
   "description": "Metrics package for KafkaJS",
+  "keywords": [
+    "kafkajs",
+    "kafka",
+    "metrics"
+  ],
+  "homepage": "https://kafkajsmetrics.com",
+  "bugs": {
+    "url": "https://github.com/oslabs-beta/kafkajs-metrics/issues"
+  },
+  "license": "MPL-2.0",
+  "contributors": [
+    "Rebecca Anderson (https://github.com/Randers9)",
+    "Paul Davey <118549898+pauldavey1@users.noreply.github.com> (https://pauldavey.dev)",
+    "Ranan Hui (https://github.com/rananhui)",
+    "Amanda Smith (https://github.com/amsmithf)",
+    "Josh Tesoro (https://github.com/jshwatsoro)"
+  ],
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/kafkajs-metrics.git"
+  },
   "scripts": {
     "test": "jest --verbose"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/oslabs-beta/kafkaMetrics.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/oslabs-beta/kafkaMetrics/issues"
-  },
-  "homepage": "https://github.com/oslabs-beta/kafkaMetrics#readme",
   "devDependencies": {
     "eslint": "^8.35.0",
     "eslint-config-airbnb-base": "^15.0.0",

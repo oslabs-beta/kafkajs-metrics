@@ -1,5 +1,5 @@
 // require in producer/consumer/admin folders
-const addMetrics = require('./addMetrics');
+const addMetrics = require('./src');
 
 /**
  * Metricize Kafka Client:
